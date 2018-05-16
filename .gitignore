@@ -1,0 +1,47 @@
+﻿###################
+# compiled source #
+###################
+
+*.com
+*.class
+*.pdb
+*.dll.config
+*.cache
+*.suo
+*.dll
+*.exe
+
+# Include dlls if they�re in the NuGet packages directory
+!/packages/*/lib/*.dll
+!/packages/*/lib/*/*.dll
+# Include dlls if they're in the CommonReferences directory
+!*CommonReferences/*.dll
+
+# NuGet Packages
+*.nupkg
+# The packages folder can be ignored because of Package Restore
+**/packages/*
+# except build/, which is used as an MSBuild target.
+!**/packages/build/
+# Uncomment if necessary however generally it will be regenerated when needed
+#!**/packages/repositories.config
+
+
+####################
+# VS Upgrade stuff #
+####################
+UpgradeLog.XML
+_UpgradeReport_Files/
+###############
+# Directories #
+###############
+bin/
+obj/
+TestResults/
+
+[Bb]in
+[Oo]bj
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
