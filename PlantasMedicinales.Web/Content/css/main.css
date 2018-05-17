@@ -1,0 +1,18 @@
+body{padding-top:70px;background: url(http://iiap.org.pe/visor/img/bg_body.png);}
+.portfolio-item{margin-bottom:25px;}
+footer{margin:50px 0;}
+.justificado{text-align:justify;}
+.dv_icpunto{background-image:url(../img/punto.png);background-size:cover;background-repeat:no-repeat;height:18px;width:18px;}
+.dv_iclinea{background-image:url("../img/linea.png");background-size:cover;background-repeat:no-repeat;height:18px;width:18px;}
+.dv_icpoligono{background-image:url("../img/poligono.png");background-size:cover;background-repeat:no-repeat;height:18px;width:18px;}
+.card{background:#fff;border-radius:2px;box-shadow:0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);}
+.right{text-align:right;}
+.after_modal_appended{position:relative;}
+.modal, .modal-backdrop{/*position:absolute !important;*/}
+.ModalHead{padding-left:10px;padding-top:5px;padding-bottom:5px;padding-right:10px;}
+.ModalContent{width:178px;}
+.ModalDialog{width:180px;margin-top:15px;margin-bottom:0px;}
+.ModalGeneral{width:180px;left:60px;top:10px;}
+.lista-inst{list-style:none;font-size:13px;margin-left:0px;padding-left:30px;}
+.leyendaTitle{font-weight:bold;}
+html,button,input,select,textarea {color: #222;resize: none;}
