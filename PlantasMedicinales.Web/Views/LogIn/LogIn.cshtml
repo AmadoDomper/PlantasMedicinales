@@ -1,0 +1,79 @@
+﻿
+@using PlantasMedicinales.Entidades;
+@{
+    Usuario oUsuario = new Usuario();
+    oUsuario = (Usuario)Session["Datos"];
+}
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="es" class="no-js">
+<!--<![endif]-->
+<head>
+    <!--<meta charset="utf-8">-->
+    <link rel="shortcut icon" href="@Url.Content("~/Content/img/Logo.png")" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>.:: CHUYAChuya - Inicio de Sesión ::.</title>
+    <meta charset="utf-8" />
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="@Url.Content("~/Content/css/bootstrap.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/css/main.css")">
+
+    <script type="text/javascript">window.jQuery || document.write('<script src="@Url.Content("~/Content/js/vendor/jquery-1.11.0.min.js")"><\/script>')</script>
+    <script type="text/javascript" src="@Url.Content("~/Content/js/vendor/modernizr-2.6.2.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/js/base/conexion-1.0.0.js")"></script>
+</head>
+<body class="body-signin">
+    <div class="container">
+        <div class="fondo-signin">
+            <form class="form-signin" role="form">
+                @*<div class="center-block"><img class="img-responsive center-block" src="@Url.Content("~/Content/img/LogIn.png")" /></div>*@
+                <input id="IdUsuario" type="text" class="form-control upper" placeholder="Usuario" autofocus="" onkeypress="EnterLogin(event)" maxlength="4" />
+                <input id="IdPsw" type="password" class="form-control upper" placeholder="Contraseña" required="" onkeypress="EnterLogin(event)" />
+                <input id="enviar" class="form-control btnLogin" type="button" value="Ingresar" />
+            </form>
+        </div>
+        <div id="DivResLogin"></div>
+    </div>
+
+    <script type="text/javascript">
+    $("#enviar").click(function () {
+        ValidarIniciarSesion('@Url.Action("Logear", "LogIn")', '@Url.Action("Index", "Home")');
+    });
+
+    function ValidarIniciarSesion(ParamUrl, UrlDestino) {
+        var IdUsuario = $('#IdUsuario').val();
+        var IdPsw = $('#IdPsw').val();
+
+        $.fn.Conexion({
+            direccion: ParamUrl,
+            datos: { "UserName": IdUsuario, "Password": IdPsw },
+            terminado: function (data, textStatus, jqXHR) {
+                $('#DivResLogin').html('');
+                if (data == 1) {
+                    window.location = UrlDestino
+                } else {
+                    $('#DivResLogin').html('<div class="alert alert-warning alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button><strong>Error!</strong> El nombre de usuario o la contraseña especificados son incorrectos.</div>');
+                }
+            },
+            bloqueo: true
+        });
+    }
+
+    function EnterLogin(e) {
+        tecla = (document.all) ? e.keyCode : e.which;
+        if (tecla == 13)
+            ValidarIniciarSesion('@Url.Action("Logear", "LogIn")', '@Url.Action("Index", "Home")');
+    }
+
+    $('#IdUsuario').focus();
+
+    </script>
+    <script type="text/javascript" src="@Url.Content("~/Content/js/vendor/bootstrap.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/js/main.js")" charset="UTF-8"></script>
+</body>
+</html>

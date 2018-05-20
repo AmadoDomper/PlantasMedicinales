@@ -31,7 +31,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,7 +44,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Filters\RequiresAuthorizationAttribute.cs" />
+    <Compile Include="Filters\RequiresAuthenticationAttribute.cs" />
+    <Compile Include="PlantasMedicinalesMembershipProvider.cs" />
+    <Compile Include="PlantasMedicinalesRoleProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PlantasMedicinales.Entidades\PlantasMedicinales.Entidades.csproj">
+      <Project>{df0a724d-9a72-4c91-96ef-2e73db5a6a7f}</Project>
+      <Name>PlantasMedicinales.Entidades</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlantasMedicinales.LogicaNegocio\PlantasMedicinales.LogicaNegocio.csproj">
+      <Project>{aad00306-e1de-4ed1-8f7b-3df38894d9cd}</Project>
+      <Name>PlantasMedicinales.LogicaNegocio</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

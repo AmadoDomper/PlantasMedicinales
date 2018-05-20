@@ -48,6 +48,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -94,15 +98,9 @@
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\bootstrap.own.min.css" />
     <Content Include="Content\css\css.css" />
-    <Content Include="Content\css\jsgrid-theme.css" />
-    <Content Include="Content\css\jsgrid.css" />
     <Content Include="Content\css\main-max.css" />
     <Content Include="Content\css\main.css" />
     <Content Include="Content\css\mainGestion.css" />
-    <Content Include="Content\css\ol.css" />
-    <Content Include="Content\css\ol3-layerswitcher.css" />
-    <Content Include="Content\css\ol3-popup.css" />
-    <Content Include="Content\css\ol3gm.css" />
     <Content Include="Content\css\sb-admin-2.css" />
     <Content Include="Content\css\smoke-max.css" />
     <Content Include="Content\css\smoke.css" />
@@ -123,7 +121,6 @@
     <Content Include="Content\extend\datepicker\js\bootstrap-datepicker.js" />
     <Content Include="Content\extend\datepicker\js\bootstrap-datepicker.min.js" />
     <Content Include="Content\extend\datepicker\locales\bootstrap-datepicker.es.min.js" />
-    <Content Include="Content\extend\highcharts\highcharts.js" />
     <Content Include="Content\extend\masked\jquery.maskedinput.js" />
     <Content Include="Content\extend\masked\jquery.maskedinput.min.js" />
     <Content Include="Content\extend\moment\moment-with-locales.js" />
@@ -132,23 +129,15 @@
     <Content Include="Content\extend\timer\jquery.timers.js" />
     <Content Include="Content\extend\validator\validator.js" />
     <Content Include="Content\extend\validator\validator.min.js" />
-    <Content Include="Content\font-awesome-4.1.0\css\font-awesome.css" />
-    <Content Include="Content\font-awesome-4.1.0\css\font-awesome.min.css" />
-    <Content Include="Content\font-awesome-4.1.0\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\font-awesome-4.7.0\css\font-awesome.css" />
     <Content Include="Content\font-awesome-4.7.0\css\font-awesome.min.css" />
     <Content Include="Content\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\font-awesome-4.7.0\HELP-US-OUT.txt" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Content\img\bg_body-max.png" />
-    <Content Include="Content\img\bg_body.png" />
     <Content Include="Content\img\favicon.ico" />
     <Content Include="Content\img\icono-max.jpg" />
-    <Content Include="Content\img\linea.png" />
     <Content Include="Content\img\logo.png" />
     <Content Include="Content\img\logoiiap.png" />
-    <Content Include="Content\img\poligono.png" />
-    <Content Include="Content\img\punto.png" />
     <Content Include="Content\js\base\buscarPersona-1.0.0.js" />
     <Content Include="Content\js\base\buscarProducto-1.0.0.js" />
     <Content Include="Content\js\base\mensaje-1.0.0.js" />
@@ -164,15 +153,8 @@
     <Content Include="Content\js\content\publicacion\Listar.js" />
     <Content Include="Content\js\content\publicacion\Registrar.js" />
     <Content Include="Content\js\jquery.js" />
-    <Content Include="Content\js\jsgrid.js" />
     <Content Include="Content\js\lang\es.js" />
     <Content Include="Content\js\main.js" />
-    <Content Include="Content\js\ol.js" />
-    <Content Include="Content\js\ol3-layerswitcher.js" />
-    <Content Include="Content\js\ol3-layerswitcher.min.js" />
-    <Content Include="Content\js\ol3-popup.js" />
-    <Content Include="Content\js\ol3-popup.min.js" />
-    <Content Include="Content\js\ol3gm.js" />
     <Content Include="Content\js\smoke.js" />
     <Content Include="Content\js\smoke.min.js" />
     <Content Include="Content\js\utils.js" />
@@ -185,44 +167,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\Base\BaseController.cs" />
+    <Compile Include="Controllers\Base\LogInController.cs" />
+    <Compile Include="Controllers\UsuarioController.cs" />
+    <Compile Include="Filters\NoCacheAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\UsuarioViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
-    <Content Include="Content\font-awesome-4.1.0\fonts\fontawesome-webfont.eot" />
-    <Content Include="Content\font-awesome-4.1.0\fonts\fontawesome-webfont.ttf" />
-    <Content Include="Content\font-awesome-4.1.0\fonts\fontawesome-webfont.woff" />
-    <Content Include="Content\font-awesome-4.1.0\fonts\FontAwesome.otf" />
-    <Content Include="Content\font-awesome-4.1.0\less\bordered-pulled.less" />
-    <Content Include="Content\font-awesome-4.1.0\less\core.less" />
-    <Content Include="Content\font-awesome-4.1.0\less\fixed-width.less" />
-    <Content Include="Content\font-awesome-4.1.0\less\font-awesome.less" />
-    <Content Include="Content\font-awesome-4.1.0\less\icons.less" />
-    <Content Include="Content\font-awesome-4.1.0\less\larger.less" />
-    <Content Include="Content\font-awesome-4.1.0\less\list.less" />
-    <Content Include="Content\font-awesome-4.1.0\less\mixins.less" />
-    <Content Include="Content\font-awesome-4.1.0\less\path.less" />
-    <Content Include="Content\font-awesome-4.1.0\less\rotated-flipped.less" />
-    <Content Include="Content\font-awesome-4.1.0\less\spinning.less" />
-    <Content Include="Content\font-awesome-4.1.0\less\stacked.less" />
-    <Content Include="Content\font-awesome-4.1.0\less\variables.less" />
-    <Content Include="Content\font-awesome-4.1.0\scss\font-awesome.scss" />
-    <Content Include="Content\font-awesome-4.1.0\scss\_bordered-pulled.scss" />
-    <Content Include="Content\font-awesome-4.1.0\scss\_core.scss" />
-    <Content Include="Content\font-awesome-4.1.0\scss\_fixed-width.scss" />
-    <Content Include="Content\font-awesome-4.1.0\scss\_icons.scss" />
-    <Content Include="Content\font-awesome-4.1.0\scss\_larger.scss" />
-    <Content Include="Content\font-awesome-4.1.0\scss\_list.scss" />
-    <Content Include="Content\font-awesome-4.1.0\scss\_mixins.scss" />
-    <Content Include="Content\font-awesome-4.1.0\scss\_path.scss" />
-    <Content Include="Content\font-awesome-4.1.0\scss\_rotated-flipped.scss" />
-    <Content Include="Content\font-awesome-4.1.0\scss\_spinning.scss" />
-    <Content Include="Content\font-awesome-4.1.0\scss\_stacked.scss" />
-    <Content Include="Content\font-awesome-4.1.0\scss\_variables.scss" />
     <Content Include="Content\font-awesome-4.7.0\fonts\fontawesome-webfont.eot" />
     <Content Include="Content\font-awesome-4.7.0\fonts\fontawesome-webfont.ttf" />
     <Content Include="Content\font-awesome-4.7.0\fonts\fontawesome-webfont.woff" />
@@ -260,6 +217,8 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Shared\_Layout.cshtml" />
+    <Content Include="Views\LogIn\LogIn.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -269,8 +228,22 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\Base\" />
-    <Folder Include="Models\" />
+    <Folder Include="Views\Base\" />
+    <Folder Include="Views\Usuario\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PlantasMedicinales.Entidades\PlantasMedicinales.Entidades.csproj">
+      <Project>{df0a724d-9a72-4c91-96ef-2e73db5a6a7f}</Project>
+      <Name>PlantasMedicinales.Entidades</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlantasMedicinales.LogicaNegocio\PlantasMedicinales.LogicaNegocio.csproj">
+      <Project>{aad00306-e1de-4ed1-8f7b-3df38894d9cd}</Project>
+      <Name>PlantasMedicinales.LogicaNegocio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlantasMedicinales.Seguridad\PlantasMedicinales.Seguridad.csproj">
+      <Project>{717af772-b189-4a4e-b8b2-7d30c8304838}</Project>
+      <Name>PlantasMedicinales.Seguridad</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
