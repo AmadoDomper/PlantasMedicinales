@@ -138,6 +138,7 @@
     <Content Include="Content\img\icono-max.jpg" />
     <Content Include="Content\img\logo.png" />
     <Content Include="Content\img\logoiiap.png" />
+    <Content Include="Content\img\logo_uac.png" />
     <Content Include="Content\js\base\buscarPersona-1.0.0.js" />
     <Content Include="Content\js\base\buscarProducto-1.0.0.js" />
     <Content Include="Content\js\base\mensaje-1.0.0.js" />

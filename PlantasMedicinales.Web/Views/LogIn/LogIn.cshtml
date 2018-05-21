@@ -1,79 +1,133 @@
-﻿
-@using PlantasMedicinales.Entidades;
-@{
-    Usuario oUsuario = new Usuario();
-    oUsuario = (Usuario)Session["Datos"];
-}
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!-->
-<html lang="es" class="no-js">
-<!--<![endif]-->
-<head>
-    <!--<meta charset="utf-8">-->
-    <link rel="shortcut icon" href="@Url.Content("~/Content/img/Logo.png")" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>.:: CHUYAChuya - Inicio de Sesión ::.</title>
-    <meta charset="utf-8" />
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="@Url.Content("~/Content/css/bootstrap.css")">
-    <link rel="stylesheet" href="@Url.Content("~/Content/css/main.css")">
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon" href="http://iiap.org.pe/favicon.ico" type="image/x-icon">
+        <title>.:: Plantas Medicinales - Inicio de Sesión ::.</title>
 
-    <script type="text/javascript">window.jQuery || document.write('<script src="@Url.Content("~/Content/js/vendor/jquery-1.11.0.min.js")"><\/script>')</script>
-    <script type="text/javascript" src="@Url.Content("~/Content/js/vendor/modernizr-2.6.2.min.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Content/js/base/conexion-1.0.0.js")"></script>
-</head>
-<body class="body-signin">
-    <div class="container">
-        <div class="fondo-signin">
-            <form class="form-signin" role="form">
-                @*<div class="center-block"><img class="img-responsive center-block" src="@Url.Content("~/Content/img/LogIn.png")" /></div>*@
-                <input id="IdUsuario" type="text" class="form-control upper" placeholder="Usuario" autofocus="" onkeypress="EnterLogin(event)" maxlength="4" />
-                <input id="IdPsw" type="password" class="form-control upper" placeholder="Contraseña" required="" onkeypress="EnterLogin(event)" />
-                <input id="enviar" class="form-control btnLogin" type="button" value="Ingresar" />
-            </form>
-        </div>
-        <div id="DivResLogin"></div>
-    </div>
+        <style type="text/css">
+            * {
+                box-sizing: border-box;
+            }
 
-    <script type="text/javascript">
-    $("#enviar").click(function () {
-        ValidarIniciarSesion('@Url.Action("Logear", "LogIn")', '@Url.Action("Index", "Home")');
-    });
+            html {
+                background: #98d684;
+            }
 
-    function ValidarIniciarSesion(ParamUrl, UrlDestino) {
-        var IdUsuario = $('#IdUsuario').val();
-        var IdPsw = $('#IdPsw').val();
+            body {
+                background: #98d684;
+                margin: 0;
+                padding: 0;
+                font-family: 'Lato', sans-serif;
+            }
 
-        $.fn.Conexion({
-            direccion: ParamUrl,
-            datos: { "UserName": IdUsuario, "Password": IdPsw },
-            terminado: function (data, textStatus, jqXHR) {
-                $('#DivResLogin').html('');
-                if (data == 1) {
-                    window.location = UrlDestino
-                } else {
-                    $('#DivResLogin').html('<div class="alert alert-warning alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button><strong>Error!</strong> El nombre de usuario o la contraseña especificados son incorrectos.</div>');
+            .login-form-wrap {
+                background: -webkit-radial-gradient(center ellipse, #5170ad 0%, #355493 100%);
+                background: radial-gradient(ellipse at center, #47cf73 0%, #439335 100%);
+                border: 1px solid #42a045;
+                box-shadow: 0 1px #19a948 inset, 0 0 10px 5px rgba(0, 0, 0, 0.1);
+                border-radius: 5px;
+                width: 360px;
+                /*width: 315px;*/
+                height: 380px;
+                margin: 60px auto;
+                padding: 50px 30px 0 30px;
+                text-align: center;
+            }
+
+                .login-form-wrap h1 {
+                    margin: 0 0 50px 0;
+                    padding: 0;
+                    font-size: 26px;
+                    color: #fff;
                 }
-            },
-            bloqueo: true
-        });
-    }
 
-    function EnterLogin(e) {
-        tecla = (document.all) ? e.keyCode : e.which;
-        if (tecla == 13)
-            ValidarIniciarSesion('@Url.Action("Logear", "LogIn")', '@Url.Action("Index", "Home")');
-    }
+                .login-form-wrap h5 {
+                    margin-top: 40px;
+                }
 
-    $('#IdUsuario').focus();
+                    .login-form-wrap h5 > a {
+                        font-size: 14px;
+                        color: #fff;
+                        text-decoration: none;
+                        font-weight: 400;
+                    }
 
-    </script>
-    <script type="text/javascript" src="@Url.Content("~/Content/js/vendor/bootstrap.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Content/js/main.js")" charset="UTF-8"></script>
-</body>
+            .login-form input[type="email"], .login-form input[type="text"], .login-form input[type="password"] {
+                width: 100%;
+                border: 1px solid #24921f;
+                outline: none;
+                padding: 12px 20px;
+                color: #afafaf;
+                font-weight: 400;
+                font-family: 'Lato', sans-serif;
+                cursor: pointer;
+            }
+
+            .login-form input[type="email"], .login-form input[type="text"] {
+                border-bottom: none;
+                border-radius: 4px 4px 0 0;
+                padding-bottom: 13px;
+                box-shadow: 0 -1px 0 #E0E0E0 inset, 0 1px 2px rgba(0, 0, 0, 0.23) inset;
+            }
+
+            .login-form input[type="password"] {
+                border-top: none;
+                border-radius: 0 0 4px 4px;
+                box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.23) inset, 0 1px 2px rgba(255, 255, 255, 0.1);
+            }
+
+            .login-form input[type="submit"] {
+                font-family: 'Lato', sans-serif;
+                font-weight: 400;
+                background: -webkit-linear-gradient(top, #e0e0e0 0%, #cecece 100%);
+                background: linear-gradient(to bottom, #e0e0e0 0%, #cecece 100%);
+                display: block;
+                margin: 20px auto 0 auto;
+                width: 100%;
+                border: none;
+                border-radius: 3px;
+                padding: 8px;
+                font-size: 17px;
+                color: #636363;
+                text-shadow: 0 1px 0 rgba(255, 255, 255, 0.45);
+                font-weight: 700;
+                box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.17), 0 1px 0 rgba(255, 255, 255, 0.36) inset;
+            }
+
+                .login-form input[type="submit"]:hover {
+                    background: #DDD;
+                }
+
+                .login-form input[type="submit"]:active {
+                    padding-top: 9px;
+                    padding-bottom: 7px;
+                    background: #C9C9C9;
+                }
+        </style>
+
+    </head>
+    <body>
+        <section class="login-form-wrap">
+            @*<h1>¡Bienvenido!</h1>*@
+            <img class="pull-right" src="~/Content/img/logo_uac.png" alt="Universidad Andina del Cusco" style="width: 188px;">
+            <img class="pull-right" src="~/Content/img/logoiiap.png" alt="Instituto de Investigaciones de la Amazonía Peruana" style="width: 85px;">            
+            
+            <form class="login-form" action="@Url.Action("Logear", "Login")" method="post">
+                <label>
+                    <input type="text" id="txtusuario" name="txtusuario" required placeholder="Usuario">
+                </label>
+                <label>
+                    <input type="password" id="txtpassword" name="txtpassword" required placeholder="Contraseña">
+                </label>
+                <input type="submit" value="Iniciar">
+            </form>        
+        </section>
+    </body>
 </html>
