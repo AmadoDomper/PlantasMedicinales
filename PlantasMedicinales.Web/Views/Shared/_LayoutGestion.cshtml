@@ -1,0 +1,142 @@
+﻿@using PlantasMedicinales.Entidades;
+@{
+    Usuario oUsuario = new Usuario();
+    oUsuario = (Usuario)Session["Datos"];
+}
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="http://iiap.org.pe/favicon.ico" type="image/x-icon">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>.:: Plantas Medicinales ::.</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/css/css.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/css/bootstrap.css")">
+    @*<link href="http://iiap.org.pe/visor/css/bootstrap.own.min.css" crossorigin="anonymous" rel="stylesheet">*@
+    <link rel="stylesheet" href="@Url.Content("~/Content/css/sb-admin-2.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/css/mainGestion.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/font-awesome-4.7.0/css/font-awesome.css")" />
+
+    <!-- OpenLayer CSS-->
+    <link rel="stylesheet" href="~/Content/css/ol.css" type="text/css" />    @*<link href="@Url.Content("~/Content/extend/datepicker/css/bootstrap-datepicker3.css")" rel="stylesheet" />*@
+    @*<link href="@Url.Content("~/Content/extend/datepickerTime/css/bootstrap-datetimepicker-4.15.35.css")" rel="stylesheet" />*@
+</head>
+<body class="metro">
+    <!--OpenLayer JS-->
+    @*<script src="~/Content/js/ol.js"></script>*@
+    <script src="https://openlayers.org/en/v3.7.0/build/ol.js"></script>
+
+    <div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="@Url.Action("Index", "Gestion")"> VISOR <sup>1.0</sup></a>
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" href="/">
+                        <i class="fa fa-map-o fa-fw"></i> Ver Mapa
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                        <i class="fa fa-user fa-fw"></i> @oUsuario.cDni <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        @*<li>
+                                <a href="#"><i class="fa fa-address-card-o" aria-hidden="true"></i> Mis datos </a>
+                            </li>*@
+                        <li>
+                            <a href="@Url.Action("CerrarSession", "Login")"><i class="fa fa-sign-out" aria-hidden="true"></i> Cerrar Sesión</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                  @*  @Html.Action("ObtenerMenu", "Menu")*@
+                    @*<ul class="nav" id="side-menu">
+                            <li>
+                                <a href="#Mis-Publicaciones" data-url="@Url.Action("MisPublicaciones", "Publicacion")"><i class="fa fa-map-marker m-l-3 m-r-3" aria-hidden="true"></i> Mis publicaciones</a>
+                            </li>
+                            <li>
+                                <a href="#Revision-de-Solicitudes" data-url="@Url.Action("RevisionDeSolicitudes", "Publicacion")"><i class="fa fa-check" aria-hidden="true"></i> Revisión de Solicitudes</a>
+                            </li>
+                            <li>
+                                <a href="#Usuarios" data-url="@Url.Action("GestionarUsuarios", "Usuario")"><i class="fa fa-user fa-fw" aria-hidden="true"></i> Usuarios</a>
+                            </li>
+                            <li>
+
+                                <a href="#Configuración" data-url="@Url.Action("Config", "Config")"><i class="fa fa-cog fa-fw" aria-hidden="true"></i> Configuración</a>
+                            </li>
+                            <li><a href="@Url.Action("CerrarSession", "LogIn")">Cerrar Sesión</a></li>
+                        </ul>*@
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        <!-- Page Content -->
+        <div id="page-wrapper">
+            <div id="contenido" class="row">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+    @*<script src="@Url.Content("~/Content/js/jquery.js")"></script>*@
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    @*<script src="@Url.Content("~/Content/js/vendor/modernizr-2.6.2.min.js")"></script>*@
+    @*<script src="@Url.Content("~/Content/js/bootstrap.min.js")"></script>*@
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="@Url.Content("~/Content/js/main.js")" charset="UTF-8"></script>
+    @*<script src="@Url.Content("~/Content/js/vendor/metisMenu.js")"></script>*@
+    <script src="@Url.Content("~/Content/js/vendor/sb-admin-2.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/extend/masked/jquery.maskedinput.min.js")" charset="UTF-8"></script>
+    @*<script type="text/javascript" src="@Url.Content("~/Content/extend/moment/moment-with-locales.js")" charset="UTF-8"></script>
+        <script type="text/javascript" src="@Url.Content("~/Content/extend/datepickerTime/js/bootstrap-datetimepicker.min.js")" charset="UTF-8"></script>
+        <script type="text/javascript" src="@Url.Content("~/Content/extend/datepicker/js/bootstrap-datepicker.min.js")" charset="UTF-8"></script>
+        <script type="text/javascript" src="@Url.Content("~/Content/extend/datepicker/locales/bootstrap-datepicker.es.min.js")" charset="UTF-8"></script>*@
+    <script type="text/javascript" src="@Url.Content("~/Content/extend/validator/validator.js")" charset="UTF-8"></script>
+    <script src="@Url.Content("~/Content/js/conexion-1.0.0.js")"></script>
+    <script src="@Url.Content("~/Content/js/base/ventana-1.0.0.js")"></script>
+    <script src="@Url.Content("~/Content/js/base/tabla-1.0.0.js")"></script>
+    <script src="@Url.Content("~/Content/js/base/buscarPersona-1.0.0.js")"></script>
+    @*<script src="@Url.Content("~/Content/js/base/buscarProducto-1.0.0.js")"></script>*@
+    @*<script src="@Url.Content("~/Content/js/base/buscarProveedor-1.0.0.js")"></script>*@
+    <script src="@Url.Content("~/Content/js/base/mensaje-1.0.0.js")"></script>
+    <script src="@Url.Content("~/Content/js/smoke.min.js")"></script>
+    @*<script src="@Url.Content("~/Content/extend/highcharts/highcharts.js")"></script>*@
+    @*<script src="@Url.Content("~/Content/extend/timer/jquery.timers.js")"></script>*@
+
+
+    <script type="text/javascript">
+        $("nav a").click(function () {
+            if ($(this).attr("href") != "#" && $(this).attr("disabled") != "disabled") {
+                $("#contenido").load($(this).attr("data-url"));//.substring(1));
+            }
+        });
+
+        @RenderSection("Scripts", required: false)
+
+    </script>
+</body>
+</html>

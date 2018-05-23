@@ -24,13 +24,13 @@ namespace PlantasMedicinales.AccesoDatos
 
             try
             {
-                using (DbCommand oDbCommand = oDatabase.GetStoredProcCommand(Procedimiento.sp_validaAcceso, cUsuario, cClave))
+                using (DbCommand oDbCommand = oDatabase.GetStoredProcCommand(Procedimiento.sp_sel_ValidaAcceso, cUsuario, cClave))
                 {
                     using (IDataReader oIDataReader = oDatabase.ExecuteReader(oDbCommand))
                     {
                         int inUsuarioId = oIDataReader.GetOrdinal("nUsuarioId");
                         int icDni = oIDataReader.GetOrdinal("cDni");
-                        int icNombres = oIDataReader.GetOrdinal("cNombres");
+                        int icNombre = oIDataReader.GetOrdinal("cNombre");
                         int inRolId = oIDataReader.GetOrdinal("nRolId");
                         int icRolDesc = oIDataReader.GetOrdinal("cRolDesc");
                         int ibEsInterno = oIDataReader.GetOrdinal("Es_Interno");
@@ -41,7 +41,7 @@ namespace PlantasMedicinales.AccesoDatos
                         {
                             oUsuario.nUsuarioId = DataUtil.DbValueToDefault<Int32>(oIDataReader[inUsuarioId]);
                             oUsuario.cDni = DataUtil.DbValueToDefault<String>(oIDataReader[icDni]);
-                            oUsuario.cNombres = DataUtil.DbValueToDefault<String>(oIDataReader[icNombres]);
+                            oUsuario.cNombres = DataUtil.DbValueToDefault<String>(oIDataReader[icNombre]);
                             oUsuario.nRolId = DataUtil.DbValueToDefault<Int32>(oIDataReader[inRolId]);
                             oUsuario.cRolDesc = DataUtil.DbValueToDefault<String>(oIDataReader[icRolDesc]);
                             oUsuario.bEsInterno = DataUtil.DbValueToDefault<bool>(oIDataReader[ibEsInterno]);

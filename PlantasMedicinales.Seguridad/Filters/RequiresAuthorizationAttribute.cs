@@ -11,7 +11,7 @@ namespace PlantasMedicinales.Seguridad.Filters
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             if ((!filterContext.HttpContext.Request.IsAuthenticated) || (HttpContext.Current.Session["Datos"] == null))
-                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Account", action = "LogIn" }));
+                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Login", action = "LogIn" }));
             else if (HttpContext.Current.Session[CodigoOpcion] == null)
                 filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Home", action = "Index" }));
 

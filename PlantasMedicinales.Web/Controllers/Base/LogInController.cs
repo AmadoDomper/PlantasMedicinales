@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 using PlantasMedicinales.Web.Models;
+using PlantasMedicinales.Entidades;
+
 
 namespace PlantasMedicinales.Web.Controllers.Base
 {
@@ -29,8 +31,11 @@ namespace PlantasMedicinales.Web.Controllers.Base
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public JsonResult Logear(string UserName, string Password)
+        public ActionResult Logear()
         {
+            string UserName = Request["txtusuario"];
+            string Password = Request["txtpassword"];
+
             //validamos usuario
             bool validar = Membership.Provider.ValidateUser(UserName, Password);
 
@@ -38,10 +43,13 @@ namespace PlantasMedicinales.Web.Controllers.Base
             {
                 //registramos usuario
                 FormsService.SignIn(UserName, true);
-                return Json(1);
+                Usuario oUsuario = new Usuario();
+                oUsuario = (Usuario)Session["Datos"];
+
+                return RedirectToAction("Index", "Gestion");
             }
             // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
-            return Json(2);
+            return RedirectToAction("Login", "Login");
         }
 
         [AcceptVerbs(HttpVerbs.Post)]

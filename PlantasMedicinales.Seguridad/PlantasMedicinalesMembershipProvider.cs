@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Text;
 using System.Web.Security;
-using System.Configuration;
 using PlantasMedicinales.Entidades;
 using PlantasMedicinales.LogicaNegocio;
 
