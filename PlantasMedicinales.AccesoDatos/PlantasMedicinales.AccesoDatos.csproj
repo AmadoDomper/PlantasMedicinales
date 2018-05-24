@@ -56,6 +56,7 @@
     <Compile Include="Helper\Conexion.cs" />
     <Compile Include="Helper\Constantes.cs" />
     <Compile Include="Helper\DataUtil.cs" />
+    <Compile Include="MenuAD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SeguridadAD.cs" />
     <Compile Include="UsuarioAD.cs" />

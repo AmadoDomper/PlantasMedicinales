@@ -1,0 +1,63 @@
+﻿@using PlantasMedicinales.Entidades;
+@model List<Menu>
+@{
+    Layout = null;
+}
+
+<ul class="nav" id="side-menu">
+    @foreach (Menu m in Model)
+    {
+        if (m.listaMenu.Count() > 0)
+        {
+            <li>
+                <a href="#"><i class="@m.cMenuIcono"></i> @m.cMenuDesc </a>
+                @SubMenu(m.listaMenu)
+            </li>
+        }
+        else
+        {
+            <li>
+                @{string des = "#" + @m.cMenuDesc;}
+                <a href="@des" data-url="@m.cMenuUrl"><i class="@m.cMenuIcono"></i> @m.cMenuDesc </a>
+            </li>}
+            }
+    <li><a href="/"><i class="fa fa-reply m-l-3 m-r-3"></i>  Regresar al Visor</a></li>
+    <li>@Html.ActionLink("Cerrar Sesión", "CerrarSession", "LogIn")</li>
+</ul>
+
+@helper SubMenu(List<Menu> L)
+{
+    <ul class="nav nav-second-level">
+        @foreach (Menu m in L)
+        {
+            if (m.listaMenu.Count() > 0)
+            {
+                <li>
+                    <a href="#">@m.cMenuDesc</a>
+                    @SubMenu(m.listaMenu)
+                </li>
+            }
+            else
+            {
+                <li>
+                    @{
+                        string modelo = "Home";
+                        string controlador = "Index";
+                        int separador = 0;
+                        string des = "#" + @m.cMenuDesc;
+                        separador = @m.cMenuUrl.IndexOf("/");
+
+                    }
+
+                    @if (separador > 0)
+                    {
+                        modelo = @m.cMenuUrl.Substring(0, separador);
+                        controlador = @m.cMenuUrl.Substring(separador + 1, @m.cMenuUrl.Length - (separador + 1));
+                    }
+
+                    <a href="@des" data-url="@Url.Action(controlador, modelo)">@m.cMenuDesc</a>
+                </li>
+                            }
+                        }
+    </ul>
+}
