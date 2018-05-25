@@ -45,6 +45,7 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -53,11 +54,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\FrontUser.cs" />
+    <Compile Include="Common\RolesPermisos.cs" />
+    <Compile Include="ConfiguracionAD.cs" />
     <Compile Include="Helper\Conexion.cs" />
     <Compile Include="Helper\Constantes.cs" />
     <Compile Include="Helper\DataUtil.cs" />
     <Compile Include="MenuAD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RolAD.cs" />
     <Compile Include="SeguridadAD.cs" />
     <Compile Include="UsuarioAD.cs" />
   </ItemGroup>

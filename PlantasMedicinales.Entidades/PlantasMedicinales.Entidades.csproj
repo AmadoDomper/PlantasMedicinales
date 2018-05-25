@@ -44,11 +44,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ListaMenuCollection.cs" />
+    <Compile Include="ListaModuloCollection.cs" />
     <Compile Include="ListaPaginada.cs" />
+    <Compile Include="ListaPermisoCollection.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Modulo.cs" />
     <Compile Include="Permiso.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rol.cs" />
     <Compile Include="Usuario.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,361 @@
+﻿@{
+    Layout = null;
+}
+
+<div class="col-lg-11 col-lg-offset-0-5">
+    <h3 class="text-center">CONFIGURACIÓN</h3>
+    <input id="hdnEstado" type="hidden" style="display: block;" />
+
+    <div id="target1" class="panel move panel-inverse active">
+        <div class="panel-heading"><span class="glyphicon glyphicon-th" aria-hidden="true"></span> Lista de Permisos</div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+                    @*@if (FrontUser.TienePermiso(RolesPermisos.Con_Agregar_Rol))
+                        {*@
+                    <input id="btnAgregar" type="button" class="btn btn-sm btn-success" value="Agregar" />
+                    @*}*@
+
+                    @*@if (FrontUser.TienePermiso(RolesPermisos.Con_Editar_Rol))
+                        {*@
+                    <input id="btnEditar" type="button" class="btn btn-sm btn-success m-l-5" value="Editar" />
+                    @*}*@
+                    <input id="btnCancelar" type="button" class="btn btn-sm btn-success m-l-5" value="Cancelar" />
+                    @*@if (FrontUser.TienePermiso(RolesPermisos.Con_Eliminar_Rol))
+                        {*@
+                    <input id="btnEliminar" type="button" class="btn btn-sm btn-success m-l-5" value="Eliminar" />
+                    @*}*@
+                </div>
+            </div>
+            <div class="hr-line-dashed"></div>
+            <div class="row ">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <div id="cntListaRol" class="table-responsive">
+                    </div>
+                </div>
+                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                    <div class="row panel">
+                        <div class="col-xs-6">
+                            <div id="cntListaMenu" class="table-responsive">
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div id="cntListaModulo" class="table-responsive">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div id="cntListaPermiso" class="table-responsive">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hr-line-dashed"></div>
+            <div class="row">
+                <div class="col-lg-12 text-right">
+                    <input id="btnGrabar" type="button" class="btn btn-sm btn-primary m-l-5" value="Grabar" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var lista = {};
+    var listaRoles = {};
+    var estado = "";
+
+    $("#btnAgregar").bind("click", function () {
+        $.fn.Ventana({
+            id: "vntNuevoRol",
+            titulo: "Nuevo Rol",
+            tamano: "md"
+        });
+
+
+        var html = '<div class="row"><div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"><div class="form-inline ng-pristine ng-valid"><input id="txtBuscar" type="text" onclick="this.select();" class="form-control " placeholder="Nombre del Rol" tabindex="1" style="border-bottom-width: 1px;margin-bottom: 10px;width: 73%;"><button id="btnPersAceptar" style="border-bottom-width: 1px;margin-left: 5px;margin-bottom: 10px;" type="submit" class="btn btn-sm btn-primary m-r-5">Aceptar</button><button id="btnPersCancelar" type="submit" style="border-bottom-width: 1px;margin-left: 5px;margin-bottom: 10px;" data-dismiss="modal" aria-hidden="true" class="btn btn-sm btn-default">Cancelar</button></div></div></div>';
+        $("#vntNuevoRol .panel-body").html(html);
+
+        $('#vntNuevoRol').modal('show');
+
+
+        $("#btnPersAceptar").bind("click", function () {
+            var obj = { cRolDesc: $("#txtBuscar").val(), nRolId: 0 };
+            listaRoles = listaRoles.concat([obj]);
+            estado = "N";
+            CrearTablaRoles(listaRoles);
+            $('#vntNuevoRol').modal('hide');
+            $("#tblRol tbody tr").last().click();
+            $("#tblRol").attr("data-edit", true);
+            $("#btnCancelar,#btnGrabar").attr("disabled", false);
+            $("#btnAgregar,#btnEditar,#btnEliminar").attr("disabled", true);
+        });
+
+        $("#txtBuscar").bind("keyup", function (e) {
+            if (e.which == 13) { $("#btnPersAceptar").click(); };
+        });
+
+    });
+
+    $("#btnCancelar").bind("click", function () {
+        var index = $("#tblRol tbody tr.seleccionado").index();
+        if (lista.nRolId == 0) {
+            listaRoles.splice(index, 1);
+            CrearTablaRoles(listaRoles);
+        }
+        $("#tblRol tbody tr").first().click();
+        $("#tblRol").attr("data-edit", false);
+        Inicio();
+        Bloqueo();
+        $("#btnEditar,#btnEliminar").attr("disabled", false);
+    });
+
+
+    ListarRoles();
+    //segundo
+    function ListarRoles() {
+        $.fn.Conexion({
+            direccion: '@Url.Action("ListaRoles", "Config")',
+            terminado: function (data) {
+                var d = JSON.parse(data);
+                listaRoles = d;
+
+                CrearTablaRoles(d);
+                $("#tblRol tbody tr").first().click();
+            }
+        });
+    }
+
+    function CrearTablaRoles(listaR) {
+        $("#cntListaRol").Tabla({
+            tblId: "tblRol",
+            cabecera: "ID,ROLES",
+            campos: "nRolId,cRolDesc",
+            tblStyle: "table-inbox",
+            scrollVertical: "Si",
+            cellLen: "0",
+            click: true,
+            alinear: "L,L",
+            cantRegVertical: 15,
+            clickEvent: function (fila) {
+                var nRolId = fila.find("td").eq(0).html();
+
+                if ($("#tblRol").attr("data-edit") == "false") {
+                    $.fn.Conexion({
+                        direccion: '@Url.Action("CargaRolPermisos", "Config")',
+                        datos: { "nRolId": nRolId },
+                        terminado: function (data, textStatus, jqXHR) {
+                            lista = JSON.parse(data);
+
+                            $("#btnEditar,#btnEliminar").attr("disabled", estado == "N" ? true : false);
+                            ListarMenus();
+                        },
+                        bloqueo: false
+                    });
+                }
+            },
+            datos: listaR
+        });
+    }
+
+
+    function ListarMenus() {
+        $("#cntListaMenu").Tabla({
+            tblId: "tblMenu",
+            cabecera: "#,MENUS",
+            campos: "bEst,cMenuDesc",
+            tblStyle: "table-inbox",
+            scrollVertical: "Si",
+            cellLen: "70",
+            alinear: "C,L",
+            tipoCampo: "C",
+            click: true,
+            check: true,
+            cantRegVertical: 15,
+            clickEvent: function (fila) {
+                var index = $(fila).index();
+                var bCheck = $(fila).find("input").is(':checked');
+                ListarModulos(lista.ListaMenus[index].lstMods);
+                $("#tblModulo tbody tr input").attr("disabled", (estado == "E" || estado == "N" ? !bCheck : true));
+
+
+
+
+                //Bloqueo();
+            },
+            checkEvent: function (fila) {
+                var index = $(fila).index();
+                var bCheck = $(fila).find("input").is(':checked');
+                Lista(lista.ListaMenus[index], bCheck);
+
+            },
+            datos: lista.ListaMenus
+        });
+
+        Bloqueo();
+        $("#tblMenu tbody tr")[0].click();
+    }
+
+
+    function Lista(obj, val) {
+
+        for (var i in obj) {
+
+            if (typeof (obj[i]) == "boolean") {
+                obj[i] = val;
+            } else if (typeof (obj[i]) == "object") {
+                Lista(obj[i], val);
+            }
+        }
+    }
+
+    function Reducir(obj) {
+
+        for (var i in obj) {
+            if (typeof (obj[i]) == "string") {
+                delete (obj[i]);
+            } else if (typeof (obj[i]) == "object") {
+                Reducir(obj[i]);
+            }
+        }
+    }
+
+    function Bloqueo() {
+        var valor = (estado == "E" || estado == "N" ? false :  true);
+        //var valor = (estado == "E" ? false : true);
+
+        $("#tblMenu tbody tr input").attr("disabled", valor);
+        $("#tblModulo tbody tr input").attr("disabled", valor);
+        $("#tblPermiso tbody tr input").attr("disabled", valor);
+    }
+
+
+    function ListarModulos(lista) {
+
+        $("#cntListaModulo").Tabla({
+            tblId: "tblModulo",
+            cabecera: "#,MODULOS",
+            campos: "bEst,cModDesc",
+            tblStyle: "table-inbox",
+            scrollVertical: "Si",
+            cellLen: "70",
+            alinear: "C,L",
+            click: true,
+            check: true,
+            tipoCampo: "C",
+            cantRegVertical: 15,
+            clickEvent: function (fila) {
+                var index = $(fila).index();
+                var bCheck = $(fila).find("input").is(':checked');
+                ListarPermisos(lista[index].lstPerms);
+                $("#tblPermiso tbody tr input").attr("disabled", (estado == "E" || estado == "N" ? !bCheck : true));
+                //Bloqueo();
+
+            },
+            checkEvent: function (fila) {
+                var index = $(fila).index();
+                var bCheck = $(fila).find("input").is(':checked');
+                Lista(lista[index], bCheck);
+            },
+            datos: lista
+        });
+
+        $("#tblModulo tbody tr")[0].click();
+    }
+
+    function ListarPermisos(lista) {
+        $("#cntListaPermiso").Tabla({
+            tblId: "tblPermiso",
+            cabecera: "#,PERMISOS",
+            campos: "bEst,cPermDesc",
+            tblStyle: "table-inbox",
+            scrollVertical: "Si",
+            cellLen: "70",
+            alinear: "C,L",
+            tipoCampo: "C",
+            check: true,
+            cantRegVertical: 15,
+            checkEvent: function (fila) {
+                var index = $(fila).index();
+                lista[index].bEst = $(fila).find("input").is(':checked');
+            },
+            datos: lista
+        });
+    }
+
+
+    //Botones Defecto
+    Inicio();
+
+    function Inicio() {
+        $("#btnEditar,#btnEliminar,#btnCancelar,#btnGrabar").attr("disabled", true);
+        $("#btnAgregar").attr("disabled", false);
+        estado = "";
+    }
+
+
+    $("#btnEditar").bind("click", function () {
+        $("#tblRol").attr("data-edit", true);
+        $("#btnAgregar,#btnEditar,#btnEliminar").attr("disabled", true);
+        $("#btnCancelar,#btnGrabar").attr("disabled", false);
+        estado = "E";
+        Bloqueo();
+    });
+
+    $("#btnGrabar").bind("click", function () {
+        Grabar();
+    });
+
+    function Grabar() {
+        var lista2 = JSON.parse(JSON.stringify(lista));
+        Reducir(lista2);
+        var index = $("#tblRol tbody tr.seleccionado").index();
+        lista2.cRolDesc = listaRoles[index].cRolDesc;
+
+        $.fn.Conexion({
+            direccion: '@Url.Action("RegistrarRolPermisos", "Config")',
+            datos: { "oJsonRol": JSON.stringify(lista2) },
+            terminado: function (data, textStatus, jqXHR) {
+                if (data > 0) {
+                    lista.nRolId = data;
+                    $.fn.Mensaje({ titulo: "Mensaje", mensaje: "La operación se realizó correctamente." });
+                    $("#btnCancelar").click();
+                    listaRoles[index].nRolId = data;
+                    $("#tblRol .seleccionado").find("td").eq(0).html(data);
+                }else if( data == -1){
+                    $.fn.Mensaje({ titulo: "¡Advertencia!", mensaje: "No es posible cambiar los permisos del administrador." });
+                } else {
+                    $.fn.Mensaje({ titulo: "Mensaje", mensaje: "La operación no se realizó correctamente" });
+                }
+            },
+            bloqueo: false
+        });
+    }
+
+    $("#btnEliminar").bind("click", function () {
+        $.fn.Mensaje({ titulo: "Atención", tipo: "SiNo", mensaje: "¿Está seguro de que desea eliminar este Rol?", funcionAceptar: EliminarRol });
+    });
+
+    function EliminarRol(){
+        var nRolId = $("#tblRol .seleccionado").find("td").eq(0).html();
+
+        $.fn.Conexion({
+            direccion: '@Url.Action("EliminarRol", "Config")',
+            datos: { "nRolId": nRolId },
+            terminado: function (data, textStatus, jqXHR) {
+                if (data > 0) {
+                    $.fn.Mensaje({ titulo: "Mensaje", mensaje: "La operación se realizó correctamente."});
+                    ListarRoles();
+
+                } else {
+                    $.fn.Mensaje({ titulo: "Mensaje", mensaje: "La operación no se realizó correctamente" });
+                }
+            },
+            bloqueo: false
+        });
+    }
+
+</script>
