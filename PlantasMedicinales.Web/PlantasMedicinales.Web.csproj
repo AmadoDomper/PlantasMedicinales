@@ -233,6 +233,7 @@
     <Content Include="Views\Shared\_LayoutGestion.cshtml" />
     <Content Include="Views\Menu\_Menu.cshtml" />
     <Content Include="Views\Config\Config.cshtml" />
+    <Content Include="Views\Usuario\GestionarUsuarios.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -243,7 +244,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Base\" />
-    <Folder Include="Views\Usuario\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PlantasMedicinales.Entidades\PlantasMedicinales.Entidades.csproj">

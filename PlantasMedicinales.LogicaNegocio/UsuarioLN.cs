@@ -18,19 +18,24 @@ namespace PlantasMedicinales.LogicaNegocio
             oUsuarioAD = new UsuarioAD();
         }
 
-        public ListaPaginada ListarUsuariosPag(int nPage = 1, int nSize = 10, int nUsuId = -1, string cUsuDni = "", string cUsuName = "")
+        public ListaPaginada ListarUsuariosPag(int nPage = 1, int nSize = 10,  string cValor = null)
         {
-            return oUsuarioAD.ListarUsuariosPag(nPage, nSize, nUsuId, cUsuDni, cUsuName);
+            return oUsuarioAD.ListarUsuariosPag(nPage, nSize, cValor);
         }
 
-        //public Usuario CargarDatosUsuario(int nUsuId)
-        //{
-        //    return oUsuarioAD.CargarDatosUsuario(nUsuId);
-        //}
+        public Usuario CargarDatosUsuario(int nUsuId)
+        {
+            return oUsuarioAD.CargarDatosUsuario(nUsuId);
+        }
 
-        //public int RegistrarModificarUsuario(Usuario oUsuario)
-        //{
-        //    return oUsuarioAD.RegistrarModificarUsuario(oUsuario);
-        //}
+        public int RegistrarModificarUsuario(Usuario oUsuario)
+        {
+            return oUsuarioAD.RegistrarModificarUsuario(oUsuario);
+        }
+
+        public int EliminarUsuario(int nUsuarioId)
+        {
+            return oUsuarioAD.EliminarUsuario(nUsuarioId);
+        }
     }
 }
