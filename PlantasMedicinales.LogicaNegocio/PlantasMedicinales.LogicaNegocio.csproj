@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="ConfiguracionLN.cs" />
     <Compile Include="MenuLN.cs" />
+    <Compile Include="PlinianLN.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RolLN.cs" />
     <Compile Include="SeguridadLN.cs" />

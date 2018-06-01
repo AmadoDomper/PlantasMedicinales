@@ -7,11 +7,12 @@ using PlantasMedicinales.Web.Models;
 using PlantasMedicinales.Entidades;
 using PlantasMedicinales.LogicaNegocio;
 using PlantasMedicinales.Seguridad.Filters;
+using PlantasMedicinales.Web.Controllers.Base;
 using Newtonsoft.Json;
 
 namespace PlantasMedicinales.Web.Controllers
 {
-    public class UsuarioController : Controller
+    public class UsuarioController : BaseController
     {
 
         //public ActionResult Index()

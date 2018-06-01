@@ -177,6 +177,7 @@
     <Compile Include="Controllers\Base\LogInController.cs" />
     <Compile Include="Controllers\ConfigController.cs" />
     <Compile Include="Controllers\GestionController.cs" />
+    <Compile Include="Controllers\InventarioController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Filters\NoCacheAttribute.cs" />
@@ -234,6 +235,7 @@
     <Content Include="Views\Menu\_Menu.cshtml" />
     <Content Include="Views\Config\Config.cshtml" />
     <Content Include="Views\Usuario\GestionarUsuarios.cshtml" />
+    <Content Include="Views\Inventario\Inventarios.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

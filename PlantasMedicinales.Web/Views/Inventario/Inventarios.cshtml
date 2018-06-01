@@ -1,0 +1,428 @@
+﻿
+@{
+    Layout = null;
+}
+
+<div class="col-lg-11 col-lg-offset-0-5">
+    <h3 class="text-center">USUARIOS</h3>
+    <input id="hdnEstado" type="hidden" style="display: block;" />
+    <div id="target1" class="panel move panel-inverse active">
+        <div class="panel-heading"><span class="glyphicon glyphicon-th" aria-hidden="true"></span> Lista de Plantas medicinales</div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-lg-6 ">
+                    @*@if (FrontUser.TienePermiso(RolesPermisos.Usu_Nuevo_Usuario))
+                        {*@
+                    <input href="#target2" id="btnNuevoUsuario" type="button" class="btn btn-sm btn-success target" value="Nuevo Registro" />
+                    @*}*@
+                </div>
+            </div>
+            <div class="hr-line-dashed"></div>
+            <div class="row m-b-10 m-t-10">
+                <div class="col-sm-11">
+                    <div class="form-inline">
+                        <div class="form-group m-r-10">
+                            <label class="control-label m-r-5" for="product_name">Buscar:</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="txtValor" class="form-control" placeholder="Nombre Común, Sinonimia, Nombre Científico...">
+                        </div>
+                        <input id="btnBuscarPlanta" type="button" value="Buscar" class="btn btn-sm btn-primary">
+                    </div>
+                </div>
+            </div>
+            <div class="row table-main">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div id="cntListaPlantas" class="table-responsive">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-6 col-lg-offset-3">
+    <div id="target2" class="move panel-inverse m-t-5" data-sortable-id="form-stuff-1" style="display: none;">
+        <form role="form" data-toggle="validator" action="" id="frmUsuario" autocomplete="off" method="post" class="form-horizontal ng-pristine ng-valid">
+            <div class="panel panel-inverse" data-sortable-id="form-stuff-1">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Ficha de Registro de Plantas Medicinales</h4>
+                </div>
+                <div class="panel-body">
+                    <div id="msg"></div>
+                    <div class="form-group m-b-5">
+                        <label class="col-md-4 control-label">Código</label>
+                        <div class="col-md-4">
+                            <input type="text" id="txtNombres" name="oUsu.cNombres" class="form-control" required="">
+                        </div>
+                    </div>
+                    <div class="form-group m-b-5">
+                        <label class="col-md-4 control-label">Nombre Común</label>
+                        <div class="col-md-7">
+                            <input type="text" id="txtApePa" name="oUsu.cApellidoPa" class="form-control" required="">
+                        </div>
+                    </div>
+                    <div class="form-group m-b-5">
+                        <label class="col-md-4 control-label">Nombre Científico</label>
+                        <div class="col-md-7">
+                            <input rows="5" type="text" id="txtApeMa" name="oUsu.cApellidoMa" class="form-control" required="">
+                        </div>
+                    </div><div class="form-group m-b-5">
+                        <label class="col-md-4 control-label">Sinonimia Vulgar</label>
+                        <div class="col-md-7">
+                            <textarea rows="5" type="text" id="txtApeMa" name="oUsu.cApellidoMa" class="form-control" required=""></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group m-b-5">
+                        <label class="col-md-4 control-label">Familia</label>
+                        <div class="col-md-7">
+                            <input type="text" id="txtInst" name="oUsu.cInstitucion" class="form-control" required="">
+                        </div>
+                    </div>
+
+                    <div class="form-group m-b-5">
+                        <label class="col-md-4 control-label">Descripción Botánica</label>
+                        <div class="col-md-7">
+                            <textarea rows="5" type="text" id="txtEmail" name="oUsu.cEmail" class="form-control" required=""></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group m-b-5">
+                        <label class="col-md-4 control-label">Hábitat</label>
+                        <div class="col-md-7">
+                            <textarea type="text" rows="5" id="txtEmail" name="oUsu.cEmail" class="form-control" required=""></textarea>
+                        </div>
+                    </div><div class="form-group m-b-5">
+                        <label class="col-md-4 control-label">Distribución</label>
+                        <div class="col-md-7">
+                            <textarea rows="4" type="text" id="txtEmail" name="oUsu.cEmail" class="form-control" required=""></textarea>
+                        </div>
+                    </div><div class="form-group m-b-5">
+                        <label class="col-md-4 control-label">Composición Química</label>
+                        <div class="col-md-7">
+                            <textarea rows="4" type="text" id="txtEmail" name="oUsu.cEmail" class="form-control" required=""></textarea>
+                        </div>
+                    </div><div class="form-group m-b-5">
+                        <label class="col-md-4 control-label">Toxicidad</label>
+                        <div class="col-md-7">
+                            <input type="text" id="txtEmail" name="oUsu.cEmail" class="form-control" required="">
+                        </div>
+                    </div><div class="form-group m-b-5">
+                        <label class="col-md-4 control-label">Etnomedicinal</label>
+                        <div class="col-md-7">
+                            <textarea rows="6" type="text" id="txtEmail" name="oUsu.cEmail" class="form-control" required=""></textarea>
+                        </div>
+                    </div><div class="form-group m-b-5">
+                        <label class="col-md-4 control-label">Forma de empleo</label>
+                        <div class="col-md-7">
+                            <textarea type="text" id="txtEmail" name="oUsu.cEmail" class="form-control" required="" rows="3"></textarea>
+                        </div>
+                    </div><div class="form-group m-b-5">
+                        <label class="col-md-4 control-label">Efectos Adversos</label>
+                        <div class="col-md-7">
+                            <input type="text" id="txtEmail" name="oUsu.cEmail" class="form-control" required="">
+                        </div>
+                    </div><div class="form-group m-b-5">
+                        <label class="col-md-4 control-label">Otros usos</label>
+                        <div class="col-md-7">
+                            <textarea rows="2" type="text" id="txtEmail" name="oUsu.cEmail" class="form-control" required=""></textarea>
+                        </div>
+                    </div><div class="form-group m-b-5">
+                        <label class="col-md-4 control-label">Vaucher</label>
+                        <div class="col-md-7">
+                            <textarea rows="3" type="text" id="txtEmail" name="oUsu.cEmail" class="form-control" required=""></textarea>
+                        </div>
+                    </div><div class="form-group m-b-5">
+                        <label class="col-md-4 control-label">Referencias Bibliográficas</label>
+                        <div class="col-md-7">
+                            <textarea rows="6" type="text" id="txtEmail" name="oUsu.cEmail" class="form-control" required=""></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="cntHidden"></div>
+        </form>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+
+    jQuery(function ($) {
+        $("#txtFechaNac").mask("99/99/9999", { placeholder: "dd/mm/yyyy" });
+
+        $('input.target').click(function () {
+            vista($(this).attr('href'));
+        });
+    });
+
+    var vista = function ($target) {
+        var $target = $($target),
+            $other = $('.panel-inverse.active');
+
+        if (!$target.hasClass('active')) {
+            $other.each(function (index, self) {
+                var $this = $(this);
+                $this.removeClass('active').animate({
+                    left: $this.width()
+                }, 500).hide();
+            });
+
+            $target.addClass('active').show().css({
+                left: -($target.width())
+            }).animate({
+                left: 0
+            }, 500);
+        }
+    };
+
+    ListarPlantas();
+
+    function ListarPlantas(nPage, nSize, blo) {
+        var nUsuId, cUsuDesc, cUsuName, cUsuDOI;
+        var valor = $("#txtValor").val();
+        valor = valor == "" ? null : valor;
+
+
+        $.fn.Conexion({
+            direccion: '@Url.Action("ListaPlantasPag", "Inventario")',
+            datos: { "nPage": nPage, "nSize": nSize, "cValor": valor},
+            bloqueo: blo == false ? false : true,
+            terminado: function (data) {
+                var d = JSON.parse(data);
+
+                $("#cntListaPlantas").Tabla({
+                    tblId: "tblPlantasMedicinales",
+                    cabecera: "#,Codigo,Nombre Común,Nombre Científico,Familia",
+                    campos: "nId,cCod,cNomCom,cNomCie,cFam",
+                    scrollVertical: "Si",
+                    alinear: "C,C,C,C,C,C",
+                    cellLen: "70,70,100,100,100,60,60",
+                    cantRegVertical: 15,
+                    pag: true,
+                    pagDato: { "nPage": d.nPage, "nPageTot": d.nPageTot, "nPageSize": d.nPageSize, "nRows": d.nRows },
+                    pagEvent: ListarPlantas,
+                    edit: true,
+                    elim: true,
+                    dblClick: true,
+                    editEvent: function (fila) {
+                        var nUsuId = fila.find("td").eq(0).html();
+                        console.log(nUsuId);
+                        $("#hdnEstado").val("E");
+                        $('input.target')[0].click();
+                        $("#txtUsu").attr("disabled", true);
+
+                        $.fn.Conexion({
+                            direccion: '@Url.Action("CargarDatosUsuario", "Usuario")',
+                            datos: { "nUsuId": nUsuId },
+                            terminado: function (data, textStatus, jqXHR) {
+                                var oUsu = JSON.parse(data);
+
+                                console.log(oUsu);
+                                $("#hdnUsuId").val(oUsu.nUsuId);
+                                $("#txtDNI").val(oUsu.cDni);
+                                $("#txtNombres").val(oUsu.cNom);
+                                $("#txtApePa").val(oUsu.cApePa);
+                                $("#txtApeMa").val(oUsu.cApeMa);
+                                $("#txtInst").val(oUsu.cInst);
+                                $("#txtEmail").val(oUsu.cEmail);
+                                $("#txtRol").val(oUsu.cRolDes);
+                                $("#hdnPersRolId").val(oUsu.nRolId)
+                            },
+                            bloqueo: true
+                        });
+                    },
+                    elimEvent: function (fila, nPage) {
+                        var nUsuarioId = fila.find("td").eq(0).html();
+
+                        $.fn.Conexion({
+                            direccion: '@Url.Action("EliminarUsuario", "Usuario")',
+                            datos: { "nUsuarioId": nUsuarioId },
+                            terminado: function (data, textStatus, jqXHR) {
+                                ListarPlantas(nPage, 10);
+                            },
+                            bloqueo: false
+                        });
+
+                    },
+                    datos: d.oLista
+                });
+            }
+        });
+    }
+
+    $("#btnBuscarPlanta").bind("click", function () {
+        ListarPlantas();
+    });
+
+    $("#txtValor").keyup(function (e) {
+        if (e.which == 13) { ListarPlantas(); }
+    });
+
+    //Buscar datos persona
+
+    var persSelec = {}
+
+    function BuscarPersona(valor) {
+        var aceptar = function (d) {
+            persSelec = d;
+            $("#hdnPersId").val(d.id);
+            $("#txtDNI").val(d.doi);
+            $("#txtNom").val(d.nom);
+            $("#cmbSex input:radio").val([d.sexo]);
+            $("#txtNatTel1").val(d.tel1);
+            $("#txtNatDir").val(d.direc);
+            $('#vntBuscaPersona').modal('hide');
+        };
+
+        var cancelar = function () {
+
+        }
+        $.fn.BuscarPersona({
+            funcionAceptar: aceptar,
+            funcionCancelar: cancelar,
+            valor: valor
+        });
+    }
+
+    //$("#btnBuscarPers").bind("click", function () {
+    //    BuscarPersona($("#txtBuscarPers").val());
+    //});
+
+    //$("#txtBuscarPers").bind("keyup", function (e) {
+    //    if (e.which == 13) { BuscarPersona($(this).val()); };
+    //});
+
+    $("#btnBuscarRol").bind("click", function () {
+        $.fn.Ventana({
+            id: "vntBuscaRol",
+            titulo: "Seleccionar Rol",
+            tamano: "sm"
+        });
+
+        var html = '<div class="col-md-12"><div class="row"><div id="cntListaRol" class=""></div></div></div><div class="col-sm-12 hr-line-dashed"></div><div class="row"><div class="col-sm-8 col-md-offset-4 text-right"><button id="btnRolAceptar" type="submit" class="btn btn-sm btn-primary m-r-5">Aceptar</button><button id="btnRolCancelar" type="submit" data-dismiss="modal" aria-hidden="true" class="btn btn-sm btn-default">Cancelar</button></div></div>';
+
+        $("#vntBuscaRol .panel-body").html(html);
+        $('#vntBuscaRol').modal('show');
+
+        ListarRoles();
+
+        $("#btnRolAceptar").bind("click", function () {
+            if ($("#tblRol").find("tr.seleccionado").index() != -1) {
+                var nRolId = $("#tblRol").find("tr.seleccionado").find("td").eq(0).html();
+                var cRolDesc = $("#tblRol").find("tr.seleccionado").find("td").eq(1).html();
+
+                $("#hdnPersRolId").val(nRolId);
+                $("#txtRol").val(cRolDesc);
+                $('#vntBuscaRol').modal('hide');
+            } else {
+                $.fn.Mensaje({ titulo: "Mensaje", mensaje: "Es necesario seleccionar un Rol" });
+            }
+        });
+
+    });
+
+    function ListarRoles() {
+        $.fn.Conexion({
+            direccion: '@Url.Action("ListaRoles", "Config")',
+            terminado: function (data) {
+                var d = JSON.parse(data);
+                listaRoles = d;
+
+                CrearTablaRoles(d);
+            }
+        });
+    }
+
+    function CrearTablaRoles(listaR) {
+        $("#cntListaRol").Tabla({
+            tblId: "tblRol",
+            cabecera: "ID,ROLES",
+            campos: "nRolId,cRolDesc",
+            tblStyle: "table-inbox",
+            scrollVertical: "Si",
+            cellLen: "0",
+            dblClick: true,
+            alinear: "L,L",
+            cantRegVertical: 15,
+            editEvent: function (fila) {
+                var nRolId = fila.find("td").eq(0).html();
+                var cRolDesc = fila.find("td").eq(1).html();
+
+                $("#hdnPersRolId").val(nRolId);
+                $("#txtRol").val(cRolDesc);
+                $('#vntBuscaRol').modal('hide');
+
+            },
+            datos: listaR
+        });
+    }
+
+    //Registrar Usuario
+
+    $("#btnGrabarUsu").bind("click", function () {
+        var form = $("#frmUsuario");
+        form.validator();
+
+        var validator = form.data("bs.validator");
+        validator.validate();
+
+        if ($("#txtCont1").val() != $("#txtCont2").val()) {
+            alerta("#msg", "Los valores de la contraseña deben de ser iguales.");
+        } else if ($("#hdnPersRolId").val() == "") {
+            alerta("#msg", "Es necesario indicar el Rol del usuario.");
+        } else {
+            if (!validator.hasErrors()) {
+
+                var radio = $('input[name="inputWalls"]:checked').val();
+                CrearHidden("#cntHidden", "oUsu.bEsInterno", (radio == "1" ? true : false));
+                valores = form.serializeArray();
+
+                $.fn.Conexion({
+                    direccion: '@Url.Action("RegistrarModificarUsuario", "Usuario")',
+                    datos: valores,
+                    terminado: function (data, textStatus, jqXHR) {
+                        Resultado(data);
+                    },
+                    bloqueo: false
+                });
+            } else {
+                alerta("#msg", "Es necesario completar los campos que están en rojo.");
+            }
+        }
+    });
+
+    $("#btnCanUsu").bind("click", function () {
+        Limpiar();
+        vista("#target1");
+    });
+
+    function Limpiar() {
+        $('#frmUsuario')[0].reset();
+        $("#hdnPersId,#hdnEstado,#hdnPersRolId").val("");
+        $("#msg").html("");
+    }
+
+    function Resultado(dato) {
+        if (dato > 0) {
+            if ($("#hdnEstado").val() == "E") {
+                $.fn.Mensaje({ titulo: "Mensaje", mensaje: "Se modificó datos del usuario correctamente", funcionAceptar: Limpiar });
+            } else {
+                $.fn.Mensaje({ titulo: "Mensaje", mensaje: "Se registró datos del usuario correctamente", funcionAceptar: Limpiar });
+            }
+            ListarPlantas(1, 10, false);
+        } else if (dato == -1) {
+            alerta("#msg", "Ya existe un usuario asignado a esta persona");
+            $("#txtBuscarPers").focus();
+        } else if (dato == -2) {
+            alerta("#msg", "El nombre de usuario " + $("#txtUsu").val().toUpperCase() + " ya existe.");
+            $("#txtBuscarPers").focus();
+        } else if (dato == -3) {
+            $.fn.Mensaje({ titulo: "Mensaje", mensaje: "La operación no se realizó correctamente" });
+        }
+    }
+
+</script>

@@ -9,13 +9,6 @@ namespace PlantasMedicinales.AccesoDatos.Helper
     public static class Procedimiento
     {
 
-        #region Usuario
-        public const string sp_sel_ValidaAcceso = "sp_sel_ValidaAcceso";
-
-        public const string stp_sel_ObtenerUsuarioContrasena = "stp_sel_ObtenerUsuarioContrasena";
-        public const string stp_del_Usuario = "stp_del_Usuario";
-        #endregion
-
         #region Cliente
         public const string stp_ins_Clientes = "sp_RegClientes";
         public const string stp_sel_ListarClientes = "sp_listClientes";
@@ -44,10 +37,12 @@ namespace PlantasMedicinales.AccesoDatos.Helper
         #endregion
 
         #region Usuarios
+        public const string sp_sel_ValidaAcceso = "sp_sel_ValidaAcceso";
+        public const string stp_sel_ObtenerUsuarioContrasena = "stp_sel_ObtenerUsuarioContrasena";
+        public const string stp_del_Usuario = "stp_del_Usuario";
         public const string stp_sel_ListarUsuarios = "stp_sel_ListarUsuarios";
         public const string stp_sel_Usuario = "stp_sel_Usuario";
         public const string stp_ins_upd_Usuario = "stp_ins_upd_Usuario";
-        public const string stp_sel_Usuarios = "stp_sel_Usuarios";
         #endregion
 
 
@@ -62,6 +57,14 @@ namespace PlantasMedicinales.AccesoDatos.Helper
         public const string stp_sel_PermisoRol = "stp_sel_PermisoRol";
         public const string stp_ins_upd_RolPermisos = "stp_ins_upd_RolPermisos";
         public const string stp_del_EliminarRol = "stp_del_EliminarRol";
+        #endregion
+
+
+        #region PlinianPlantas
+        public const string stp_sel_ListarPlantasMedicinales = "stp_sel_ListarPlantasMedicinales";
+        public const string stp_sel_PlantaMedicinal = "stp_sel_PlantaMedicinal";
+        public const string stp_ins_upd_PlantaMedicinal = "stp_ins_upd_PlantaMedicinal";
+        public const string stp_del_PlantaMedicinal = "stp_del_PlantaMedicinal";
         #endregion
     }
 }

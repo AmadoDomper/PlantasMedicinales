@@ -27,6 +27,7 @@ namespace PlantasMedicinales.Entidades
         private string _cVaucher;
         private string _cRefeBiblio;
         private string _cFoto;
+        private Byte _nEstado;
 
         [JsonProperty(PropertyName = "nId")]
         public int nId
@@ -277,6 +278,20 @@ namespace PlantasMedicinales.Entidades
             set
             {
                 _cFoto = value;
+            }
+        }
+
+        [JsonProperty(PropertyName = "nEstado")]
+        public Byte nEstado
+        {
+            get
+            {
+                return _nEstado;
+            }
+
+            set
+            {
+                _nEstado = value;
             }
         }
     }
