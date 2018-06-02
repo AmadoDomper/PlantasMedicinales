@@ -29,5 +29,15 @@ namespace PlantasMedicinales.Web.Controllers
             return JsonConvert.SerializeObject(ListaUsuariosPag, Formatting.None,
             new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore });
         }
+
+        public string RegistrarModificarInventario(Plinian oInv)
+        {
+            PlinianLN oPlinianLN = new PlinianLN();
+
+            var resultado = oPlinianLN.RegistrarModificarPlinian(oInv);
+
+            return JsonConvert.SerializeObject(resultado, Formatting.None,
+            new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore });
+        }
     }
 }

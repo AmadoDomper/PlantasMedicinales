@@ -75,15 +75,24 @@ namespace PlantasMedicinales.AccesoDatos
                     oSqlCommand.CommandType = CommandType.StoredProcedure;
                     oSqlCommand.Connection = oSqlConnection;
 
-                    //oSqlCommand.Parameters.Add("@nUsuId", SqlDbType.Int).Value = (object)oUsuario.nUsuarioId ?? DBNull.Value;
-                    //oSqlCommand.Parameters.Add("@cNombre", SqlDbType.VarChar, 150).Value = (object)oUsuario.cNombres ?? DBNull.Value;
-                    //oSqlCommand.Parameters.Add("@cApellidoPaterno", SqlDbType.VarChar, 150).Value = (object)oUsuario.cApellidoPa ?? DBNull.Value;
-                    //oSqlCommand.Parameters.Add("@cApellidoMaterno", SqlDbType.VarChar, 150).Value = (object)oUsuario.cApellidoMa ?? DBNull.Value;
-                    //oSqlCommand.Parameters.Add("@cInstitucion", SqlDbType.VarChar, 200).Value = (object)oUsuario.cInstitucion ?? DBNull.Value;
-                    //oSqlCommand.Parameters.Add("@cEmail", SqlDbType.VarChar, 150).Value = (object)oUsuario.cEmail ?? DBNull.Value;
-                    //oSqlCommand.Parameters.Add("@cDni", SqlDbType.VarChar, 10).Value = (object)oUsuario.cDni ?? DBNull.Value;
-                    //oSqlCommand.Parameters.Add("@cContrasena", SqlDbType.VarChar, 50).Value = (object)oUsuario.cContrasena ?? DBNull.Value;
-                    //oSqlCommand.Parameters.Add("@nRolId", SqlDbType.Int).Value = (object)oUsuario.nRolId ?? DBNull.Value;
+                    oSqlCommand.Parameters.Add("@Pli_IdPlinian", SqlDbType.Int).Value = (object)oPlinian.nId ?? DBNull.Value;
+                    oSqlCommand.Parameters.Add("@Pli_Codigo", SqlDbType.VarChar, 20).Value = (object)oPlinian.cCodigo ?? DBNull.Value;
+                    oSqlCommand.Parameters.Add("@Pli_NombresComunes", SqlDbType.VarChar, 30).Value = (object)oPlinian.cNombresComunes ?? DBNull.Value;
+                    oSqlCommand.Parameters.Add("@Pli_Sinonimia", SqlDbType.VarChar, 350).Value = (object)oPlinian.cSinonimia ?? DBNull.Value;
+                    oSqlCommand.Parameters.Add("@Pli_NombreCientifico", SqlDbType.VarChar, 100).Value = (object)oPlinian.cNombreCientifico ?? DBNull.Value;
+                    oSqlCommand.Parameters.Add("@Pli_Familia", SqlDbType.VarChar, 30).Value = (object)oPlinian.cFamilia ?? DBNull.Value;
+                    oSqlCommand.Parameters.Add("@Pli_DescripcionCientifica",SqlDbType.VarChar, 600).Value = (object)oPlinian.cDescripBotanica ?? DBNull.Value;
+                    oSqlCommand.Parameters.Add("@Pli_Habitat", SqlDbType.VarChar, 200).Value = (object)oPlinian.cHabitat ?? DBNull.Value;
+                    oSqlCommand.Parameters.Add("@Pli_Distribucion", SqlDbType.VarChar,100).Value = (object)oPlinian.cDistribucion ?? DBNull.Value;
+                    oSqlCommand.Parameters.Add("@Pli_CompoQuimica", SqlDbType.VarChar,100).Value = (object)oPlinian.cCompoQuimica ?? DBNull.Value;
+                    oSqlCommand.Parameters.Add("@Pli_Toxicidad", SqlDbType.VarChar,100).Value = (object)oPlinian.cToxicidad ?? DBNull.Value;
+                    oSqlCommand.Parameters.Add("@Pli_Etnomedicinal", SqlDbType.VarChar,300).Value = (object)oPlinian.cEtnomedicinal ?? DBNull.Value;
+                    oSqlCommand.Parameters.Add("@Pli_Manejo", SqlDbType.VarChar,800).Value = (object)oPlinian.cManejo ?? DBNull.Value;
+                    oSqlCommand.Parameters.Add("@Pli_Interacciones", SqlDbType.VarChar,20).Value = (object)oPlinian.cInteracciones ?? DBNull.Value;
+                    oSqlCommand.Parameters.Add("@Pli_Usos", SqlDbType.VarChar,100).Value = (object)oPlinian.cUsos ?? DBNull.Value;
+                    oSqlCommand.Parameters.Add("@Pli_Vaucher", SqlDbType.VarChar,100).Value = (object)oPlinian.cVaucher ?? DBNull.Value;
+                    oSqlCommand.Parameters.Add("@Pli_ReferenciasBibliograficas", SqlDbType.VarChar,800).Value = (object)oPlinian.cRefeBiblio ?? DBNull.Value;
+                    oSqlCommand.Parameters.Add("@Pli_foto", SqlDbType.VarChar,100).Value = (object)oPlinian.cFoto ?? DBNull.Value;
 
                     oSqlConnection.Open();
 

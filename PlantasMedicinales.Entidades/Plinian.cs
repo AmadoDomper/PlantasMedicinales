@@ -15,7 +15,7 @@ namespace PlantasMedicinales.Entidades
         private string _cSinonimia;
         private string _cNombreCientifico;
         private string _cFamilia;
-        private string _cDescripCientifica;
+        private string _cDescripBotanica;
         private string _cHabitat;
         private string _cDistribucion;
         private string _cCompoQuimica;
@@ -114,16 +114,16 @@ namespace PlantasMedicinales.Entidades
         }
 
         [JsonProperty(PropertyName = "cDesc")]
-        public string cDescripCientifica
+        public string cDescripBotanica
         {
             get
             {
-                return _cDescripCientifica;
+                return _cDescripBotanica;
             }
 
             set
             {
-                _cDescripCientifica = value;
+                _cDescripBotanica = value;
             }
         }
 
@@ -198,7 +198,7 @@ namespace PlantasMedicinales.Entidades
         }
 
         [JsonProperty(PropertyName = "cManejo")]
-        public string cManejo
+        public string cManejo //Forma de Empleo
         {
             get
             {
@@ -212,7 +212,7 @@ namespace PlantasMedicinales.Entidades
         }
 
         [JsonProperty(PropertyName = "cInterac")]
-        public string cInteracciones
+        public string cInteracciones // Efectos Adversos/Interacciones
         {
             get
             {
