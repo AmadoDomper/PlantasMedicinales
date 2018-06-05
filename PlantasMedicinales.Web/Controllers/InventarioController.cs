@@ -21,6 +21,7 @@ namespace PlantasMedicinales.Web.Controllers
             return View();
         }
 
+        [RequiresAuthenticationAttribute]
         public string ListaPlantasPag(int nPage = 1, int nSize = 10, string cValor = null)
         {
             PlinianLN oPlantas = new PlinianLN();
@@ -30,11 +31,36 @@ namespace PlantasMedicinales.Web.Controllers
             new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore });
         }
 
+        [RequiresAuthenticationAttribute]
         public string RegistrarModificarInventario(Plinian oInv)
         {
             PlinianLN oPlinianLN = new PlinianLN();
 
             var resultado = oPlinianLN.RegistrarModificarPlinian(oInv);
+
+            return JsonConvert.SerializeObject(resultado, Formatting.None,
+            new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore });
+        }
+
+        [RequiresAuthenticationAttribute]
+        public string CargarDatosIventario(int nInv)
+        {
+            PlinianLN oPlinianLN = new PlinianLN();
+            Plinian oPlinian = new Plinian();
+
+            oPlinian = oPlinianLN.CargarDatosPlinian(nInv);
+
+            return JsonConvert.SerializeObject(oPlinian, Formatting.None,
+            new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore });
+
+        }
+
+        [RequiresAuthenticationAttribute]
+        public string EliminarIventario(int nInv)
+        {
+            PlinianLN oPlinianLN = new PlinianLN();
+            int resultado;
+            resultado = oPlinianLN.EliminarPlinian(nInv);
 
             return JsonConvert.SerializeObject(resultado, Formatting.None,
             new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore });

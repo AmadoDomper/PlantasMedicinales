@@ -24,7 +24,7 @@ namespace PlantasMedicinales.LogicaNegocio
             return oPlinianAD.ListarPlantasPag(nPage, nSize, cValor);
         }
 
-        public Usuario CargarDatosPlinian(int nPlinianId)
+        public Plinian CargarDatosPlinian(int nPlinianId)
         {
             return oPlinianAD.CargarDatosPlinian(nPlinianId);
         }
@@ -38,7 +38,5 @@ namespace PlantasMedicinales.LogicaNegocio
         {
             return oPlinianAD.EliminarPlinian(nPlinianId);
         }
-
-
     }
 }

@@ -42,7 +42,7 @@
 
 <div class="col-lg-12 ">
     <div id="target2" class="move panel-inverse m-t-10" data-sortable-id="form-stuff-1" style="display: none;">
-        <form role="form" data-toggle="validator" action="" id="frmUsuario" autocomplete="off" method="post" class="form-horizontal ng-pristine ng-valid">
+        <form role="form" data-toggle="validator" action="" id="frmInventario" autocomplete="off" method="post" class="form-horizontal ng-pristine ng-valid">
             <div class="panel panel-inverse" data-sortable-id="form-stuff-1">
                 <div class="panel-heading">
                     <h4 class="panel-title">Ficha de Registro de Plantas Medicinales</h4>
@@ -55,6 +55,7 @@
                         <div class="col-md-8">
                             <div></div>
                             <div class="form-group m-b-5">
+                                <input id="hdnPliId" type="hidden" name="oInv.nId" />
                                 <label class="col-md-4 control-label">Código</label>
                                 <div class="col-md-4">
                                     <input type="text" id="txtCodigo" name="oInv.cCodigo" class="form-control" required="">
@@ -112,7 +113,7 @@
                             </div><div class="form-group m-b-5">
                                 <label class="col-md-4 control-label">Forma de empleo</label>
                                 <div class="col-md-7">
-                                    <textarea type="text" id="txtEmpleo" name="oInv.cManejo" class="form-control" required="" rows="3"></textarea>
+                                    <textarea type="text" id="txtEmpleo" name="oInv.cManejo" class="form-control" required="" rows="6"></textarea>
                                 </div>
                             </div><div class="form-group m-b-5">
                                 <label class="col-md-4 control-label">Efectos Adversos</label>
@@ -135,6 +136,12 @@
                                     <textarea rows="6" type="text" id="txtRefBi" name="oInv.cRefeBiblio" class="form-control" required=""></textarea>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="row m-b-10 m-t-10">
+                        <div class="text-center">
+                            <input type="button" id="btnGrabarInventario" class="btn btn-sm btn-primary m-r-5" value="Grabar">
+                            <input type="button" id="btnCancelarInventario" data-dismiss="modal" aria-hidden="true" class="btn btn-sm btn-default m-r-5" value="Cancelar">
                         </div>
                     </div>
                     <div id="msg"></div>
@@ -188,7 +195,7 @@
 
         $.fn.Conexion({
             direccion: '@Url.Action("ListaPlantasPag", "Inventario")',
-            datos: { "nPage": nPage, "nSize": nSize, "cValor": valor},
+            datos: { "nPage": nPage, "nSize": nSize, "cValor": valor },
             bloqueo: blo == false ? false : true,
             terminado: function (data) {
                 var d = JSON.parse(data);
@@ -208,38 +215,48 @@
                     elim: true,
                     dblClick: true,
                     editEvent: function (fila) {
-                        var nUsuId = fila.find("td").eq(0).html();
+                        var nInv = fila.find("td").eq(0).html();
                         console.log(nUsuId);
                         $("#hdnEstado").val("E");
                         $('input.target')[0].click();
-                        $("#txtUsu").attr("disabled", true);
+                        //$("#txtUsu").attr("disabled", true);
 
                         $.fn.Conexion({
-                            direccion: '@Url.Action("CargarDatosUsuario", "Usuario")',
-                            datos: { "nUsuId": nUsuId },
+                            direccion: '@Url.Action("CargarDatosIventario", "Inventario")',
+                            datos: { "nInv": nInv },
                             terminado: function (data, textStatus, jqXHR) {
                                 var oInv = JSON.parse(data);
 
                                 console.log(oInv);
-                                $("#hdnUsuId").val(oInv.nUsuId);
-                                $("#txtDNI").val(oInv.cDni);
-                                $("#txtNombres").val(oInv.cNom);
-                                $("#txtApePa").val(oInv.cApePa);
-                                $("#txtApeMa").val(oInv.cApeMa);
-                                $("#txtInst").val(oInv.cInst);
-                                $("#txtEmail").val(oInv.cEmail);
-                                $("#txtRol").val(oInv.cRolDes);
-                                $("#hdnPersRolId").val(oInv.nRolId)
+
+                                $("#txtCodigo").val(oInv.cCod);
+                                $("#txtCompoQuimica").val(oInv.cComQui);
+                                $("#txtDesBotanica").val(oInv.cDesc);
+                                $("#txtDistribucion").val(oInv.cDist);
+                                $("#txtEtnomedicinal").val(oInv.cEtno);
+                                $("#txtFamilia").val(oInv.cFam);
+                                $("#txtHabitat").val(oInv.cHab);
+                                $("#txtEfectos").val(oInv.cInterac);
+                                $("#txtEmpleo").val(oInv.cManejo);
+                                $("#txtNomCient").val(oInv.cNomCie);
+                                $("#txtNomComun").val(oInv.cNomCom);
+                                $("#txtRefBi").val(oInv.cRefBi);
+                                $("#txtSinonimia").val(oInv.cSino);
+                                $("#txtToxicidad").val(oInv.cToxi);
+                                $("#txtUsos").val(oInv.cUsos);
+                                $("#txtVaucher").val(oInv.cVaucher);
+                                $("#hdnPliId").val(oInv.nId);
+                                //$("       ").val(oInv.cFoto);
                             },
                             bloqueo: true
                         });
                     },
                     elimEvent: function (fila, nPage) {
-                        var nUsuarioId = fila.find("td").eq(0).html();
+                        var nInv = fila.find("td").eq(0).html();
 
                         $.fn.Conexion({
-                            direccion: '@Url.Action("EliminarUsuario", "Usuario")',
-                            datos: { "nUsuarioId": nUsuarioId },
+                            direccion: '@Url.Action("EliminarIventario", "Inventario")',
+                            datos: { "nInv": nInv },
                             terminado: function (data, textStatus, jqXHR) {
                                 ListarPlantas(nPage, 10);
                             },
@@ -261,32 +278,6 @@
         if (e.which == 13) { ListarPlantas(); }
     });
 
-    //Buscar datos persona
-
-    var persSelec = {}
-
-    function BuscarPersona(valor) {
-        var aceptar = function (d) {
-            persSelec = d;
-            $("#hdnPersId").val(d.id);
-            $("#txtDNI").val(d.doi);
-            $("#txtNom").val(d.nom);
-            $("#cmbSex input:radio").val([d.sexo]);
-            $("#txtNatTel1").val(d.tel1);
-            $("#txtNatDir").val(d.direc);
-            $('#vntBuscaPersona').modal('hide');
-        };
-
-        var cancelar = function () {
-
-        }
-        $.fn.BuscarPersona({
-            funcionAceptar: aceptar,
-            funcionCancelar: cancelar,
-            valor: valor
-        });
-    }
-
     //$("#btnBuscarPers").bind("click", function () {
     //    BuscarPersona($("#txtBuscarPers").val());
     //});
@@ -295,131 +286,56 @@
     //    if (e.which == 13) { BuscarPersona($(this).val()); };
     //});
 
-    $("#btnBuscarRol").bind("click", function () {
-        $.fn.Ventana({
-            id: "vntBuscaRol",
-            titulo: "Seleccionar Rol",
-            tamano: "sm"
-        });
 
-        var html = '<div class="col-md-12"><div class="row"><div id="cntListaRol" class=""></div></div></div><div class="col-sm-12 hr-line-dashed"></div><div class="row"><div class="col-sm-8 col-md-offset-4 text-right"><button id="btnRolAceptar" type="submit" class="btn btn-sm btn-primary m-r-5">Aceptar</button><button id="btnRolCancelar" type="submit" data-dismiss="modal" aria-hidden="true" class="btn btn-sm btn-default">Cancelar</button></div></div>';
 
-        $("#vntBuscaRol .panel-body").html(html);
-        $('#vntBuscaRol').modal('show');
+    //Registrar Inventario
 
-        ListarRoles();
-
-        $("#btnRolAceptar").bind("click", function () {
-            if ($("#tblRol").find("tr.seleccionado").index() != -1) {
-                var nRolId = $("#tblRol").find("tr.seleccionado").find("td").eq(0).html();
-                var cRolDesc = $("#tblRol").find("tr.seleccionado").find("td").eq(1).html();
-
-                $("#hdnPersRolId").val(nRolId);
-                $("#txtRol").val(cRolDesc);
-                $('#vntBuscaRol').modal('hide');
-            } else {
-                $.fn.Mensaje({ titulo: "Mensaje", mensaje: "Es necesario seleccionar un Rol" });
-            }
-        });
-
-    });
-
-    function ListarRoles() {
-        $.fn.Conexion({
-            direccion: '@Url.Action("ListaRoles", "Config")',
-            terminado: function (data) {
-                var d = JSON.parse(data);
-                listaRoles = d;
-
-                CrearTablaRoles(d);
-            }
-        });
-    }
-
-    function CrearTablaRoles(listaR) {
-        $("#cntListaRol").Tabla({
-            tblId: "tblRol",
-            cabecera: "ID,ROLES",
-            campos: "nRolId,cRolDesc",
-            tblStyle: "table-inbox",
-            scrollVertical: "Si",
-            cellLen: "0",
-            dblClick: true,
-            alinear: "L,L",
-            cantRegVertical: 15,
-            editEvent: function (fila) {
-                var nRolId = fila.find("td").eq(0).html();
-                var cRolDesc = fila.find("td").eq(1).html();
-
-                $("#hdnPersRolId").val(nRolId);
-                $("#txtRol").val(cRolDesc);
-                $('#vntBuscaRol').modal('hide');
-
-            },
-            datos: listaR
-        });
-    }
-
-    //Registrar Usuario
-
-    $("#btnGrabarUsu").bind("click", function () {
-        var form = $("#frmUsuario");
+    $("#btnGrabarInventario").bind("click", function () {
+        var form = $("#frmInventario");
         form.validator();
 
         var validator = form.data("bs.validator");
         validator.validate();
 
-        if ($("#txtCont1").val() != $("#txtCont2").val()) {
-            alerta("#msg", "Los valores de la contraseña deben de ser iguales.");
-        } else if ($("#hdnPersRolId").val() == "") {
-            alerta("#msg", "Es necesario indicar el Rol del usuario.");
+        if (!validator.hasErrors()) {
+
+            //var radio = $('input[name="inputWalls"]:checked').val();
+            //CrearHidden("#cntHidden", "oUsu.bEsInterno", (radio == "1" ? true : false));
+            valores = form.serializeArray();
+
+            $.fn.Conexion({
+                direccion: '@Url.Action("RegistrarModificarInventario", "Inventario")',
+                datos: valores,
+                terminado: function (data, textStatus, jqXHR) {
+                    Resultado(data);
+                },
+                bloqueo: false
+            });
         } else {
-            if (!validator.hasErrors()) {
-
-                var radio = $('input[name="inputWalls"]:checked').val();
-                CrearHidden("#cntHidden", "oUsu.bEsInterno", (radio == "1" ? true : false));
-                valores = form.serializeArray();
-
-                $.fn.Conexion({
-                    direccion: '@Url.Action("RegistrarModificarInventario", "Inventario")',
-                    datos: valores,
-                    terminado: function (data, textStatus, jqXHR) {
-                        Resultado(data);
-                    },
-                    bloqueo: false
-                });
-            } else {
-                alerta("#msg", "Es necesario completar los campos que están en rojo.");
-            }
+            alerta("#msg", "Es necesario completar los campos que están en rojo.");
         }
     });
 
-    $("#btnCanUsu").bind("click", function () {
+    $("#btnCancelarInventario").bind("click", function () {
         Limpiar();
         vista("#target1");
     });
 
     function Limpiar() {
-        $('#frmUsuario')[0].reset();
-        $("#hdnPersId,#hdnEstado,#hdnPersRolId").val("");
+        $('#frmInventario')[0].reset();
+        $("#hdnPliId").val("");
         $("#msg").html("");
     }
 
     function Resultado(dato) {
         if (dato > 0) {
             if ($("#hdnEstado").val() == "E") {
-                $.fn.Mensaje({ titulo: "Mensaje", mensaje: "Se modificó datos del usuario correctamente", funcionAceptar: Limpiar });
+                $.fn.Mensaje({ titulo: "Mensaje", mensaje: "La modificación se realizó correctamente", funcionAceptar: Limpiar });
             } else {
-                $.fn.Mensaje({ titulo: "Mensaje", mensaje: "Se registró datos del usuario correctamente", funcionAceptar: Limpiar });
+                $.fn.Mensaje({ titulo: "Mensaje", mensaje: "El registro se realizó correctamente", funcionAceptar: Limpiar });
             }
             ListarPlantas(1, 10, false);
         } else if (dato == -1) {
-            alerta("#msg", "Ya existe un usuario asignado a esta persona");
-            $("#txtBuscarPers").focus();
-        } else if (dato == -2) {
-            alerta("#msg", "El nombre de usuario " + $("#txtUsu").val().toUpperCase() + " ya existe.");
-            $("#txtBuscarPers").focus();
-        } else if (dato == -3) {
             $.fn.Mensaje({ titulo: "Mensaje", mensaje: "La operación no se realizó correctamente" });
         }
     }

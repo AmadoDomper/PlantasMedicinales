@@ -64,7 +64,7 @@ namespace PlantasMedicinales.AccesoDatos
 
         public int RegistrarModificarPlinian(Plinian oPlinian)
         {
-            int resultado = -2;
+            int resultado = -1;
 
             try
             {
@@ -109,48 +109,73 @@ namespace PlantasMedicinales.AccesoDatos
             }
             catch (Exception ex)
             {
-                resultado = -2;
+                resultado = -1;
             }
             return resultado;
         }
 
 
-        public Usuario CargarDatosPlinian(int nUsuId)
+        public Plinian CargarDatosPlinian(int nInv)
         {
             try
             {
-                Usuario oUsuario = new Usuario();
+                Plinian oPli = new Plinian();
 
                 DbCommand oDbCommand = oDatabase.GetStoredProcCommand(Procedimiento.stp_sel_PlantaMedicinal);
-                oDatabase.AddInParameter(oDbCommand, "@nUsuarioId", DbType.Int32, (object)nUsuId ?? DBNull.Value);
+                oDatabase.AddInParameter(oDbCommand, "@nPliId", DbType.Int32, (object)nInv ?? DBNull.Value);
 
                 using (IDataReader oIDataReader = oDatabase.ExecuteReader(oDbCommand))
                 {
-                    int inUsuarioId = oIDataReader.GetOrdinal("nUsuarioId");
-                    int icNombres = oIDataReader.GetOrdinal("cNombres");
-                    int icApellidoPaterno = oIDataReader.GetOrdinal("cApellidoPaterno");
-                    int icApellidoMaterno = oIDataReader.GetOrdinal("cApellidoMaterno");
-                    int icInstitucion = oIDataReader.GetOrdinal("cInstitucion");
-                    int icEmail = oIDataReader.GetOrdinal("cEmail");
-                    int icDni = oIDataReader.GetOrdinal("cDni");
-                    int inRolId = oIDataReader.GetOrdinal("nRolId");
-                    int icRolDesc = oIDataReader.GetOrdinal("cRolDesc");
+
+                    int iPli_IdPlinian = oIDataReader.GetOrdinal("Pli_IdPlinian");
+                    int iPli_Codigo = oIDataReader.GetOrdinal("Pli_Codigo");
+                    int iPli_NombresComunes = oIDataReader.GetOrdinal("Pli_NombresComunes");
+                    int iPli_Sinonimia = oIDataReader.GetOrdinal("Pli_Sinonimia");
+                    int iPli_NombreCientifico = oIDataReader.GetOrdinal("Pli_NombreCientifico");
+                    int iPli_Familia = oIDataReader.GetOrdinal("Pli_Familia");
+                    int iPli_DescripcionCientifica = oIDataReader.GetOrdinal("Pli_DescripcionCientifica");
+                    int iPli_Habitat = oIDataReader.GetOrdinal("Pli_Habitat");
+                    int iPli_Distribucion = oIDataReader.GetOrdinal("Pli_Distribucion");
+                    int iPli_CompoQuimica = oIDataReader.GetOrdinal("Pli_CompoQuimica");
+                    int iPli_Toxicidad = oIDataReader.GetOrdinal("Pli_Toxicidad");
+                    int iPli_Etnomedicinal = oIDataReader.GetOrdinal("Pli_Etnomedicinal");
+                    int iPli_Manejo = oIDataReader.GetOrdinal("Pli_Manejo");
+                    int iPli_Interacciones = oIDataReader.GetOrdinal("Pli_Interacciones");
+                    int iPli_Usos = oIDataReader.GetOrdinal("Pli_Usos");
+                    int iPli_Vaucher = oIDataReader.GetOrdinal("Pli_Vaucher");
+                    int iPli_ReferenciasBibliograficas = oIDataReader.GetOrdinal("Pli_ReferenciasBibliograficas");
+                    int iPli_foto = oIDataReader.GetOrdinal("Pli_foto");
+                    int iPli_Estado = oIDataReader.GetOrdinal("Pli_Estado");
+
 
                     while (oIDataReader.Read())
                     {
-                        oUsuario.nUsuarioId = DataUtil.DbValueToDefault<Int32>(oIDataReader[inUsuarioId]);
-                        oUsuario.cNombres = DataUtil.DbValueToDefault<String>(oIDataReader[icNombres]);
-                        oUsuario.cApellidoPa = DataUtil.DbValueToDefault<String>(oIDataReader[icApellidoPaterno]);
-                        oUsuario.cApellidoMa = DataUtil.DbValueToDefault<String>(oIDataReader[icApellidoMaterno]);
-                        oUsuario.cInstitucion = DataUtil.DbValueToDefault<String>(oIDataReader[icInstitucion]);
-                        oUsuario.cEmail = DataUtil.DbValueToDefault<String>(oIDataReader[icEmail]);
-                        oUsuario.cDni = DataUtil.DbValueToDefault<String>(oIDataReader[icDni]);
-                        oUsuario.nRolId = DataUtil.DbValueToDefault<Int32>(oIDataReader[inRolId]);
-                        oUsuario.cRolDesc = DataUtil.DbValueToDefault<String>(oIDataReader[icRolDesc]);
+
+
+                        oPli.nId = DataUtil.DbValueToDefault<Int32>(oIDataReader[iPli_IdPlinian]);
+                        oPli.cCodigo = DataUtil.DbValueToDefault<String>(oIDataReader[iPli_Codigo]);
+                        oPli.cNombresComunes = DataUtil.DbValueToDefault<String>(oIDataReader[iPli_NombresComunes]);
+                        oPli.cSinonimia = DataUtil.DbValueToDefault<String>(oIDataReader[iPli_Sinonimia]);
+                        oPli.cNombreCientifico = DataUtil.DbValueToDefault<String>(oIDataReader[iPli_NombreCientifico]);
+                        oPli.cFamilia = DataUtil.DbValueToDefault<String>(oIDataReader[iPli_Familia]);
+                        oPli.cDescripBotanica = DataUtil.DbValueToDefault<String>(oIDataReader[iPli_DescripcionCientifica]);
+                        oPli.cHabitat = DataUtil.DbValueToDefault<String>(oIDataReader[iPli_Habitat]);
+                        oPli.cDistribucion = DataUtil.DbValueToDefault<String>(oIDataReader[iPli_Distribucion]);
+                        oPli.cCompoQuimica = DataUtil.DbValueToDefault<String>(oIDataReader[iPli_CompoQuimica]);
+                        oPli.cToxicidad = DataUtil.DbValueToDefault<String>(oIDataReader[iPli_Toxicidad]);
+                        oPli.cEtnomedicinal = DataUtil.DbValueToDefault<String>(oIDataReader[iPli_Etnomedicinal]);
+                        oPli.cManejo = DataUtil.DbValueToDefault<String>(oIDataReader[iPli_Manejo]);
+                        oPli.cInteracciones = DataUtil.DbValueToDefault<String>(oIDataReader[iPli_Interacciones]);
+                        oPli.cUsos = DataUtil.DbValueToDefault<String>(oIDataReader[iPli_Usos]);
+                        oPli.cVaucher = DataUtil.DbValueToDefault<String>(oIDataReader[iPli_Vaucher]);
+                        oPli.cRefeBiblio = DataUtil.DbValueToDefault<String>(oIDataReader[iPli_ReferenciasBibliograficas]);
+                        oPli.cFoto = DataUtil.DbValueToDefault<String>(oIDataReader[iPli_foto]);
+                        oPli.nEstado = DataUtil.DbValueToDefault<byte>(oIDataReader[iPli_Estado]);
+
                     }
                 }
 
-                return oUsuario;
+                return oPli;
 
             }
             catch (Exception)
@@ -160,7 +185,7 @@ namespace PlantasMedicinales.AccesoDatos
             }
         }
 
-        public int EliminarPlinian(int nUsuarioId)
+        public int EliminarPlinian(int nPliId)
         {
             int resultado = 0;
 
@@ -173,7 +198,7 @@ namespace PlantasMedicinales.AccesoDatos
                     oSqlCommand.CommandType = CommandType.StoredProcedure;
                     oSqlCommand.Connection = oSqlConnection;
 
-                    oSqlCommand.Parameters.Add("@nUsuarioId", SqlDbType.Int).Value = nUsuarioId;
+                    oSqlCommand.Parameters.Add("@nPliId", SqlDbType.Int).Value = nPliId;
 
                     oSqlConnection.Open();
 
