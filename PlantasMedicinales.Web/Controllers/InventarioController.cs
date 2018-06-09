@@ -9,6 +9,7 @@ using PlantasMedicinales.LogicaNegocio;
 using PlantasMedicinales.Seguridad.Filters;
 using PlantasMedicinales.Web.Controllers.Base;
 using Newtonsoft.Json;
+using System.IO;
 
 namespace PlantasMedicinales.Web.Controllers
 {
@@ -65,5 +66,40 @@ namespace PlantasMedicinales.Web.Controllers
             return JsonConvert.SerializeObject(resultado, Formatting.None,
             new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore });
         }
+
+        public ActionResult CargarImagen(IEnumerable<HttpPostedFileBase> files)
+        {
+            foreach (var file in files)
+            {
+                string filePath = Guid.NewGuid() + Path.GetExtension(file.FileName);
+                file.SaveAs(Path.Combine(Server.MapPath("~/ArchivosSubidos"), filePath));
+
+                //Aquí poner código para grabar la ruta en la base de datos
+            }
+
+            return Json("Archivo cargado correctamente");
+        }
+
+
+
+        public JsonResult ImageUpload(InventarioViewModel model)
+        {
+
+            var file = model.ImageFile;
+
+            if (file != null)
+            {
+
+                var fileName = Path.GetFileName(file.FileName);
+                var extention = Path.GetExtension(file.FileName);
+                var filenamewithoutextension = Path.GetFileNameWithoutExtension(file.FileName);
+
+                file.SaveAs(Server.MapPath("/ArchivosSubidos/" + file.FileName));
+            }
+            return Json(file.FileName, JsonRequestBehavior.AllowGet);
+        }
+
+
+
     }
 }

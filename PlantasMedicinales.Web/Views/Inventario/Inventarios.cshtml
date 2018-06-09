@@ -3,6 +3,25 @@
     Layout = null;
 }
 
+<style>
+    .dropArea {
+        border: #6cbd6c dashed 1px;
+        height: 250px;
+        text-align: center;
+        color: #fff;
+    }
+
+
+    /*
+    .active-drop {
+        background: #77bafa !important;
+        border: solid 2px blue !important;
+        opacity: .5;
+        color: black !important;
+    }*/
+</style>
+
+
 <div class="col-lg-11 col-lg-offset-0-5 m-t-10">
     <input id="hdnEstado" type="hidden" style="display: block;" />
     <div id="target1" class="panel move panel-inverse active">
@@ -49,98 +68,162 @@
                 </div>
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-md-4">
-                            <div id="img-drop"></div>
-                        </div>
-                        <div class="col-md-8">
-                            <div></div>
-                            <div class="form-group m-b-5">
-                                <input id="hdnPliId" type="hidden" name="oInv.nId" />
-                                <label class="col-md-4 control-label">Código</label>
-                                <div class="col-md-4">
-                                    <input type="text" id="txtCodigo" name="oInv.cCodigo" class="form-control" required="">
-                                </div>
-                            </div><div class="form-group m-b-5">
-                                <label class="col-md-4 control-label">Nombre Común</label>
-                                <div class="col-md-7">
-                                    <input type="text" id="txtNomComun" name="oInv.cNombresComunes" class="form-control" required="">
-                                </div>
-                            </div><div class="form-group m-b-5">
-                                <label class="col-md-4 control-label">Nombre Científico</label>
-                                <div class="col-md-7">
-                                    <input rows="5" type="text" id="txtNomCient" name="oInv.cNombreCientifico" class="form-control" required="">
-                                </div>
-                            </div><div class="form-group m-b-5">
-                                <label class="col-md-4 control-label">Sinonimia Vulgar</label>
-                                <div class="col-md-7">
-                                    <textarea rows="5" type="text" id="txtSinonimia" name="oInv.cSinonimia" class="form-control" required=""></textarea>
-                                </div>
-                            </div><div class="form-group m-b-5">
-                                <label class="col-md-4 control-label">Familia</label>
-                                <div class="col-md-7">
-                                    <input type="text" id="txtFamilia" name="oInv.cFamilia" class="form-control" required="">
-                                </div>
-                            </div><div class="form-group m-b-5">
-                                <label class="col-md-4 control-label">Descripción Botánica</label>
-                                <div class="col-md-7">
-                                    <textarea rows="5" type="text" id="txtDesBotanica" name="oInv.cDescripBotanica" class="form-control" required=""></textarea>
-                                </div>
-                            </div><div class="form-group m-b-5">
-                                <label class="col-md-4 control-label">Hábitat</label>
-                                <div class="col-md-7">
-                                    <textarea type="text" rows="5" id="txtHabitat" name="oInv.cHabitat" class="form-control" required=""></textarea>
-                                </div>
-                            </div><div class="form-group m-b-5">
-                                <label class="col-md-4 control-label">Distribución</label>
-                                <div class="col-md-7">
-                                    <textarea rows="4" type="text" id="txtDistribucion" name="oInv.cDistribucion" class="form-control" required=""></textarea>
-                                </div>
-                            </div><div class="form-group m-b-5">
-                                <label class="col-md-4 control-label">Composición Química</label>
-                                <div class="col-md-7">
-                                    <textarea rows="4" type="text" id="txtCompoQuimica" name="oInv.cCompoQuimica" class="form-control" required=""></textarea>
-                                </div>
-                            </div><div class="form-group m-b-5">
-                                <label class="col-md-4 control-label">Toxicidad</label>
-                                <div class="col-md-7">
-                                    <input type="text" id="txtToxicidad" name="oInv.cToxicidad" class="form-control" required="">
-                                </div>
-                            </div><div class="form-group m-b-5">
-                                <label class="col-md-4 control-label">Etnomedicinal</label>
-                                <div class="col-md-7">
-                                    <textarea rows="6" type="text" id="txtEtnomedicinal" name="oInv.cEtnomedicinal" class="form-control" required=""></textarea>
-                                </div>
-                            </div><div class="form-group m-b-5">
-                                <label class="col-md-4 control-label">Forma de empleo</label>
-                                <div class="col-md-7">
-                                    <textarea type="text" id="txtEmpleo" name="oInv.cManejo" class="form-control" required="" rows="6"></textarea>
-                                </div>
-                            </div><div class="form-group m-b-5">
-                                <label class="col-md-4 control-label">Efectos Adversos</label>
-                                <div class="col-md-7">
-                                    <input type="text" id="txtEfectos" name="oInv.cInteracciones" class="form-control" required="">
-                                </div>
-                            </div><div class="form-group m-b-5">
-                                <label class="col-md-4 control-label">Otros usos</label>
-                                <div class="col-md-7">
-                                    <textarea rows="2" type="text" id="txtUsos" name="oInv.cUsos" class="form-control" required=""></textarea>
-                                </div>
-                            </div><div class="form-group m-b-5">
-                                <label class="col-md-4 control-label">Vaucher</label>
-                                <div class="col-md-7">
-                                    <textarea rows="3" type="text" id="txtVaucher" name="oInv.cVaucher" class="form-control" required=""></textarea>
-                                </div>
-                            </div><div class="form-group m-b-5">
-                                <label class="col-md-4 control-label">Referencias Bibliográficas</label>
-                                <div class="col-md-7">
-                                    <textarea rows="6" type="text" id="txtRefBi" name="oInv.cRefeBiblio" class="form-control" required=""></textarea>
+                        <div class="col-md-5">
+                            <div class="panel panel-body" style="min-height:256px">
+                                <div class="col-md-12">
+                                    <div class="col-md-12">
+                                        <div id="imgPreview" class="thumbnail dropArea" style="margin-bottom: 5px;">
+                                            <img class="img-responsive" id="targetImg" style="max-height:323px;" />
+                                        </div>
+                                        <div id="data-desc" class="caption" style="display:none">
+                                            <a href="#" onclick="ClearPreview()"><i class="glyphicon glyphicon-trash"></i></a>
+                                            <span id="description"></span>
+                                        </div>
+                                        <input type="file" id="imageBrowes" />
+                                        <input id="hdnFoto" type="hidden" name="oInv.cFoto" " />
+                                        @*<a href="#" class="btn btn-default" onclick="Uploadimage()">Upload</a>*@
+                                        @*<hr />*@
+                                        @*<div class="btn btn-success">
+                                                <input type="file" id="imageBrowes" />
+                                            </div>*@
+                                    </div>
+                                    @*<div class="col-md-12 thumbnail" id="uploadedImage"></div>*@
                                 </div>
                             </div>
+                        </div>
+                        <div class="col-md-7">
+                            <div>
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab"> Sección 1 </a></li>
+                                    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab"> Sección 2 </a></li>
+                                    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab"> Sección 3 </a></li>
+                                    <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab"> Sección 4 </a></li>
+                                </ul>
+
+                                <!-- Tab panes -->
+                                <div class="tab-content m-t-5">
+                                    <div role="tabpanel" class="tab-pane active" id="home">
+                                        <div class="form-group m-b-5">
+                                            <input id="hdnPliId" type="hidden" name="oInv.nId" />
+                                            <label class="col-md-3 control-label">Código</label>
+                                            <div class="col-md-4">
+                                                <input type="text" id="txtCodigo" name="oInv.cCodigo" class="form-control" required="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group m-b-5">
+                                            <label class="col-md-3 control-label">Nombre Común</label>
+                                            <div class="col-md-9">
+                                                <input type="text" id="txtNomComun" name="oInv.cNombresComunes" class="form-control" required="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group m-b-5">
+                                            <label class="col-md-3 control-label">Nombre Científico</label>
+                                            <div class="col-md-9">
+                                                <input rows="5" type="text" id="txtNomCient" name="oInv.cNombreCientifico" class="form-control" required="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group m-b-5">
+                                            <label class="col-md-3 control-label">Sinonimia Vulgar</label>
+                                            <div class="col-md-9">
+                                                <textarea rows="5" type="text" id="txtSinonimia" name="oInv.cSinonimia" class="form-control" required=""></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group m-b-5">
+                                            <label class="col-md-3 control-label">Familia</label>
+                                            <div class="col-md-9">
+                                                <input type="text" id="txtFamilia" name="oInv.cFamilia" class="form-control" required="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group m-b-5">
+                                            <label class="col-md-3 control-label">Descripción Botánica</label>
+                                            <div class="col-md-9">
+                                                <textarea rows="5" type="text" id="txtDesBotanica" name="oInv.cDescripBotanica" class="form-control" required=""></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="profile">
+                                        <div class="form-group m-b-5">
+                                            <label class="col-md-3 control-label">Hábitat</label>
+                                            <div class="col-md-9">
+                                                <textarea type="text" rows="5" id="txtHabitat" name="oInv.cHabitat" class="form-control" required=""></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group m-b-5">
+                                            <label class="col-md-3 control-label">Distribución</label>
+                                            <div class="col-md-9">
+                                                <textarea rows="5" type="text" id="txtDistribucion" name="oInv.cDistribucion" class="form-control" required=""></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group m-b-5">
+                                            <label class="col-md-3 control-label">Composición Química</label>
+                                            <div class="col-md-9">
+                                                <textarea rows="5" type="text" id="txtCompoQuimica" name="oInv.cCompoQuimica" class="form-control" required=""></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group m-b-5">
+                                            <label class="col-md-3 control-label">Toxicidad</label>
+                                            <div class="col-md-9">
+                                                <input type="text" id="txtToxicidad" name="oInv.cToxicidad" class="form-control" required="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="messages">
+                                        <div class="form-group m-b-5">
+                                            <label class="col-md-3 control-label">Etnomedicinal</label>
+                                            <div class="col-md-9">
+                                                <textarea rows="6" type="text" id="txtEtnomedicinal" name="oInv.cEtnomedicinal" class="form-control" required=""></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group m-b-5">
+                                            <label class="col-md-3 control-label">Forma de empleo</label>
+                                            <div class="col-md-9">
+                                                <textarea type="text" id="txtEmpleo" name="oInv.cManejo" class="form-control" required="" rows="6"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group m-b-5">
+                                            <label class="col-md-3 control-label">Efectos Adversos</label>
+                                            <div class="col-md-9">
+                                                <input type="text" id="txtEfectos" name="oInv.cInteracciones" class="form-control" required="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group m-b-5">
+                                            <label class="col-md-3 control-label">Otros usos</label>
+                                            <div class="col-md-9">
+                                                <textarea rows="3" type="text" id="txtUsos" name="oInv.cUsos" class="form-control" required=""></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="settings">
+                                        <div class="form-group m-b-5">
+                                            <label class="col-md-3 control-label">Vaucher</label>
+                                            <div class="col-md-9">
+                                                <textarea rows="3" type="text" id="txtVaucher" name="oInv.cVaucher" class="form-control" required=""></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group m-b-5">
+                                            <label class="col-md-3 control-label">Referencias Bibliográficas</label>
+                                            <div class="col-md-9">
+                                                <textarea rows="6" type="text" id="txtRefBi" name="oInv.cRefeBiblio" class="form-control" required=""></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+
+
                         </div>
                     </div>
                     <div class="row m-b-10 m-t-10">
                         <div class="text-center">
-                            <input type="button" id="btnGrabarInventario" class="btn btn-sm btn-primary m-r-5" value="Grabar">
+                            <input type="button" id="btnGrabarInventario" class="btn btn-sm btn-success m-r-5" value="Grabar">
                             <input type="button" id="btnCancelarInventario" data-dismiss="modal" aria-hidden="true" class="btn btn-sm btn-default m-r-5" value="Cancelar">
                         </div>
                     </div>
@@ -153,17 +236,85 @@
     </div>
 </div>
 
-
+@*<script src="~/Content/js/jquery.filedrop.js"></script>*@
 <script type="text/javascript">
 
 
-    jQuery(function ($) {
+    $(function () {
+
+        $("#imageBrowes").change(function () {
+
+            var File = this.files;
+
+            if (File && File[0]) {
+                ReadImage(File[0]);
+            }
+
+        })
+
         $("#txtFechaNac").mask("99/99/9999", { placeholder: "dd/mm/yyyy" });
 
         $('input.target').click(function () {
             vista($(this).attr('href'));
         });
     });
+
+
+    var ReadImage = function (file) {
+
+        var reader = new FileReader;
+        var image = new Image;
+
+        reader.readAsDataURL(file);
+        reader.onload = function (_file) {
+
+            image.src = _file.target.result;
+            image.onload = function () {
+
+                var height = this.height;
+                var width = this.width;
+                var type = file.type;
+                var size = ~~(file.size / 1024) + "KB";
+
+                $("#hdnFoto").val(file.name);
+                $("#imgPreview").removeClass("dropArea");
+                $("#targetImg").attr('src', _file.target.result);
+                $("#description").text("Size:" + size + ", " + height + "X " + width + ", " + type + "");
+                $("#data-desc").show();
+            }
+        }
+    }
+
+    var ClearPreview = function () {
+        $("#imageBrowes").val('');
+        $("#description").text('');
+        $("#data-desc").hide();
+        $("#targetImg").attr('src', '');
+        $("#hdnFoto").val("");
+        $("#imgPreview").addClass("dropArea");
+    }
+
+    var Uploadimage = function () {
+
+        var file = $("#imageBrowes").get(0).files;
+
+        var data = new FormData;
+        data.append("ImageFile", file[0]);
+        data.append("ProductName", "SamsungA8");
+
+        $.ajax({
+            type: "Post",
+            url: '@Url.Action("ImageUpload", "Inventario")',
+            data: data,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                ClearPreview();
+                //$("#targetImg").attr("src", '/ArchivosSubidos/' + response);
+            }
+        })
+    }
+
 
     var vista = function ($target) {
         var $target = $($target),
@@ -246,7 +397,12 @@
                                 $("#txtUsos").val(oInv.cUsos);
                                 $("#txtVaucher").val(oInv.cVaucher);
                                 $("#hdnPliId").val(oInv.nId);
-                                //$("       ").val(oInv.cFoto);
+                                if (oInv.cFoto) {
+                                    $("#targetImg").attr("src", '/ArchivosSubidos/' + oInv.cFoto);
+                                    $("#imgPreview").removeClass("dropArea");
+                                }
+
+                                //$("#uploadedImage").append('<img src="/ArchivosSubidos/' + oInv.cFoto + '" class="img-responsive thumbnail"/>');
                             },
                             bloqueo: true
                         });
@@ -299,6 +455,7 @@
 
         if (!validator.hasErrors()) {
 
+            Uploadimage();
             //var radio = $('input[name="inputWalls"]:checked').val();
             //CrearHidden("#cntHidden", "oUsu.bEsInterno", (radio == "1" ? true : false));
             valores = form.serializeArray();
@@ -325,6 +482,8 @@
         $('#frmInventario')[0].reset();
         $("#hdnPliId").val("");
         $("#msg").html("");
+        $("#imgPreview").addClass("dropArea");
+        ClearPreview();
     }
 
     function Resultado(dato) {
@@ -339,5 +498,7 @@
             $.fn.Mensaje({ titulo: "Mensaje", mensaje: "La operación no se realizó correctamente" });
         }
     }
+
+
 
 </script>
