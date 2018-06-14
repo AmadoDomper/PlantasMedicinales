@@ -102,7 +102,7 @@
     <Content Include="Content\css\bootstrap.own.min.css" />
     <Content Include="Content\css\css.css" />
     <Content Include="Content\css\main-max.css" />
-    <Content Include="Content\css\main.css" />
+    <Content Include="Content\css\mainCatalogo.css" />
     <Content Include="Content\css\mainGestion.css" />
     <Content Include="Content\css\sb-admin-2.css" />
     <Content Include="Content\css\smoke-max.css" />
@@ -145,6 +145,7 @@
     <Content Include="Content\js\base\buscarPersona-1.0.0.js" />
     <Content Include="Content\js\base\buscarProducto-1.0.0.js" />
     <Content Include="Content\js\base\mensaje-1.0.0.js" />
+    <Content Include="Content\js\base\catalogo-1.0.0.js" />
     <Content Include="Content\js\base\tabla-1.0.0.js" />
     <Content Include="Content\js\base\ventana-1.0.0.js" />
     <Content Include="Content\js\bootstrap-multiselect.js" />
@@ -167,7 +168,9 @@
     <Content Include="Content\js\vendor\modernizr-2.6.2.min.js" />
     <Content Include="Content\js\vendor\sb-admin-2.js" />
     <Content Include="Global.asax" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -175,6 +178,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\Base\BaseController.cs" />
     <Compile Include="Controllers\Base\LogInController.cs" />
+    <Compile Include="Controllers\CatalogoController.cs" />
     <Compile Include="Controllers\ConfigController.cs" />
     <Compile Include="Controllers\GestionController.cs" />
     <Compile Include="Controllers\InventarioController.cs" />
@@ -185,6 +189,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\Constantes.cs" />
+    <Compile Include="Models\InventarioViewModel.cs" />
     <Compile Include="Models\UsuarioViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -236,6 +241,8 @@
     <Content Include="Views\Config\Config.cshtml" />
     <Content Include="Views\Usuario\GestionarUsuarios.cshtml" />
     <Content Include="Views\Inventario\Inventarios.cshtml" />
+    <Content Include="Views\Catalogo\Index.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -245,6 +252,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="ArchivosSubidos\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>

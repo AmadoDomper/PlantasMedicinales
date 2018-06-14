@@ -1,28 +1,8 @@
 
 
 (function ($) {
-    $.fn.Tabla = function (m) {
-        /*	var matrix = {
-                    contenedor: "#div",
-                    Max:	5 (máximoas fila)
-                    alineacion: "center";
-                    espacioceldas: "5px";
-                    claseFilas: clase1;
-                    claseFilasSobre:clase2;
-                    funcion_click: function(){}
-                    numerado: "si",
-                    Datos: {array con los datos}
-                    ConGlobo:"texto" //"genera un globo en la fila, si no se le pone o se le pone No no se muestra
-                    FilaEnlace: "Si" //por defecto no, define si la fila tiene el cursor de enlace
-                    idtabla: "idtabla"
-                    paginacion:{filas:10, pagina:1};
-                    conexion: {tipo: "EjecutarProcedimiento", procedimiento: "sp_servicioahabitacion_devolver", Datos: "Hotel Sol del Oriente"},
-                    opciones: [	{Columna:"Tipo1", clase:"necesario", imagen: "Interface/imagenes_sistemas/editar.png", titulo:titulo1, funcion: function(){}},
-                                {Columna:"Tipo2", clase:"necesario", imagen: "Interface/imagenes_sistemas/editar.png", titulo:titulo2, funcion: function(){}},
-                                {Columna:"Tipo3", clase:"necesario", imagen: "Interface/imagenes_sistemas/editar.png", titulo:titulo3, funcion: function(){}}
-                            ],			
-            }
-            */
+    $.fn.Catalogo = function (m) {
+
         var w = m.datos;
         m.tblId = m.tblId || "";
         m.textSearchId = m.textSearchId || "";
@@ -31,7 +11,7 @@
         m.cabecera = m.cabecera || "";
         m.clickEvent = m.clickEvent || function () { };
         m.pag = m.pag || false;
-        m.pagDato = m.pagDato || {}; // { "nPage": d.nPage (Indice), "nPageTot": d.nPageTot (Total paginas), "nPageSize": d.nPageSize (Lineas por paginas), "nRows": d.nRows (Total de filas) }
+        m.pagDato = m.pagDato || {};
         m.pagEvent = m.pagEvent || function () { };
         m.claseSobre = m.claseSobre || "Si";
         m.scrollVertical = m.scrollVertical || "No";
@@ -56,6 +36,7 @@
         m.click = m.click || false;
         m.elim = m.elim || false;
         m.elimEvent = m.elimEvent || function () { };
+        m.tipoCatalogo = m.tipoCatalogo || "ficha";
 
         var col = m.cabecera.split(",");
         var tipo = m.tipoCampo.split(","); //D:double, F: Fecha, C: CheckBox
@@ -67,17 +48,62 @@
         var cssTbl = "table-responsive";
 
         if (m.scrollVertical == "Si") {
-            cssTbl += " scrollvertical-" + m.cantRegVertical
-            //switch(m.cantRegVertical){
-            //    case 4: cssTbl += " scrollvertical-4"; break
-            //    case 8: cssTbl += " scrollvertical-8"; break
-            //}
+            cssTbl += " scrollvertical-" + m.cantRegVertical;
         }
 
         if (m.pagDato.nRows <= m.pagDato.nPageSize) { m.pag = false; }
 
         var html = '';
-        html = '<div class="' + cssTbl + '"><table data-edit="false" id="' + m.tblId + '" class="table ' + m.tblStyle + ' table-hover">';
+
+        //Opciones
+
+        html += '<div class="btn-toolbar" role="toolbar">';
+        html += '<div id="btnCatalogoTipo" class="btn-group text-center">';
+        html += '<button for="cntFichas" type="button" class="btn btn-default btn-success" aria-label="Left Align">Ficha</button>';
+        html += '<button for="cntTabla" type="button" class="btn btn-default" aria-label="Center Align">Tabla</button>';
+        html += '</div>';
+        html += '</div>';
+
+
+        var i = 0;
+        //var j = 0;
+        var ficha = '';
+        var c = 3;
+
+        html += '<div><div id="cntFichas">';
+        for (i in m.datos) {
+            if (camp.length > 0) {
+                
+
+                ficha += '<div class="col-xs-12 col-sm-6 col-md-4 col-lg-' + (12 / c) + '">';
+                ficha += '<div class="ficha thumbnail">';
+                ficha += '<div class="ficha-img">';
+                ficha += '<img class="img-responsive" id="targetImg" style="max-height:323px;" src="/ArchivosSubidos/' + eval("m.datos[i].cFoto") + '">';
+                ficha += '</div>';
+                ficha += '<div class="ficha-desc">';
+                ficha += '<label class="nombre-comun control-label m-r-5">' + eval("m.datos[i].cNomCom") + '</label>';
+                ficha += '<label class="nombre-cient control-label m-r-5">' + eval("m.datos[i].cNomCie") + '</label>';
+                ficha += '<label class="familia control-label m-r-5">' + eval("m.datos[i].cFam") + '</label>';
+                ficha += '</div>';
+                ficha += '</div>';
+                ficha += '</div>';
+                
+                //j++;
+                //if (j == c) {
+                //    html += '<div class="row">' + ficha + '</div>';
+                //    j = 0;
+                //    ficha = '';
+                //}
+            }
+        }
+
+        if (ficha != '') {
+            html += '<div class="row">' + ficha + '</div>';
+        }
+
+        html += '</div>';
+
+        html += '<div class="' + cssTbl + '" style="display:none;" id="cntTabla" ><table data-edit="false" id="' + m.tblId + '" class="table ' + m.tblStyle + ' table-hover">';
 
         //Cabecera
         html += '<thead><tr>';
@@ -128,7 +154,7 @@
                 }
 
                 if (m.edit) {
-                    html += '<td class="edit" style="cursor: pointer;text-align: center;vertical-align: middle;"><span style="color: #439b43;font-size:15px;" class="glyphicon glyphicon-pencil" aria-hidden="true"></span></td>';
+                    html += '<td class="edit" style="cursor: pointer;text-align: center;vertical-align: middle;"><span style="color: #3C86C7;font-size:15px;" class="glyphicon glyphicon-pencil" aria-hidden="true"></span></td>';
                 }
                 if (m.search) {
                     html += '<td class="search" style="cursor: pointer;text-align: center;vertical-align: middle;"><span style="color: #3C86C7;font-size:15px;" class="glyphicon glyphicon-search" aria-hidden="true"></span></td>';
@@ -158,19 +184,19 @@
         }
 
 
-        html += '</tbody></table>';
+        html += '</tbody></table></div></div>';
 
         if (m.pag && m.datos.length > 0) {
 
-            html += '<div class="text-right" id="cntPaginacion">';
+            html += '<div class="text-center" id="cntPaginacion">';
             html += '<ul class="pagination m-t-10 m-b-10">';
             html += '<li class="previous" id="example1_previous">';
-            html += '<a href="#" data-dt-idx="0" tabindex="0">Anterior</a></li>';
+            html += '<a data-dt-idx="0" tabindex="0">Anterior</a></li>';
 
 
             var ini = 1;
             var fin = m.pagDato.nPageTot;
-            var nPag = 10
+            //var nPag = 10
             if (m.pagDato.nPageTot > 10) {
 
                 fin = ini + 9;
@@ -183,24 +209,14 @@
                     fin = m.pagDato.nPageTot;
                 }
 
-
-                //ini = (m.pagDato.nPage > 6 && ) ? m.pagDato.nPage - 5 : 1;
-                //fin = (m.pagDato.nPage + 4) >= m.pagDato.nPageTot ? m.pagDato.nPageTot : m.pagDato.nPage + 4
-
             }
 
-
-            //for (var i = 1; i <= m.pagDato.nPageSize /*m.pagDato.nPageTot*/; i++) {
-            //    html += '<li><a href="#" data-dt-idx="' + i + '" tabindex="0">' + i + '</a></li>';
-            //}
-
-            for (var i = ini; i <= fin /*m.pagDato.nPageTot*/; i++) {
-                html += '<li><a href="#" data-dt-idx="' + i + '" tabindex="0">' + i + '</a></li>';
+            for (var i = ini; i <= fin ; i++) {
+                html += '<li><a data-dt-idx="' + i + '" tabindex="0">' + i + '</a></li>';
             }
 
             html += '<li class="next" id="example1_next">';
-            //html += '<a href="#" data-dt-idx="' + (m.pagDato.nPageTot + 1) + '" tabindex="0">Siguiente</a>';
-            html += '<a href="#" data-dt-idx="' + (m.pagDato.nPageTot + 1) + '" tabindex="0">Siguiente</a>';
+            html += '<a data-dt-idx="' + (m.pagDato.nPageTot + 1) + '" tabindex="0">Siguiente</a>';
             html += '</li></ul></div>';
         }
 
@@ -232,7 +248,7 @@
             var $a;
             var i = 0;
             $a = m.alinear.split(",");
-            for (i in $a) { $("#" + m.tblId + " tbody tr").find('td:eq(' + i + ')').css("text-align", $a[i] == 'L' ? 'Left' : $a[i] == 'C' ? 'Center' : $a[i] == 'R' ? 'Right' : '').css("vertical-align","middle"); }
+            for (i in $a) { $("#" + m.tblId + " tbody tr").find('td:eq(' + i + ')').css("text-align", $a[i] == 'L' ? 'Left' : $a[i] == 'C' ? 'Center' : $a[i] == 'R' ? 'Right' : '').css("vertical-align", "middle"); }
         }
 
 
@@ -324,6 +340,18 @@
                 }
             });
         }
+
+        $("#btnCatalogoTipo button").click(function () {
+            var $target = $('#' + $(this).attr('for')),
+                $other = $target.siblings();
+
+            $("#btnCatalogoTipo button").removeClass("btn-success");
+            $(this).addClass("btn-success");
+            $target.show();
+            $other.hide();
+        });
+
+
 
         if (m.textSearchId != "") {
             $('#' + m.textSearchId).keyup(function () {

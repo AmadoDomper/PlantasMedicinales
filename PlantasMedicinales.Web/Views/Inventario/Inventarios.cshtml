@@ -45,7 +45,7 @@
                         <div class="form-group">
                             <input type="text" id="txtValor" class="form-control" placeholder="Nombre Común, Sinonimia, Nombre Científico...">
                         </div>
-                        <input id="btnBuscarPlanta" type="button" value="Buscar" class="btn btn-sm btn-primary">
+                        <input id="btnBuscarPlanta" type="button" value="Buscar" class="btn btn-sm btn-success">
                     </div>
                 </div>
             </div>
@@ -118,15 +118,15 @@
                                             </div>
                                         </div>
                                         <div class="form-group m-b-5">
-                                            <label class="col-md-3 control-label">Nombre Científico</label>
-                                            <div class="col-md-9">
-                                                <input rows="5" type="text" id="txtNomCient" name="oInv.cNombreCientifico" class="form-control" required="">
-                                            </div>
-                                        </div>
-                                        <div class="form-group m-b-5">
                                             <label class="col-md-3 control-label">Sinonimia Vulgar</label>
                                             <div class="col-md-9">
                                                 <textarea rows="5" type="text" id="txtSinonimia" name="oInv.cSinonimia" class="form-control" required=""></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group m-b-5">
+                                            <label class="col-md-3 control-label">Nombre Científico</label>
+                                            <div class="col-md-9">
+                                                <input rows="5" type="text" id="txtNomCient" name="oInv.cNombreCientifico" class="form-control" required="">
                                             </div>
                                         </div>
                                         <div class="form-group m-b-5">
@@ -298,21 +298,23 @@
 
         var file = $("#imageBrowes").get(0).files;
 
-        var data = new FormData;
-        data.append("ImageFile", file[0]);
-        data.append("ProductName", "SamsungA8");
+        if (file.length > 0) {
+            var data = new FormData;
+            data.append("ImageFile", file[0]);
+            data.append("ProductName", "SamsungA8");
 
-        $.ajax({
-            type: "Post",
-            url: '@Url.Action("ImageUpload", "Inventario")',
-            data: data,
-            contentType: false,
-            processData: false,
-            success: function (response) {
-                ClearPreview();
-                //$("#targetImg").attr("src", '/ArchivosSubidos/' + response);
-            }
-        })
+            $.ajax({
+                type: "Post",
+                url: '@Url.Action("ImageUpload", "Inventario")',
+                data: data,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    ClearPreview();
+                    //$("#targetImg").attr("src", '/ArchivosSubidos/' + response);
+                }
+            })
+        }
     }
 
 
@@ -339,7 +341,6 @@
     ListarPlantas();
 
     function ListarPlantas(nPage, nSize, blo) {
-        var nUsuId, cUsuDesc, cUsuName, cUsuDOI;
         var valor = $("#txtValor").val();
         valor = valor == "" ? null : valor;
 
@@ -367,7 +368,7 @@
                     dblClick: true,
                     editEvent: function (fila) {
                         var nInv = fila.find("td").eq(0).html();
-                        console.log(nUsuId);
+                        console.log(nInv);
                         $("#hdnEstado").val("E");
                         $('input.target')[0].click();
                         //$("#txtUsu").attr("disabled", true);

@@ -18,13 +18,13 @@
 		var btnId;
 		switch (m.tipo) {
 			case "Aceptar":
-				html = html + '<div class="row"> <div class="col-xs-3 col-sm-4 col-md-4 col-lg-4"></div> <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4"> <button type="button" id="btnAceptarMen" class="btn btn-sm btn-primary btn-block">Aceptar</button> </div> <div class="col-xs-3  col-sm-4 col-md-4 col-lg-4"></div> </div>';
+				html = html + '<div class="row"> <div class="col-xs-3 col-sm-4 col-md-4 col-lg-4"></div> <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4"> <button type="button" id="btnAceptarMen" class="btn btn-sm btn-success btn-block">Aceptar</button> </div> <div class="col-xs-3  col-sm-4 col-md-4 col-lg-4"></div> </div>';
 				break;
 			case "SiNo":
-				html = html + '<div class="row"> <div class="hidden-xs col-sm-3 col-md-3 col-lg-3"></div> <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3"> <button type="button" id="btnAceptarMen" class="btn btn-sm btn-primary btn-block">Si</button> </div> <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3"> <button type="button" id="btnCancMen" class="btn btn-sm btn-default btn-block">No</button> </div> <div class="hidden-xs col-sm-3 col-md-3 col-lg-3"></div> </div>';
+			    html = html + '<div class="row"> <div class="hidden-xs col-sm-3 col-md-3 col-lg-3"></div> <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3"> <button type="button" id="btnAceptarMen" class="btn btn-sm btn-success btn-block">Si</button> </div> <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3"> <button type="button" id="btnCancMen" class="btn btn-sm btn-default btn-block">No</button> </div> <div class="hidden-xs col-sm-3 col-md-3 col-lg-3"></div> </div>';
 				break;
 			case "AcepCanc":
-				html = html + '<div class="row"> <div class="hidden-xs col-sm-3 col-md-3 col-lg-3"></div> <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3"> <button type="button" id="btnAceptarMen" class="btn btn-sm btn-primary btn-block">Aceptar</button> </div> <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3"> <button type="button" id="btnNoMen" class="btn btn-sm btn-default btn-block">Cancelar</button> </div> <div class="hidden-xs col-sm-3 col-md-3 col-lg-3"></div> </div>';
+			    html = html + '<div class="row"> <div class="hidden-xs col-sm-3 col-md-3 col-lg-3"></div> <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3"> <button type="button" id="btnAceptarMen" class="btn btn-sm btn-success btn-block">Aceptar</button> </div> <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3"> <button type="button" id="btnNoMen" class="btn btn-sm btn-default btn-block">Cancelar</button> </div> <div class="hidden-xs col-sm-3 col-md-3 col-lg-3"></div> </div>';
 				break;
 		}
 

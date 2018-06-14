@@ -26,9 +26,9 @@ namespace PlantasMedicinales.Web.Controllers
         public string ListaPlantasPag(int nPage = 1, int nSize = 10, string cValor = null)
         {
             PlinianLN oPlantas = new PlinianLN();
-            ListaPaginada ListaUsuariosPag = oPlantas.ListarPlantasPag(nPage, nSize, cValor);
+            ListaPaginada ListaPlantasPag = oPlantas.ListarPlantasPag(nPage, nSize, cValor);
 
-            return JsonConvert.SerializeObject(ListaUsuariosPag, Formatting.None,
+            return JsonConvert.SerializeObject(ListaPlantasPag, Formatting.None,
             new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore });
         }
 

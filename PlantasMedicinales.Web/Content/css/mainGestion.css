@@ -494,7 +494,8 @@ header {
 
 thead {
     text-align: center;
-    background: none repeat scroll 0 0 #F2F2F2;
+    background: none repeat scroll 0 0 #6cbd6c;
+    color: #fff;
 }
 
 table > thead > tr > th {

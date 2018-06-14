@@ -11,56 +11,34 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="http://iiap.org.pe/favicon.ico" type="image/x-icon">
-    <title>@ViewBag.Title | Mapa de Publicaciones IIAP</title>
-    <!-- Bootstrap Core CSS -->
+    <title>@ViewBag.Title | Plantas Medicinales</title>
     @*<link href="~/Content/css/bootstrap.css" rel="stylesheet">*@
-    <link href="http://iiap.org.pe/visor/css/bootstrap.own.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="~/Content/css/main.css" rel="stylesheet">
+    @*<link href="http://iiap.org.pe/visor/css/bootstrap.own.min.css" rel="stylesheet">*@
+    <link rel="stylesheet" href="@Url.Content("~/Content/css/bootstrap.css")">
+    <link href="~/Content/css/mainCatalogo.css" rel="stylesheet">
     <link rel="stylesheet" href="~/Content/font-awesome-4.7.0/css/font-awesome.css" />
-
-    <!-- OpenLayer CSS-->
-    <link rel="stylesheet" href="~/Content/css/ol.css" type="text/css" />
-    <link rel="stylesheet" href="~/Content/css/ol3-layerswitcher.css" type="text/css" />
-    <link rel="stylesheet" href="~/Content/css/ol3-popup.css" type="text/css" />
-    <link rel="stylesheet" href="~/Content/css/ol3gm.css" type="text/css" />
-
-    <!--SMOKE VALIDATION CSS-->
-    @*<link rel="stylesheet" href="~/Content/css/smoke.css" type="text/css" />*@
 </head>
 <body>
-    <!--js archivos-->
-    <!-- jQuery -->
-    @*<script src="~/Content/js/jquery.js"></script>*@
-    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-
+    @*<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>*@
+    <script src="@Url.Content("~/Content/js/jquery.js")"></script>
     <!--Personal Utils-->
     <script src="~/Content/js/utils.min.js"></script>
-    <script src="~/Content/js/conexion-1.0.0.min.js"></script>
+    <script src="~/Content/js/conexion-1.0.0.js"></script>
+    <script src="~/Content/js/base/catalogo-1.0.0.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    @*<script src="~/Content/js/bootstrap.min.js"></script>*@
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <!--OpenLayer JS-->
-    @*<script src="~/Content/js/ol.js"></script>*@
-    <script src="https://openlayers.org/en/v3.7.0/build/ol.js"></script>
-    <script src="~/Content/js/ol3-layerswitcher.min.js"></script>
-    <script src="~/Content/js/ol3-popup.min.js"></script>
-
-    <!--SMOKE VALIDATION JS-->
-    @*<script src="~/Content/js/smoke.min.js"></script>*@
+    <script src="~/Content/js/bootstrap.min.js"></script>
 
     <!--fin js archivos-->
 
-    <script type="text/javascript">
+    @*<script type="text/javascript">
         //pasamos el modelo a javascript
         var Model = @Html.Raw(Json.Encode(@Model));
-    </script>
+    </script>*@
 
 
     <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -76,45 +54,27 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="@Url.Action("Index", "Inicio")">Mapa Global de Publicaciones (Amazonía)</a>
+                <a class="navbar-brand" href="@Url.Action("/")"> Plantas Medicinales </a>
             </div>
-
-
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li>
-                        <a href="@Url.Action("Acerca", "Inicio")">Acerca del proyecto</a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("Contacto", "Inicio")">Contacto</a>
-                    </li>
+                    @*<li>
+                        <a href="@Url.Action("Acerca", "Inicio")">Guía</a>
+                    </li>*@
                 </ul>
-
-
                 <ul class="nav navbar-nav navbar-right">
-
-
                     @if (oUsuario == null)
                     {
                         <li class="">
-                            <a href="@Url.Action("Login", "Login")">Iniciar Sesión</a>
+                            <a href="@Url.Action("LogIn", "LogIn")">Iniciar Sesión</a>
                         </li>
                     }
                     else
                     {
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@oUsuario.cDni <span class="caret"></span></a>
-
-                            @*<ul class="dropdown-menu">
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="@Url.Action("Registrar", "Publicacion")">Registrar publicación</a></li>
-                                    <li><a href="@Url.Action("Listar", "Publicacion")">Mantener publicaciones</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="@Url.Action("CerrarSession", "Login")">Salir</a></li>
-                                </ul>*@
-
                             <ul class="dropdown-menu dropdown-user">
                                 <li>
                                     <a href="@Url.Action("Index", "Gestion")"><i class="fa fa-home" aria-hidden="true"></i> Gestionar Publicaciones</a>
@@ -128,8 +88,6 @@
                         </li>
                     }
                 </ul>
-
-
             </div>
             <!-- /.navbar-collapse -->
         </div>
@@ -139,9 +97,6 @@
     <div class="container card">
         @RenderBody()
         <hr>
-        <!-- Footer -->
-
-
     </div>
 
     <div class="container">

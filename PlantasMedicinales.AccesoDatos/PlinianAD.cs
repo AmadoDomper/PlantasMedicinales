@@ -37,6 +37,7 @@ namespace PlantasMedicinales.AccesoDatos
                 int iPli_NombresComunes	      = oIDataReader.GetOrdinal("Pli_NombresComunes");
                 int iPli_NombreCientifico     = oIDataReader.GetOrdinal("Pli_NombreCientifico");
                 int iPli_Familia			  = oIDataReader.GetOrdinal("Pli_Familia");
+                int iPli_Foto                 = oIDataReader.GetOrdinal("Pli_Foto");
                 int iPli_Estado               = oIDataReader.GetOrdinal("Pli_Estado");	
 
                 while (oIDataReader.Read())
@@ -48,6 +49,7 @@ namespace PlantasMedicinales.AccesoDatos
                     oPlinian.cNombresComunes        = DataUtil.DbValueToDefault<String>(oIDataReader[iPli_NombresComunes]);
                     oPlinian.cNombreCientifico      = DataUtil.DbValueToDefault<String>(oIDataReader[iPli_NombreCientifico]);
                     oPlinian.cFamilia               = DataUtil.DbValueToDefault<String>(oIDataReader[iPli_Familia]);
+                    oPlinian.cFoto                  = DataUtil.DbValueToDefault<String>(oIDataReader[iPli_Foto]);
                     oPlinian.nEstado                = DataUtil.DbValueToDefault<Byte>(oIDataReader[iPli_Estado]);
 
                     ListaUsuPag.oLista.Add(oPlinian);

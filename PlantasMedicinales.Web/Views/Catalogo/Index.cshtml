@@ -1,0 +1,109 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row color19">
+    <div class="form-group col-lg-12">
+        <label class="control-label m-r-5" for="status">Buscar:</label>
+        <input type="text" id="txtBuscar" class="form-control">
+    </div>
+</div>
+@*<div class="row">
+        <div class="col-lg-12">
+            <button type="button" class="btn btn-default">Ficha</button>
+            <button type="button" class="btn btn-default">Tabla</button>
+            <button type="button" class="btn btn-default">Mostrar Todo</button>
+        </div>
+    </div>*@
+
+
+<div class="row">
+    <div id="cntCatalogo" class="col-lg-12">
+
+    </div>
+</div>
+
+<script type="text/javascript">
+
+
+    var datos = {};
+
+    ListarCatalogo();
+
+    function ListarCatalogo(nPage, nSize, blo) {
+        var valor = $("#txtBuscar").val();
+        valor = valor == "" ? null : valor;
+
+
+        $.fn.Conexion({
+            direccion: '@Url.Action("ListaCatalogo", "Catalogo")',
+            datos: { "nPage": nPage, "nSize": nSize, "cValor": valor },
+            bloqueo: blo == false ? false : true,
+            terminado: function (data) {
+                var d = JSON.parse(data);
+                datos = d;
+
+                $("#cntCatalogo").Catalogo({
+                    tblId: "tblPlantasMedicinales",
+                    cabecera: "#,Codigo,Nombre Común,Nombre Científico,Familia",
+                    campos: "nId,cCod,cNomCom,cNomCie,cFam",
+                    scrollVertical: "Si",
+                    alinear: "C,C,C,C,C,C",
+                    cellLen: "70,70,100,100,100,60,60",
+                    cantRegVertical: 15,
+                    pag: true,
+                    pagDato: { "nPage": d.nPage, "nPageTot": d.nPageTot, "nPageSize": d.nPageSize, "nRows": d.nRows },
+                    pagEvent: ListarCatalogo,
+                    edit: true,
+                    dblClick: true,
+                    editEvent: function (fila) {
+                        var nInv = fila.find("td").eq(0).html();
+                        console.log(nUsuId);
+                        $("#hdnEstado").val("E");
+                        $('input.target')[0].click();
+
+                        $.fn.Conexion({
+                            direccion: '@Url.Action("CargarDatosIventario", "Inventario")',
+                            datos: { "nInv": nInv },
+                            terminado: function (data, textStatus, jqXHR) {
+                                var oInv = JSON.parse(data);
+
+                                console.log(oInv);
+
+                                $("#txtCodigo").val(oInv.cCod);
+                                $("#txtCompoQuimica").val(oInv.cComQui);
+                                $("#txtDesBotanica").val(oInv.cDesc);
+                                $("#txtDistribucion").val(oInv.cDist);
+                                $("#txtEtnomedicinal").val(oInv.cEtno);
+                                $("#txtFamilia").val(oInv.cFam);
+                                $("#txtHabitat").val(oInv.cHab);
+                                $("#txtEfectos").val(oInv.cInterac);
+                                $("#txtEmpleo").val(oInv.cManejo);
+                                $("#txtNomCient").val(oInv.cNomCie);
+                                $("#txtNomComun").val(oInv.cNomCom);
+                                $("#txtRefBi").val(oInv.cRefBi);
+                                $("#txtSinonimia").val(oInv.cSino);
+                                $("#txtToxicidad").val(oInv.cToxi);
+                                $("#txtUsos").val(oInv.cUsos);
+                                $("#txtVaucher").val(oInv.cVaucher);
+                                $("#hdnPliId").val(oInv.nId);
+                                if (oInv.cFoto) {
+                                    $("#targetImg").attr("src", '/ArchivosSubidos/' + oInv.cFoto);
+                                    $("#imgPreview").removeClass("dropArea");
+                                }
+                            },
+                            bloqueo: true
+                        });
+                    },
+                    datos: d.oLista
+                });
+            }
+        });
+    }
+
+    $("#txtBuscar").keyup(function (e) {
+        if (e.which == 13) { ListarCatalogo(); }
+    });
+
+</script>
