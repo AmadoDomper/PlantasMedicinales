@@ -3,12 +3,59 @@
     ViewBag.Title = "Index";
 }
 
-<div class="row color19">
-    <div class="form-group col-lg-12">
-        <label class="control-label m-r-5" for="status">Buscar:</label>
-        <input type="text" id="txtBuscar" class="form-control">
-    </div>
+@*<div class="row">
+        <div class="form-group col-xs-3 col-sm-5 col-md-5 col-lg-5">
+            <button id="btnCatalogo" type="button" class="btn btn-default btn-success" aria-label="Left Align" style="display:none;">
+                <i class="fa fa-book" aria-hidden="true"></i>  Catalogo
+            </button>
+        </div>
+        <div id="buscar" class="col-xs-8 col-sm-5 col-md-5 col-lg-5">
+            <div class="input-group">
+                <input type="text" id="txtBuscar" class="form-control" placeholder="Buscar...">
+                <span class="input-group-btn">
+                    <button class="btn btn-success" type="button">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>*@
+
+
+<div id="opciones" class="row">
+    @*<div class="form-group col-xs-3 col-sm-5 col-md-5 col-lg-5">
+            <button id="btnCatalogo" type="button" class="btn btn-default btn-success" aria-label="Left Align" style="display: none;">
+                <i class="fa fa-book" aria-hidden="true"></i>  Catalogo
+            </button>
+            <div id="btnCatalogoTipo" class="btn-group text-center ">
+                <button for="cntFichas" data="ficha" type="button" class="btn btn-default btn-success" aria-label="Left Align">Ficha</button>
+                <button for="cntTabla" data="tabla" type="button" class="btn btn-default " aria-label="Center Align">Tabla</button>
+            </div>
+        </div>
+        <div id="buscar" class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+            <div class="input-group">
+                <input type="text" id="txtBuscar" class="form-control" placeholder="Buscar...">
+                <span class="input-group-btn">
+                    <button class="btn btn-success" type="button">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    </button>
+                </span>
+            </div>
+        </div>*@
 </div>
+
+
+
+
+
+@*<div class="row">
+        <div class="form-group col-lg-12">
+            <label class="buscar col-md-1 control-label">Buscar:</label>
+            <div class="col-md-11" style="padding: 0px;">
+                <input type="text" id="txtBuscar" class="form-control">
+            </div>
+        </div>
+    </div>*@
 @*<div class="row">
         <div class="col-lg-12">
             <button type="button" class="btn btn-default">Ficha</button>
@@ -23,23 +70,407 @@
 
     </div>
 </div>
+<div class="row">
+    <div class="col-lg-12">
+        <div id="cntDetCatalogo" style="display:none;" class="panel panel-inverse" data-sortable-id="form-stuff-1">
+            @*<div class="panel-heading">
+                    <h4 class="panel-title">Ficha de Registro de Plantas Medicinales</h4>
+                </div>*@
+            <div class="panel-body">
+                <div class="col-md-5">
+                    <div id="imgPreview" class="" style="margin-bottom: 5px;">
+                        <img class="img-responsive" id="targetImg" @*style="max-height:424px;"*@ />
+                    </div>
+
+                    @*<div class="panel panel-body" style="min-height:256px">
+                            <div class="col-md-12">
+                                <div id="imgPreview" class="thumbnail" style="margin-bottom: 5px;">
+                                    <img class="img-responsive" id="targetImg" style="max-height:323px;" />
+                                </div>
+                            </div>
+                        </div>*@
+                </div>
+                <div class="col-md-7">
+                    <form class="form-horizontal">
+                        <!-- Nav tabs -->
+                        @*<ul id="mytabs" class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab"> Sección 1 </a></li>
+                                <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab"> Sección 2 </a></li>
+                                <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab"> Sección 3 </a></li>
+                                <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab"> Sección 4 </a></li>
+                            </ul>*@
+
+                        <!-- Tab panes -->
+                        @*<div class="tab-content m-t-5">
+                                <div role="tabpanel" class="tab-pane active" id="home">
+                                    <div class="form-group m-b-5">
+                                        <input id="hdnPliId" type="hidden" name="oInv.nId" />
+                                        <label class="col-md-3 control-label">Código</label>
+                                        <div class="col-md-4">
+                                            <input type="text" id="txtCodigo" name="oInv.cCodigo" class="form-control" required="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-5">
+                                        <label class="col-md-3 control-label">Nombre Común</label>
+                                        <div class="col-md-9">
+                                            <input type="text" id="txtNomComun" name="oInv.cNombresComunes" class="form-control" required="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-5">
+                                        <label class="col-md-3 control-label">Sinonimia Vulgar</label>
+                                        <div class="col-md-9">
+                                            <textarea rows="5" type="text" id="txtSinonimia" name="oInv.cSinonimia" class="form-control" required=""></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-5">
+                                        <label class="col-md-3 control-label">Nombre Científico</label>
+                                        <div class="col-md-9">
+                                            <input rows="5" type="text" id="txtNomCient" name="oInv.cNombreCientifico" class="form-control" required="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-5">
+                                        <label class="col-md-3 control-label">Familia</label>
+                                        <div class="col-md-9">
+                                            <input type="text" id="txtFamilia" name="oInv.cFamilia" class="form-control" required="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-5">
+                                        <label class="col-md-3 control-label">Descripción Botánica</label>
+                                        <div class="col-md-9">
+                                            <textarea rows="5" type="text" id="txtDesBotanica" name="oInv.cDescripBotanica" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="profile">
+                                    <div class="form-group m-b-5">
+                                        <label class="col-md-3 control-label">Hábitat</label>
+                                        <div class="col-md-9">
+                                            <textarea type="text" rows="5" id="txtHabitat" name="oInv.cHabitat" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-5">
+                                        <label class="col-md-3 control-label">Distribución</label>
+                                        <div class="col-md-9">
+                                            <textarea rows="5" type="text" id="txtDistribucion" name="oInv.cDistribucion" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-5">
+                                        <label class="col-md-3 control-label">Composición Química</label>
+                                        <div class="col-md-9">
+                                            <textarea rows="5" type="text" id="txtCompoQuimica" name="oInv.cCompoQuimica" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-5">
+                                        <label class="col-md-3 control-label">Toxicidad</label>
+                                        <div class="col-md-9">
+                                            <input type="text" id="txtToxicidad" name="oInv.cToxicidad" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="messages">
+                                    <div class="form-group m-b-5">
+                                        <label class="col-md-3 control-label">Etnomedicinal</label>
+                                        <div class="col-md-9">
+                                            <textarea rows="6" type="text" id="txtEtnomedicinal" name="oInv.cEtnomedicinal" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-5">
+                                        <label class="col-md-3 control-label">Forma de empleo</label>
+                                        <div class="col-md-9">
+                                            <textarea type="text" id="txtEmpleo" name="oInv.cManejo" class="form-control" rows="6"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-5">
+                                        <label class="col-md-3 control-label">Efectos Adversos</label>
+                                        <div class="col-md-9">
+                                            <input type="text" id="txtEfectos" name="oInv.cInteracciones" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-5">
+                                        <label class="col-md-3 control-label">Otros usos</label>
+                                        <div class="col-md-9">
+                                            <textarea rows="3" type="text" id="txtUsos" name="oInv.cUsos" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="settings">
+                                    <div class="form-group m-b-5">
+                                        <label class="col-md-3 control-label">Vaucher</label>
+                                        <div class="col-md-9">
+                                            <textarea rows="3" type="text" id="txtVaucher" name="oInv.cVaucher" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-5">
+                                        <label class="col-md-3 control-label">Referencias Bibliográficas</label>
+                                        <div class="col-md-9">
+                                            <textarea rows="6" type="text" id="txtRefBi" name="oInv.cRefeBiblio" class="form-control" required=""></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>*@
+
+
+                        @*<div class="tab-content m-t-5">
+                                <div role="tabpanel" class="tab-pane active" id="home">
+                                    <div class="form-group m-b-5">
+                                        <input id="hdnPliId" type="hidden" name="oInv.nId" />
+                                        <label class="col-md-3 control-label">Código</label>
+                                        <div class="col-md-9">
+                                            <label id="lblCodigo" class="control-label"></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-5">
+                                        <label class="col-md-3 control-label">Nombre Común</label>
+                                        <div class="col-md-9">
+                                            <label id="lblNomComun" class="control-label"></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-5">
+                                        <label class="col-md-3 control-label">Sinonimia Vulgar</label>
+                                        <div class="col-md-9">
+                                            <p id="lblSinonimia" class="control-label" ></p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-5">
+                                        <label class="col-md-3 control-label">Nombre Científico</label>
+                                        <div class="col-md-9">
+                                            <label  id="lblNomCient" class="control-label"></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-5">
+                                        <label class="col-md-3 control-label">Familia</label>
+                                        <div class="col-md-9">
+                                            <label id="lblFamilia" class="control-label"></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-5">
+                                        <label class="col-md-3 control-label">Descripción Botánica</label>
+                                        <div class="col-md-9">
+                                            <p id="lblDesBotanica"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="profile">
+                                    <div class="form-group m-b-5">
+                                        <label class="col-md-3 control-label">Hábitat</label>
+                                        <div class="col-md-9">
+                                            <p id="lblHabitat"></p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-5">
+                                        <label class="col-md-3 control-label">Distribución</label>
+                                        <div class="col-md-9">
+                                            <p id="lblDistribucion"></p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-5">
+                                        <label class="col-md-3 control-label">Composición Química</label>
+                                        <div class="col-md-9">
+                                            <p id="lblCompoQuimica"></p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-5">
+                                        <label class="col-md-3 control-label">Toxicidad</label>
+                                        <div class="col-md-9">
+                                            <label id="lblToxicidad" class="control-label"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="messages">
+                                    <div class="form-group m-b-5">
+                                        <label class="col-md-3 control-label">Etnomedicinal</label>
+                                        <div class="col-md-9">
+                                            <p id="lblEtnomedicinal"></p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-5">
+                                        <label class="col-md-3 control-label">Forma de empleo</label>
+                                        <div class="col-md-9">
+                                            <p id="lblEmpleo"></p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-5">
+                                        <label class="col-md-3 control-label">Efectos Adversos</label>
+                                        <div class="col-md-9">
+                                            <p id="lblEfectos"></p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-5">
+                                        <label class="col-md-3 control-label">Otros usos</label>
+                                        <div class="col-md-9">
+                                            <p id="lblUsos"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="settings">
+                                    <div class="form-group m-b-5">
+                                        <label class="col-md-3 control-label">Vaucher</label>
+                                        <div class="col-md-9">
+                                            <p id="lblVaucher"></p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-b-5">
+                                        <label class="col-md-3 control-label">Referencias Bibliográficas</label>
+                                        <div class="col-md-9">
+                                            <p id="lblRefBi"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>*@
+
+                        <div class="form-group m-b-5">
+                            <input id="hdnPliId" type="hidden" name="oInv.nId" />
+                            <input id="hdnScroll" type="hidden" />
+                            <label class="campo col-md-3 control-label">Código</label>
+                            <div class="col-md-9">
+                                <label id="lblCodigo" class="control-label"></label>
+                            </div>
+                        </div>
+                        <div class="form-group m-b-5">
+                            <label class="campo col-md-3 control-label">Nombre Común</label>
+                            <div class="col-md-9">
+                                <label id="lblNomComun" class="control-label"></label>
+                            </div>
+                        </div>
+                        <div class="form-group m-b-5">
+                            <label class="campo col-md-3 control-label">Sinonimia Vulgar</label>
+                            <div class="col-md-9">
+                                <p id="lblSinonimia" class=""></p>
+                            </div>
+                        </div>
+                        <div class="form-group m-b-5">
+                            <label class="campo col-md-3 control-label">Nombre Científico</label>
+                            <div class="col-md-9">
+                                <label id="lblNomCient" class="control-label"></label>
+                            </div>
+                        </div>
+                        <div class="form-group m-b-5">
+                            <label class="campo col-md-3 control-label">Familia</label>
+                            <div class="col-md-9">
+                                <label id="lblFamilia" class="control-label"></label>
+                            </div>
+                        </div>
+                        <div class="form-group m-b-5">
+                            <label class="campo col-md-3 control-label">Descripción Botánica</label>
+                            <div class="col-md-9">
+                                <p id="lblDesBotanica"></p>
+                            </div>
+                        </div>
+                        <div class="form-group m-b-5">
+                            <label class="campo col-md-3 control-label">Hábitat</label>
+                            <div class="col-md-9">
+                                <p id="lblHabitat"></p>
+                            </div>
+                        </div>
+                        <div class="form-group m-b-5">
+                            <label class="campo col-md-3 control-label">Distribución</label>
+                            <div class="col-md-9">
+                                <p id="lblDistribucion"></p>
+                            </div>
+                        </div>
+                        <div class="form-group m-b-5">
+                            <label class="campo col-md-3 control-label">Composición Química</label>
+                            <div class="col-md-9">
+                                <p id="lblCompoQuimica"></p>
+                            </div>
+                        </div>
+                        <div class="form-group m-b-5">
+                            <label class="campo col-md-3 control-label">Toxicidad</label>
+                            <div class="col-md-9">
+                                <label id="lblToxicidad" class="control-label"></label>
+                            </div>
+                        </div>
+                        <div class="form-group m-b-5">
+                            <label class="campo col-md-3 control-label">Etnomedicinal</label>
+                            <div class="col-md-9">
+                                <p id="lblEtnomedicinal"></p>
+                            </div>
+                        </div>
+                        <div class="form-group m-b-5">
+                            <label class="campo col-md-3 control-label">Forma de empleo</label>
+                            <div class="col-md-9">
+                                <p id="lblEmpleo"></p>
+                            </div>
+                        </div>
+                        <div class="form-group m-b-5">
+                            <label class="campo col-md-3 control-label">Efectos Adversos</label>
+                            <div class="col-md-9">
+                                <p id="lblEfectos"></p>
+                            </div>
+                        </div>
+                        <div class="form-group m-b-5">
+                            <label class="campo col-md-3 control-label">Otros usos</label>
+                            <div class="col-md-9">
+                                <p id="lblUsos"></p>
+                            </div>
+                        </div>
+                        <div class="form-group m-b-5">
+                            <label class="campo col-md-3 control-label">Vaucher</label>
+                            <div class="col-md-9">
+                                <p id="lblVaucher"></p>
+                            </div>
+                        </div>
+                        <div class="form-group m-b-5">
+                            <label class="campo col-md-3 control-label">Referencias Bibliográficas</label>
+                            <div class="col-md-9">
+                                <p id="lblRefBi"></p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script type="text/javascript">
+    $(function () {
+        $('input.target').click(function () {
+            vista($(this).attr('href'));
+        });
+    });
+
+
+
+
+    var vista = function ($target) {
+        var $target = $($target),
+            $other = $('.panel-inverse.active');
+
+        if (!$target.hasClass('active')) {
+            $other.each(function (index, self) {
+                var $this = $(this);
+                $this.removeClass('active').animate({
+                    left: $this.width()
+                }, 500).hide();
+            });
+
+            $target.addClass('active').show().css({
+                left: -($target.width())
+            }).animate({
+                left: 0
+            }, 500);
+        }
+    };
+
+
+
 
 
     var datos = {};
+    var valor = "";
 
     ListarCatalogo();
 
-    function ListarCatalogo(nPage, nSize, blo) {
-        var valor = $("#txtBuscar").val();
-        valor = valor == "" ? null : valor;
+    function ListarCatalogo(nPage, nSize, nTipo) {
+        valor = $("#txtBuscar").val();
+        valor = valor == '' || valor == undefined ? '' : valor;
 
 
         $.fn.Conexion({
             direccion: '@Url.Action("ListaCatalogo", "Catalogo")',
             datos: { "nPage": nPage, "nSize": nSize, "cValor": valor },
-            bloqueo: blo == false ? false : true,
+            //bloqueo: blo == false ? false : true,
             terminado: function (data) {
                 var d = JSON.parse(data);
                 datos = d;
@@ -55,55 +486,146 @@
                     pag: true,
                     pagDato: { "nPage": d.nPage, "nPageTot": d.nPageTot, "nPageSize": d.nPageSize, "nRows": d.nRows },
                     pagEvent: ListarCatalogo,
-                    edit: true,
-                    dblClick: true,
-                    editEvent: function (fila) {
-                        var nInv = fila.find("td").eq(0).html();
-                        console.log(nUsuId);
-                        $("#hdnEstado").val("E");
-                        $('input.target')[0].click();
+                    tipoCatalogo: nTipo,
+                    //edit: true,
+                    //dblClick: true,
+                    click: true,
+                    clickFichaEvent: function (ficha) {
+                        //var nId = ficha.find("input[type=hidden]").val();
+                        var index = ficha.attr("data-index");
+
+                        CargarFicha(index);
+                    },
+                    clickEvent: function (fila) {
+                        //var nId = fila.find("td").eq(0).html();
+                        var index = fila.attr("data-index");
+
+                        CargarFicha(index);
+                        @*
+                        //var index = (nInv - ((datos.nPage - 1) * datos.nPageSize)) - 1;
+                        //console.log(nInv);
+                        //$("#hdnEstado").val("E");
+                        //$('input.target')[0].click();
+
+                        //console.log(datos.oLista[nInv - 1]);
+
+                        //$("#targetImg").attr('src', '');
+                        //$("#targetImg").attr("src", '/ArchivosSubidos/' + datos.oLista[index].cFoto);
 
                         $.fn.Conexion({
-                            direccion: '@Url.Action("CargarDatosIventario", "Inventario")',
+                            direccion: '@Url.Action("CargarDatos", "Catalogo")',
                             datos: { "nInv": nInv },
                             terminado: function (data, textStatus, jqXHR) {
                                 var oInv = JSON.parse(data);
 
                                 console.log(oInv);
 
-                                $("#txtCodigo").val(oInv.cCod);
-                                $("#txtCompoQuimica").val(oInv.cComQui);
-                                $("#txtDesBotanica").val(oInv.cDesc);
-                                $("#txtDistribucion").val(oInv.cDist);
-                                $("#txtEtnomedicinal").val(oInv.cEtno);
-                                $("#txtFamilia").val(oInv.cFam);
-                                $("#txtHabitat").val(oInv.cHab);
-                                $("#txtEfectos").val(oInv.cInterac);
-                                $("#txtEmpleo").val(oInv.cManejo);
-                                $("#txtNomCient").val(oInv.cNomCie);
-                                $("#txtNomComun").val(oInv.cNomCom);
-                                $("#txtRefBi").val(oInv.cRefBi);
-                                $("#txtSinonimia").val(oInv.cSino);
-                                $("#txtToxicidad").val(oInv.cToxi);
-                                $("#txtUsos").val(oInv.cUsos);
-                                $("#txtVaucher").val(oInv.cVaucher);
-                                $("#hdnPliId").val(oInv.nId);
-                                if (oInv.cFoto) {
-                                    $("#targetImg").attr("src", '/ArchivosSubidos/' + oInv.cFoto);
-                                    $("#imgPreview").removeClass("dropArea");
-                                }
+                                //$("#txtCodigo").val(oInv.cCod);
+                                //$("#txtCompoQuimica").val(oInv.cComQui);
+                                //$("#txtDesBotanica").val(oInv.cDesc);
+                                //$("#txtDistribucion").val(oInv.cDist);
+                                //$("#txtEtnomedicinal").val(oInv.cEtno);
+                                //$("#txtFamilia").val(oInv.cFam);
+                                //$("#txtHabitat").val(oInv.cHab);
+                                //$("#txtEfectos").val(oInv.cInterac);
+                                //$("#txtEmpleo").val(oInv.cManejo);
+                                //$("#txtNomCient").val(oInv.cNomCie);
+                                //$("#txtNomComun").val(oInv.cNomCom);
+                                //$("#txtRefBi").val(oInv.cRefBi);
+                                //$("#txtSinonimia").val(oInv.cSino);
+                                //$("#txtToxicidad").val(oInv.cToxi);
+                                //$("#txtUsos").val(oInv.cUsos);
+                                //$("#txtVaucher").val(oInv.cVaucher);
+                                //$("#hdnPliId").val(oInv.nId);
+
+                                $("#lblCodigo").html(oInv.cCod);
+                                $("#lblNomComun").html(oInv.cNomCom);
+                                $("#lblSinonimia").html(oInv.cSino);
+                                $("#lblNomCient").html(oInv.cNomCie);
+                                $("#lblFamilia").html(oInv.cFam);
+                                $("#lblDesBotanica").html(oInv.cDesc);
+                                $("#lblCompoQuimica").html(oInv.cComQui);
+                                $("#lblDistribucion").html(oInv.cDist);
+                                $("#lblEtnomedicinal").html(oInv.cEtno);
+                                $("#lblHabitat").html(oInv.cHab);
+                                $("#lblEfectos").html(oInv.cInterac);
+                                $("#lblEmpleo").html(oInv.cManejo);
+                                $("#lblRefBi").html(oInv.cRefBi);
+                                $("#lblToxicidad").html(oInv.cToxi);
+                                $("#lblUsos").html(oInv.cUsos);
+                                $("#lblVaucher").html(oInv.cVaucher);
+                                $("#hdnPliId").html(oInv.nId);
+
                             },
                             bloqueo: true
-                        });
+                        });*@
                     },
                     datos: d.oLista
                 });
             }
         });
+
+        $("#cntDetCatalogo").hide();
+        $("#cntCatalogo").show();
     }
 
-    $("#txtBuscar").keyup(function (e) {
-        if (e.which == 13) { ListarCatalogo(); }
-    });
+
+
+    function CargarFicha(index) {
+        var scrolly = $(window).scrollTop();
+        $("#hdnScroll").val(scrolly);
+        //var index = (nId - ((datos.nPage - 1) * datos.nPageSize)) - 1;
+
+        $("#targetImg").attr('src', '');
+        $("#targetImg").attr("src", '/ArchivosSubidos/' + datos.oLista[index].cFoto);
+
+
+        $.fn.Conexion({
+            direccion: '@Url.Action("CargarDatos", "Catalogo")',
+            datos: { "nInv": datos.oLista[index].nId },
+            terminado: function (data, textStatus, jqXHR) {
+                var oInv = JSON.parse(data);
+
+                console.log(oInv);
+
+                $("#lblCodigo").html(oInv.cCod);
+                $("#lblNomComun").html(oInv.cNomCom);
+                $("#lblSinonimia").html(oInv.cSino);
+                $("#lblNomCient").html(oInv.cNomCie);
+                $("#lblFamilia").html(oInv.cFam);
+                $("#lblDesBotanica").html(oInv.cDesc);
+                $("#lblCompoQuimica").html(oInv.cComQui);
+                $("#lblDistribucion").html(oInv.cDist);
+                $("#lblEtnomedicinal").html(oInv.cEtno);
+                $("#lblHabitat").html(oInv.cHab);
+                $("#lblEfectos").html(oInv.cInterac);
+                $("#lblEmpleo").html(oInv.cManejo);
+                $("#lblRefBi").html(oInv.cRefBi);
+                $("#lblToxicidad").html(oInv.cToxi);
+                $("#lblUsos").html(oInv.cUsos);
+                $("#lblVaucher").html(oInv.cVaucher);
+                $("#hdnPliId").html(oInv.nId);
+
+                $("#cntCatalogo,#btnCatalogoTipo").hide();
+                $("#cntDetCatalogo,#btnCatalogo").show()
+                //$("#cntDetCatalogo").show().animate({
+                //    left: '250px',
+                //    height: '550px',
+                //    width: '550px'
+                //}, "slow");
+
+                $("html").scrollTop(0);
+                //$("html, body").animate({ scrollTop: 1 }, "slow");
+
+            },
+            bloqueo: true
+        });
+    }
+
+
+
+
+
+
 
 </script>

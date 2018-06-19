@@ -53,32 +53,56 @@
 
         if (m.pagDato.nRows <= m.pagDato.nPageSize) { m.pag = false; }
 
-        var html = '';
+
+        var opc = '';
 
         //Opciones
 
-        html += '<div class="btn-toolbar" role="toolbar">';
-        html += '<div id="btnCatalogoTipo" class="btn-group text-center">';
-        html += '<button for="cntFichas" type="button" class="btn btn-default btn-success" aria-label="Left Align">Ficha</button>';
-        html += '<button for="cntTabla" type="button" class="btn btn-default" aria-label="Center Align">Tabla</button>';
-        html += '</div>';
-        html += '</div>';
+        opc += '<div class="form-group col-xs-5 col-sm-5 col-md-5 col-lg-5">'
+        opc += '<button id="btnCatalogo" type="button" class="btn btn-default btn-success" aria-label="Left Align" style="display: none;">'
+        opc += '<i class="fa fa-book" aria-hidden="true"></i>  Catalogo'
+        opc += '</button>'
+        opc += '<div id="btnCatalogoTipo" class="btn-group text-center">';
+        opc += '<button for="cntFichas" data="ficha" type="button" class="btn btn-default ' + (m.tipoCatalogo == "ficha" ? 'btn-success' : '') + '" aria-label="Left Align">Ficha</button>';
+        opc += '<button for="cntTabla" data="tabla" type="button" class="btn btn-default ' + (m.tipoCatalogo == "tabla" ? 'btn-success' : '') + '" aria-label="Center Align">Tabla</button>';
+        opc += '</div>';
+        opc += '</div>'
+        opc += '<div id="buscar" class="col-xs-7 col-sm-7 col-md-7 col-lg-7">'
+
+        opc += '<div class="input-group">'
+        opc +='<div class="form-group has-feedback has-clear">'
+        opc +='<input id="txtBuscar" type="text" class="form-control" value="'+ valor + '" placeholder="Buscar...">'
+        opc +='<span class="form-control-clear glyphicon glyphicon-remove form-control-feedback ' + (valor == "" ? "hidden": "" ) + '"></span>'
+        opc +='</div>'
+
+        opc += '<span class="input-group-btn">'
+        opc += '<button id="btnBuscar" class="btn btn-success" type="button">'
+        opc += '<span class="glyphicon glyphicon-search" aria-hidden="true"></span>'
+        opc += '</button>'
+        opc += '</span>'
+        opc += '</div>'
 
 
+        opc += '</div>'
+
+        $('#opciones').html(opc);
+
+        var html = '';
         var i = 0;
-        //var j = 0;
+            //var j = 0;
         var ficha = '';
         var c = 3;
 
-        html += '<div><div id="cntFichas">';
+        html += '<div><div id="cntFichas" style="' + (m.tipoCatalogo == "ficha" ? '' : 'display: none;') + '">';
         for (i in m.datos) {
             if (camp.length > 0) {
-                
+
 
                 ficha += '<div class="col-xs-12 col-sm-6 col-md-4 col-lg-' + (12 / c) + '">';
-                ficha += '<div class="ficha thumbnail">';
+                ficha += '<div class="ficha thumbnail" data-index="' + i + '" >';
                 ficha += '<div class="ficha-img">';
-                ficha += '<img class="img-responsive" id="targetImg" style="max-height:323px;" src="/ArchivosSubidos/' + eval("m.datos[i].cFoto") + '">';
+                ficha += '<input type="hidden" value="' + eval("m.datos[i].nId") + '">';
+                ficha += '<img class="img-responsive" style="max-height:323px;" src="/ArchivosSubidos/' + eval("m.datos[i].cFoto") + '">';
                 ficha += '</div>';
                 ficha += '<div class="ficha-desc">';
                 ficha += '<label class="nombre-comun control-label m-r-5">' + eval("m.datos[i].cNomCom") + '</label>';
@@ -87,14 +111,14 @@
                 ficha += '</div>';
                 ficha += '</div>';
                 ficha += '</div>';
-                
-                //j++;
-                //if (j == c) {
-                //    html += '<div class="row">' + ficha + '</div>';
-                //    j = 0;
-                //    ficha = '';
-                //}
-            }
+
+            //j++;
+            //if (j == c) {
+            //    html += '<div class="row">' + ficha + '</div>';
+            //    j = 0;
+            //    ficha = '';
+            //}
+        }
         }
 
         if (ficha != '') {
@@ -103,9 +127,9 @@
 
         html += '</div>';
 
-        html += '<div class="' + cssTbl + '" style="display:none;" id="cntTabla" ><table data-edit="false" id="' + m.tblId + '" class="table ' + m.tblStyle + ' table-hover">';
+        html += '<div class="' + cssTbl + '" style="' + (m.tipoCatalogo == "tabla" ? '' : 'display: none;') + '" id="cntTabla" ><table data-edit="false" id="' + m.tblId + '" class="table ' + m.tblStyle + ' table-hover">';
 
-        //Cabecera
+            //Cabecera
         html += '<thead><tr>';
         if (m.checkHead) { html += '<th><input style="cursor: pointer;text-align: center;vertical-align: middle;" id="chkAll" type="checkbox"></th>'; }
         if (m.numerado === "Si") { html += '<th>N°</th>'; }
@@ -115,11 +139,11 @@
         if (m.elim) { html += '<th>Elim.</th>'; }
         html += '</tr></thead>';
 
-        //Cuerpo
+            //Cuerpo
         html += '<tbody>';
         var i = 0;
         for (i in m.datos) {
-            html += '<tr>';
+            html += '<tr data-index="' + i + '" >';
             if (m.numerado == "Si")
                 html += '<td>' + i + 1 + '</td>';
 
@@ -131,53 +155,53 @@
 
                     if (tipo[k] == "D") {
                         dat = number_format(dat, 2)
-                    }
+        }
                     if (tipo[k] == "D3") {
 
                         if ((eval("m.datos[i].oPrMed.nom")) == "Kg") {
                             dat = number_format(dat, 3);
-                        } else {
+        } else {
                             dat = number_format(dat, 0);
-                        }
-                    }
+        }
+        }
                     if (tipo[k] == "F") {
                         dat = moment(dat).format("DD/MM/YYYY hh:mm:ss");
-                    }
+        }
 
                     if (tipo[k] == "C" || tipo[k] == "C1") {
                         dat = '<input type="checkbox"' + (dat ? "checked" : "") + '>'
-                    } else {
+        } else {
                         dat = (typeof (dat) === "boolean" ? "<span style='color:#" + (dat ? "43C73C'" : "C73C3C'") + " class='glyphicon glyphicon-" + (dat ? "ok'" : "remove'") + " aria-hidden='true'></span>" : dat);
-                    }
+        }
 
                     html += '<td>' + (dat == null ? "" : dat) + '</td>';
-                }
+        }
 
                 if (m.edit) {
                     html += '<td class="edit" style="cursor: pointer;text-align: center;vertical-align: middle;"><span style="color: #3C86C7;font-size:15px;" class="glyphicon glyphicon-pencil" aria-hidden="true"></span></td>';
-                }
+        }
                 if (m.search) {
                     html += '<td class="search" style="cursor: pointer;text-align: center;vertical-align: middle;"><span style="color: #3C86C7;font-size:15px;" class="glyphicon glyphicon-search" aria-hidden="true"></span></td>';
-                }
+        }
                 if (m.elim) {
                     html += '<td class="elim" style="cursor: pointer;text-align: center;vertical-align: middle;"><span style="color: #C73C3C;font-size:15px;" class="glyphicon glyphicon-trash" aria-hidden="true"></span></td>';
-                }
+        }
 
-            }
-            else {
+        }
+        else {
                 if (m.subLista == "No") {
                     html += '<td>' + m.datos[i] + '</td>';
-                } else {
+        } else {
                     var j = 0;
                     for (j in m.datos[i]) {
                         html += '<td>' + m.datos[i][j] + '</td>';
-                    }
-                }
-            }
+        }
+        }
+        }
 
             html += '</tr>';
         }
-        //}
+            //}
 
         if (typeof (m.datos) != 'undefined' && m.datos.length == 0) {
             html += '<tr><td colspan="' + camp.length + (m.edit ? 1 : 0) + (m.elim ? 1 : 0) + (m.search ? 1 : 0) + '"><h1 class="text-center m-t-10"><small>' + m.empty + '</small></h1></td></tr>';
@@ -204,16 +228,16 @@
                 if (m.pagDato.nPage > 6 && m.pagDato.nPage <= (m.pagDato.nPageTot - 4)) {
                     ini = m.pagDato.nPage - 5;
                     fin = ini + 9;
-                } else if (m.pagDato.nPage > (m.pagDato.nPageTot - 4)) {
+        } else if (m.pagDato.nPage > (m.pagDato.nPageTot - 4)) {
                     ini = m.pagDato.nPageTot - 9;
                     fin = m.pagDato.nPageTot;
-                }
+        }
 
-            }
+        }
 
             for (var i = ini; i <= fin ; i++) {
                 html += '<li><a data-dt-idx="' + i + '" tabindex="0">' + i + '</a></li>';
-            }
+        }
 
             html += '<li class="next" id="example1_next">';
             html += '<a data-dt-idx="' + (m.pagDato.nPageTot + 1) + '" tabindex="0">Siguiente</a>';
@@ -221,12 +245,13 @@
         }
 
         $(m.contenedor).html(html);
+        $("html").scrollTop(1);
 
         $("#" + m.tblId + " tbody tr").bind("click", function () {
             if ($("#" + m.tblId).attr("data-edit") == "false") {
                 $("#" + m.tblId + " tbody tr").removeClass("seleccionado");
                 $(this).addClass("seleccionado");
-            }
+        }
         })
 
         if (m.cellLen) {
@@ -237,11 +262,11 @@
                 if (m.cellLen[elem] == "0") {
                     $('#' + m.tblId + ' th:nth-child(' + (i + 1) + ')').hide();
                     $('#' + m.tblId + ' td:nth-child(' + (i + 1) + ')').hide();
-                } else {
+        } else {
                     $("#" + m.tblId).find('th:eq(' + i + ')').css("width", m.cellLen[i] + "px");
-                }
+        }
                 i++;
-            }
+        }
         }
 
         if (m.alinear) {
@@ -255,7 +280,7 @@
         if (m.edit) {
             $("#" + m.tblId + " tbody tr .edit").bind("click", function () {
                 m["editEvent"]($(this).parent());
-            });
+        });
         }
 
         if (m.elim) {
@@ -267,30 +292,35 @@
                     nPage = $("#cntPaginacion .active a").attr("data-dt-idx");
                     if ($("#tblClientes tbody tr").length == 1 && nPage > 1) {
                         nPage = nPage - 1;
-                    }
-                }
+        }
+        }
 
                 $.fn.Mensaje({
-                    mensaje: "&iquest;Est&aacutes seguro que deseas eliminar el registro?",
-                    tamano: "md",
-                    tipo: "SiNo",
-                    funcionAceptar: function () {
+            mensaje: "&iquest;Est&aacutes seguro que deseas eliminar el registro?",
+            tamano: "md",
+            tipo: "SiNo",
+            funcionAceptar: function () {
                         m["elimEvent"](fila, nPage);
-                    }
-                });
-            });
+        }
+        });
+        });
         }
 
         if (m.dblClick) {
             $("#" + m.tblId + " tbody tr").bind("dblclick", function () {
                 m["editEvent"]($(this));
-            });
+        });
         }
 
         if (m.click) {
             $("#" + m.tblId + " tbody tr").bind("click", function () {
                 m["clickEvent"]($(this));
-            });
+        });
+
+            $(".ficha").bind("click", function () {
+                m["clickFichaEvent"]($(this));
+        });
+
         }
 
         if (m.check) {
@@ -301,8 +331,8 @@
 
                 if (fila.attr("class") != "seleccionado") {
                     e.stopPropagation();
-                }
-            });
+        }
+        });
         }
 
         if (m.checkHead) {
@@ -310,35 +340,36 @@
                 $(this).closest('table').find('tr:visible td input:checkbox:not(:disabled)').prop('checked', this.checked);
 
                 m["checkHeadEvent"]();
-            });
+        });
         }
 
         if (m.pag) {
             $('#cntPaginacion [data-dt-idx=' + m.pagDato.nPage + ']').parent().addClass("active");
-            $('#cntPaginacion [data-dt-idx=' + m.pagDato.nPage + ']').focus();
+            //$('#cntPaginacion [data-dt-idx=' + m.pagDato.nPage + ']').focus();
 
             if (m.pagDato.nPage == 1) {
                 $("#cntPaginacion .previous").addClass("disabled")
-            } else if (m.pagDato.nPage == m.pagDato.nPageTot) {
+        } else if (m.pagDato.nPage == m.pagDato.nPageTot) {
                 $("#cntPaginacion .next").addClass("disabled")
-            } else {
+        } else {
                 $("#cntPaginacion .previous,#cntPaginacion .next").removeClass("disabled");
-            }
+        }
 
             $('#cntPaginacion a').click(function () {
                 var nPag = $(this).attr("data-dt-idx");
                 var nAct = $("#cntPaginacion .active a").attr("data-dt-idx")
+                var nTipo = $("#btnCatalogoTipo .btn-success").attr("data");
 
                 if (nPag == 0) {
                     nPag = nAct - 1;
-                } else if (nPag == (m.pagDato.nPageTot + 1)) {
+        } else if (nPag == (m.pagDato.nPageTot + 1)) {
                     nPag = (nAct * 1) + 1;
-                }
+        }
 
                 if (nPag != nAct && (nPag != 0 && nPag != m.pagDato.nPageTot + 1)) {
-                    m["pagEvent"](nPag, m.pagDato.nPageSize);
-                }
-            });
+                    m["pagEvent"](nPag, m.pagDato.nPageSize, nTipo);
+        }
+        });
         }
 
         $("#btnCatalogoTipo button").click(function () {
@@ -351,13 +382,44 @@
             $other.hide();
         });
 
+        $("#btnBuscar").click(function () {
+            ListarCatalogo();
+        });
+
+        $("#txtBuscar").keyup(function (e) {
+            if (e.which == 13) { ListarCatalogo(); }
+        });
+
+        $("#btnCatalogo").click(function () {
+            $("#cntCatalogo,#btnCatalogoTipo").show();
+            $("#cntDetCatalogo,#btnCatalogo").hide();
+            //$("html").scrollTop($("#hdnScroll").val());
+            $("html, body").animate({ scrollTop: $("#hdnScroll").val() }, "slow");
+        });
+
+        $('.has-clear input[type="text"]').on('input propertychange', function () {
+            var $this = $(this);
+            var visible = Boolean($this.val());
+            $this.siblings('.form-control-clear').toggleClass('hidden', !visible);
+        }).trigger('propertychange');
+
+        $('.form-control-clear').click(function () {
+            $(this).siblings('input[type="text"]').val('')
+              .trigger('propertychange').focus();
+
+            if (valor != '') {
+                ListarCatalogo();
+                valor = '';
+            }
+        });
+
 
 
         if (m.textSearchId != "") {
             $('#' + m.textSearchId).keyup(function () {
                 searchTable($(this).val());
                 CheckAll();
-            });
+        });
 
             function searchTable(inputVal) {
                 var table = $("#" + m.tblId);
@@ -370,12 +432,12 @@
                             if (regExp.test($(td).text())) {
                                 found = true;
                                 return false;
-                            }
-                        });
+        }
+        });
                         if (found == true) $(row).show(); else $(row).hide();
-                    }
-                });
-            }
+        }
+        });
+        }
         }
 
         function CheckAll() {
@@ -384,8 +446,8 @@
             $("#chkAll").prop('checked', c == 0 && t != 0 ? true : false);
         }
 
-    }
-})(jQuery);
+        }
+        })(jQuery);
 
 (function ($) {
     $.uiTableFilter = function (jq, phrase, column, ifHidden) {
@@ -395,7 +457,7 @@
         var phrase_length = phrase.length;
         var words = phrase.toLowerCase().split(" ");
 
-        // these function pointers may change
+            // these function pointers may change
         var matches = function (elem) { elem.show() }
         var noMatch = function (elem) { elem.hide(); new_hidden = true }
         var getText = function (elem) { return elem.text() }
@@ -405,23 +467,23 @@
             $(jq).find("thead > tr:last > th").each(function (i) {
                 if ($.trim($(this).text()) == column) {
                     index = i; return false;
-                }
-            });
+        }
+        });
             if (index == null) throw ("given column: " + column + " not found")
 
             getText = function (elem) {
                 return $(elem.find(
                   ("td:eq(" + index + ")"))).text()
-            }
+        }
         }
 
-        // if added one letter to last time,
-        // just check newest word and only need to hide
+            // if added one letter to last time,
+            // just check newest word and only need to hide
         if ((words.size > 1) && (phrase.substr(0, phrase_length - 1) ===
               this.last_phrase)) {
 
             if (phrase[-1] === " ")
-            { this.last_phrase = phrase; return false; }
+        { this.last_phrase = phrase; return false; }
 
             var words = words[-1]; // just search for the newest word
 
@@ -443,7 +505,7 @@
         last_phrase = phrase;
         if (ifHidden && new_hidden) ifHidden();
         return jq;
-    };
+        };
 
     $.uiTableFilter.last_phrase = ""
 
@@ -453,5 +515,5 @@
             if (text.indexOf(words[i]) === -1) return false;
         }
         return true;
-    }
-})(jQuery);
+        }
+        })(jQuery);
