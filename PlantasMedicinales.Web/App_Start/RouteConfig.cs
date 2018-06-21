@@ -15,9 +15,17 @@ namespace PlantasMedicinales.Web
 
             routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Catalogo", action = "Index", id = UrlParameter.Optional }
+                url: "{controller}/{action}",
+                defaults: new { controller = "Catalogo", action = "Index" }
             );
+
+
+            routes.MapRoute(
+                "Defaulxt", // Route name
+                "{*catchall}", // URL with parameters
+                new { controller = "Catalogo", action = "Index" } // Parameter defaults
+            );
+
         }
     }
 }

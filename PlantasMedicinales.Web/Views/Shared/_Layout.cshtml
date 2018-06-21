@@ -30,11 +30,10 @@
     <script src="~/Content/js/bootstrap.min.js"></script>
 
     <!--fin js archivos-->
-
     @*<script type="text/javascript">
-        //pasamos el modelo a javascript
-        var Model = @Html.Raw(Json.Encode(@Model));
-    </script>*@
+            //pasamos el modelo a javascript
+            var Model = @Html.Raw(Json.Encode(@Model));
+        </script>*@
 
 
     <!-- Navigation -->
@@ -44,8 +43,8 @@
             <div class="navbar-header">
 
                 <a class="navbar-brand" rel="home" href="#" title="Buy Sell Rent Everyting">
-                    <img style="max-width: 100px; height: 40px; margin-top: -7px;"
-                         src="~/Content/img/logo.png">
+                    <img style="max-width: 100px; height: 40px; margin-top: -7px;" src="~/Content/img/logo2.png">
+                    <img style="max-width: 100px; height: 40px; margin-top: -7px;" src="~/Content/img/logo.png">
                 </a>
 
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -61,8 +60,8 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     @*<li>
-                        <a href="@Url.Action("Acerca", "Inicio")">Guía</a>
-                    </li>*@
+                            <a href="@Url.Action("Acerca", "Inicio")">Guía</a>
+                        </li>*@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     @if (oUsuario == null)
@@ -99,16 +98,16 @@
         <hr>
     </div>
 
-    <div class="container">
+    @*<div class="container">
         <footer>
             <div class="row">
                 <div class="col-lg-12">
                     <p class="right">Instituto de Investigaciones de la Amazonía Peruana</p>
                 </div>
             </div>
-            <!-- /.row -->
+             /.row 
         </footer>
-    </div>
+    </div>*@
     <!-- /.container -->
 </body>
 </html>

@@ -455,6 +455,14 @@
 
 
 
+    //if (window.location.) {
+
+    //}
+
+
+
+
+
 
 
     var datos = {};
@@ -624,7 +632,7 @@
         });
 
 
-        window.history.pushState(null, 'detalle', "/detalle/" + datos.oLista[index].nId);
+        window.history.pushState(null, 'detalle', "/Catalogo/detalle/" + datos.oLista[index].nId);
 
     }
 
@@ -659,9 +667,9 @@
         nTipo = nTipo == undefined ? 'ficha' : nTipo;
 
         var cBusqueda = $("#txtBuscar").val();
-        cBusqueda = (cBusqueda == undefined || cBusqueda == '') ? '' : cBusqueda + '/';
+        cBusqueda = (cBusqueda == undefined || cBusqueda == '') ? '' : 'buscar/' + cBusqueda + '/';
 
-        window.history.pushState(null, 'lista', "/lista/" + nTipo + '/' + cBusqueda +  ( datos.oLista.length == 0 ? 0 : datos.nPage));
+        window.history.pushState(null, 'lista', "/Catalogo/lista/" + nTipo + '/' + cBusqueda +  ( datos.oLista.length == 0 ? 0 : datos.nPage));
     };
 
 

@@ -1,5 +1,10 @@
 body {
     background-color: #f3f3f3;
+    font-family: 'Open Sans',"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.navbar-brand > img {
+    display: inline-block;
 }
 
 .spinnerX {
@@ -39,6 +44,32 @@ body {
         animation-delay: -0.8s;
     }
 
+@-webkit-keyframes sk-stretchdelay {
+    0%, 40%, 100% {
+        -webkit-transform: scaleY(0.4);
+    }
+
+    20% {
+        -webkit-transform: scaleY(1);
+    }
+}
+
+@keyframes sk-stretchdelay {
+    0%, 40%, 100% {
+        transform: scaleY(0.4);
+        -webkit-transform: scaleY(0.4);
+    }
+
+    20% {
+        transform: scaleY(1);
+        -webkit-transform: scaleY(1);
+    }
+}
+
+.espera {
+    top: 30%;
+}
+
 .ficha {
     padding: 0px;
     border: 0px;
@@ -59,7 +90,7 @@ body {
 
 .ficha-desc {
     /*background-color: #449c44;*/
-    background:linear-gradient(to right, #357935 , #5bbd5b);
+    background: linear-gradient(to right, #357935, #5bbd5b);
     border-radius: 0px 0px 4px 4px;
 }
 
@@ -163,13 +194,13 @@ div#buscar {
 }
 
 ::-ms-clear {
-  display: none;
+    display: none;
 }
 
 .form-control-clear {
-  z-index: 10;
-  pointer-events: auto;
-  cursor: pointer;
+    z-index: 10;
+    pointer-events: auto;
+    cursor: pointer;
 }
 
 table tbody tr {

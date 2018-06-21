@@ -382,7 +382,7 @@
             var cBusqueda = $("#txtBuscar").val();
             cBusqueda = (cBusqueda == undefined || cBusqueda == '') ? '' : cBusqueda + '/';
 
-            window.history.pushState(null, 'lista', "/lista/" + nTipo + '/' + cBusqueda + datos.nPage);
+            window.history.pushState(null, 'lista', "/Catalogo/lista/" + nTipo + '/' + cBusqueda + datos.nPage);
 
             $("#btnCatalogoTipo button").removeClass("btn-success");
             $(this).addClass("btn-success");
@@ -391,11 +391,15 @@
         });
 
         $("#btnBuscar").click(function () {
-            ListarCatalogo();
+            var nTipo = $("#btnCatalogoTipo .btn-success").attr("data");
+            ListarCatalogo(undefined, undefined, nTipo);
         });
 
         $("#txtBuscar").keyup(function (e) {
-            if (e.which == 13) { ListarCatalogo(); }
+            if (e.which == 13) {
+                var nTipo = $("#btnCatalogoTipo .btn-success").attr("data");
+                ListarCatalogo(undefined, undefined, nTipo);
+            }
         });
 
         $("#btnCatalogo").click(function () {
@@ -417,7 +421,8 @@
               .trigger('propertychange').focus();
 
             if (valor != '') {
-                ListarCatalogo();
+                var nTipo = $("#btnCatalogoTipo .btn-success").attr("data");
+                ListarCatalogo(undefined, undefined, nTipo);
                 valor = '';
             }
         });
