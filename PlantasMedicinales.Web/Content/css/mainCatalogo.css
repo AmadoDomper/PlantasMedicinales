@@ -58,7 +58,8 @@ body {
 }
 
 .ficha-desc {
-    background-color: #449c44;
+    /*background-color: #449c44;*/
+    background:linear-gradient(to right, #357935 , #5bbd5b);
     border-radius: 0px 0px 4px 4px;
 }
 
@@ -169,4 +170,8 @@ div#buscar {
   z-index: 10;
   pointer-events: auto;
   cursor: pointer;
+}
+
+table tbody tr {
+    cursor: pointer;
 }

@@ -475,6 +475,8 @@
                 var d = JSON.parse(data);
                 datos = d;
 
+                ActualizarLink();
+
                 $("#cntCatalogo").Catalogo({
                     tblId: "tblPlantasMedicinales",
                     cabecera: "#,Codigo,Nombre Común,Nombre Científico,Familia",
@@ -620,9 +622,47 @@
             },
             bloqueo: true
         });
+
+
+        window.history.pushState(null, 'detalle', "/detalle/" + datos.oLista[index].nId);
+
     }
 
 
+
+    var shouldUpdate = true;
+    var ActualizarLink = function () {
+        if (!shouldUpdate) {
+            // do not update the URL when the view was changed in the 'popstate' handler
+            shouldUpdate = true;
+            return;
+        }
+
+        //var _nJefeId = $('#frm #ddlJefe').val();
+        //var _nUsuarioId = $("#ddlEquipo").val();
+        //var _nPeriodo = $("#ddlPeriodo").val();
+        //var _nPlanOpeId = $("#ddlplan").val();
+
+        //var hash = '#eva=' +
+        //            btoa(btoa(_nJefeId)) + '/' +
+        //            btoa(btoa(_nUsuarioId)) + '/' +
+        //            btoa(btoa(_nPeriodo)) + '/' +
+        //            btoa(btoa(_nPlanOpeId));
+        //var state = {
+        //    nJefeId: btoa(btoa(nJefeId)),
+        //    nUsuarioId: btoa(btoa(nUsuario)),
+        //    nPeriodo: btoa(btoa(nPeriodo)),
+        //    nPlanOpeId: btoa(btoa(nPlanOpeId))
+        //};
+
+        var nTipo = $("#btnCatalogoTipo .btn-success").attr("data");
+        nTipo = nTipo == undefined ? 'ficha' : nTipo;
+
+        var cBusqueda = $("#txtBuscar").val();
+        cBusqueda = (cBusqueda == undefined || cBusqueda == '') ? '' : cBusqueda + '/';
+
+        window.history.pushState(null, 'lista', "/lista/" + nTipo + '/' + cBusqueda +  ( datos.oLista.length == 0 ? 0 : datos.nPage));
+    };
 
 
 
