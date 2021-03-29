@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.645
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlantasMedicinales.Web", "PlantasMedicinales.Web\PlantasMedicinales.Web.csproj", "{E9D32BF2-C028-420B-8BD8-424838587A04}"
 EndProject
@@ -64,6 +64,8 @@ Global
 		{AAD00306-E1DE-4ED1-8F7B-3DF38894D9CD} = {6CEF4D83-9E5C-437D-9B74-AB871BF24319}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35;packages\Unity.Interception.2.1.505.0\lib\NET35;packages\EnterpriseLibrary.Common.5.0.505.0\lib\NET35;packages\EnterpriseLibrary.Data.5.0.505.0\lib\NET35
 		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Data.6.0.1304.0\lib\NET45
+		SolutionGuid = {5D743DEA-AE99-4776-84C6-B077AEC02A43}
 	EndGlobalSection
 EndGlobal
