@@ -3,7 +3,7 @@
 (function ($) {
     $.fn.Catalogo = function (m) {
 
-        var w = m.datos;
+        //var w = m.datos;
         m.tblId = m.tblId || "";
         m.textSearchId = m.textSearchId || "";
         m.numerado = m.numerado || "No";
@@ -37,6 +37,7 @@
         m.elim = m.elim || false;
         m.elimEvent = m.elimEvent || function () { };
         m.tipoCatalogo = m.tipoCatalogo || "ficha";
+        m.Search = m.Search || "";
 
         var col = m.cabecera.split(",");
         var tipo = m.tipoCampo.split(","); //D:double, F: Fecha, C: CheckBox
@@ -71,8 +72,8 @@
 
         opc += '<div class="input-group">'
         opc += '<div class="form-group has-feedback has-clear">'
-        opc += '<input id="txtBuscar" type="text" class="form-control" value="' + valor + '" placeholder="Buscar...">'
-        opc += '<span class="form-control-clear glyphicon glyphicon-remove form-control-feedback ' + (valor == "" ? "hidden" : "") + '"></span>'
+        opc += '<input id="txtBuscar" type="text" class="form-control" value="' + m.Search + '" placeholder="Buscar...">'
+        opc += '<span class="form-control-clear glyphicon glyphicon-remove form-control-feedback ' + (m.Search == "" ? "hidden" : "") + '"></span>'
         opc += '</div>'
 
         opc += '<span class="input-group-btn">'
@@ -247,12 +248,14 @@
         $(m.contenedor).html(html);
         $("html").scrollTop(1);
 
-        $("#" + m.tblId + " tbody tr").bind("click", function () {
-            if ($("#" + m.tblId).attr("data-edit") == "false") {
-                $("#" + m.tblId + " tbody tr").removeClass("seleccionado");
-                $(this).addClass("seleccionado");
-            }
-        })
+        if (m.tblId) {
+            $("#" + m.tblId + " tbody tr").bind("click", function () {
+                if ($("#" + m.tblId).attr("data-edit") == "false") {
+                    $("#" + m.tblId + " tbody tr").removeClass("seleccionado");
+                    $(this).addClass("seleccionado");
+                }
+            });
+        }
 
         if (m.cellLen) {
             m.cellLen = m.cellLen.split(",");
@@ -392,22 +395,30 @@
 
         $("#btnBuscar").click(function () {
             var nTipo = $("#btnCatalogoTipo .btn-success").attr("data");
-            ListarCatalogo(undefined, undefined, nTipo);
+            let cSearch = $("#txtBuscar").val();
+            ListarCatalogo(undefined, undefined, nTipo, cSearch);
         });
 
         $("#txtBuscar").keyup(function (e) {
             if (e.which == 13) {
                 var nTipo = $("#btnCatalogoTipo .btn-success").attr("data");
-                ListarCatalogo(undefined, undefined, nTipo);
+                let cSearch = $("#txtBuscar").val();
+                ListarCatalogo(undefined, undefined, nTipo, cSearch);
             }
         });
 
         $("#btnCatalogo").click(function () {
-            ActualizarLink();
-            $("#cntCatalogo,#btnCatalogoTipo").show();
-            $("#cntDetCatalogo,#btnCatalogo").hide();
-            //$("html").scrollTop($("#hdnScroll").val());
-            $("html, body").animate({ scrollTop: $("#hdnScroll").val() }, "slow");
+            if (m.datos) {
+                ActualizarLink();
+                $("#cntCatalogo,#btnCatalogoTipo").show();
+                $("#cntDetCatalogo,#btnCatalogo").hide();
+                //$("html").scrollTop($("#hdnScroll").val());
+                $("html, body").animate({ scrollTop: $("#hdnScroll").val() }, "slow");
+            } else {
+                ListarCatalogo(undefined, undefined, "ficha");
+            }
+
+
         });
 
         $('.has-clear input[type="text"]').on('input propertychange', function () {
@@ -417,13 +428,16 @@
         }).trigger('propertychange');
 
         $('.form-control-clear').click(function () {
-            $(this).siblings('input[type="text"]').val('')
-              .trigger('propertychange').focus();
+   
+            let cSearch = $("#txtBuscar").val();
 
-            if (valor != '') {
+            if (cSearch != '') {
                 var nTipo = $("#btnCatalogoTipo .btn-success").attr("data");
+
+                $(this).siblings('input[type="text"]').val('')
+                    .trigger('propertychange').focus();
+
                 ListarCatalogo(undefined, undefined, nTipo);
-                valor = '';
             }
         });
 

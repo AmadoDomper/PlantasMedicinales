@@ -431,7 +431,9 @@
     });
 
 
-
+    var shouldUpdate = true;
+    var datos = {};
+    var valor = "";
 
     var vista = function ($target) {
         var $target = $($target),
@@ -454,36 +456,47 @@
     };
 
 
+    function CargarPaginaUrl() {
+        if (window.location.href !== '') {
+            let href = window.location.href;
+            let parts = href.split('/').slice(-3);
+            let categoria = parts[0];
+            let tipo = parts[1];
+            let id = parts[2];
 
-    //if (window.location.) {
+            if (tipo == "ficha" || tipo == "tabla") {
+                ListarCatalogo(id, null, tipo);
+            } else if (tipo == "detalle") {
+                $("#cntCatalogo").Catalogo({});
+                CargarFicha(id);
+            } else if (categoria == "buscar") {
+                ListarCatalogo(undefined, undefined, "ficha", tipo);
+            } else {
+                ListarCatalogo();
+            }
 
-    //}
+            console.log(parts);
+        }
+    }
 
 
 
+    CargarPaginaUrl();
 
-
-
-
-    var datos = {};
-    var valor = "";
-
-    ListarCatalogo();
-
-    function ListarCatalogo(nPage, nSize, nTipo) {
-        valor = $("#txtBuscar").val();
-        valor = valor == '' || valor == undefined ? '' : valor;
+    function ListarCatalogo(nPage, nSize, nTipo, cSearch) {
+        //valor = $("#txtBuscar").val();
+        //valor = valor == '' || valor == undefined ? '' : valor;
 
 
         $.fn.Conexion({
             direccion: '@Url.Action("ListaCatalogo", "Catalogo")',
-            datos: { "nPage": nPage, "nSize": nSize, "cValor": valor },
+            datos: { "nPage": nPage, "nSize": nSize, "cValor": cSearch },
             //bloqueo: blo == false ? false : true,
             terminado: function (data) {
                 var d = JSON.parse(data);
                 datos = d;
 
-                ActualizarLink();
+                
 
                 $("#cntCatalogo").Catalogo({
                     tblId: "tblPlantasMedicinales",
@@ -497,83 +510,28 @@
                     pagDato: { "nPage": d.nPage, "nPageTot": d.nPageTot, "nPageSize": d.nPageSize, "nRows": d.nRows },
                     pagEvent: ListarCatalogo,
                     tipoCatalogo: nTipo,
+                    Search: cSearch,
                     //edit: true,
                     //dblClick: true,
                     click: true,
                     clickFichaEvent: function (ficha) {
-                        //var nId = ficha.find("input[type=hidden]").val();
                         var index = ficha.attr("data-index");
+                        let idFicha = datos.oLista[index].nId;
 
-                        CargarFicha(index);
+                        CargarFicha(idFicha);
                     },
                     clickEvent: function (fila) {
-                        //var nId = fila.find("td").eq(0).html();
                         var index = fila.attr("data-index");
-
-                        CargarFicha(index);
-                        @*
-                        //var index = (nInv - ((datos.nPage - 1) * datos.nPageSize)) - 1;
-                        //console.log(nInv);
-                        //$("#hdnEstado").val("E");
-                        //$('input.target')[0].click();
-
-                        //console.log(datos.oLista[nInv - 1]);
-
-                        //$("#targetImg").attr('src', '');
-                        //$("#targetImg").attr("src", '/ArchivosSubidos/' + datos.oLista[index].cFoto);
-
-                        $.fn.Conexion({
-                            direccion: '@Url.Action("CargarDatos", "Catalogo")',
-                            datos: { "nInv": nInv },
-                            terminado: function (data, textStatus, jqXHR) {
-                                var oInv = JSON.parse(data);
-
-                                console.log(oInv);
-
-                                //$("#txtCodigo").val(oInv.cCod);
-                                //$("#txtCompoQuimica").val(oInv.cComQui);
-                                //$("#txtDesBotanica").val(oInv.cDesc);
-                                //$("#txtDistribucion").val(oInv.cDist);
-                                //$("#txtEtnomedicinal").val(oInv.cEtno);
-                                //$("#txtFamilia").val(oInv.cFam);
-                                //$("#txtHabitat").val(oInv.cHab);
-                                //$("#txtEfectos").val(oInv.cInterac);
-                                //$("#txtEmpleo").val(oInv.cManejo);
-                                //$("#txtNomCient").val(oInv.cNomCie);
-                                //$("#txtNomComun").val(oInv.cNomCom);
-                                //$("#txtRefBi").val(oInv.cRefBi);
-                                //$("#txtSinonimia").val(oInv.cSino);
-                                //$("#txtToxicidad").val(oInv.cToxi);
-                                //$("#txtUsos").val(oInv.cUsos);
-                                //$("#txtVaucher").val(oInv.cVaucher);
-                                //$("#hdnPliId").val(oInv.nId);
-
-                                $("#lblCodigo").html(oInv.cCod);
-                                $("#lblNomComun").html(oInv.cNomCom);
-                                $("#lblSinonimia").html(oInv.cSino);
-                                $("#lblNomCient").html(oInv.cNomCie);
-                                $("#lblFamilia").html(oInv.cFam);
-                                $("#lblDesBotanica").html(oInv.cDesc);
-                                $("#lblCompoQuimica").html(oInv.cComQui);
-                                $("#lblDistribucion").html(oInv.cDist);
-                                $("#lblEtnomedicinal").html(oInv.cEtno);
-                                $("#lblHabitat").html(oInv.cHab);
-                                $("#lblEfectos").html(oInv.cInterac);
-                                $("#lblEmpleo").html(oInv.cManejo);
-                                $("#lblRefBi").html(oInv.cRefBi);
-                                $("#lblToxicidad").html(oInv.cToxi);
-                                $("#lblUsos").html(oInv.cUsos);
-                                $("#lblVaucher").html(oInv.cVaucher);
-                                $("#hdnPliId").html(oInv.nId);
-
-                            },
-                            bloqueo: true
-                        });*@
+                        let idFicha = datos.oLista[index].nId;
+                        CargarFicha(idFicha);
                     },
                     datos: d.oLista
                 });
+                ActualizarLink();
             }
         });
+
+        //ActualizarLink();
 
         $("#cntDetCatalogo").hide();
         $("#cntCatalogo").show();
@@ -581,18 +539,18 @@
 
 
 
-    function CargarFicha(index) {
+    function CargarFicha(id) {
         var scrolly = $(window).scrollTop();
         $("#hdnScroll").val(scrolly);
         //var index = (nId - ((datos.nPage - 1) * datos.nPageSize)) - 1;
 
-        $("#targetImg").attr('src', '');
-        $("#targetImg").attr("src", '/ArchivosSubidos/' + datos.oLista[index].cFoto);
+        //$("#targetImg").attr('src', '');
+        //$("#targetImg").attr("src", '/ArchivosSubidos/' + datos.oLista[index].cFoto);
 
 
         $.fn.Conexion({
             direccion: '@Url.Action("CargarDatos", "Catalogo")',
-            datos: { "nInv": datos.oLista[index].nId },
+            datos: { "nInv": id },
             terminado: function (data, textStatus, jqXHR) {
                 var oInv = JSON.parse(data);
 
@@ -615,53 +573,35 @@
                 $("#lblUsos").html(oInv.cUsos);
                 $("#lblVaucher").html(oInv.cVaucher);
                 $("#hdnPliId").html(oInv.nId);
+                $("#targetImg").attr("src", '/ArchivosSubidos/' + oInv.cFoto);
 
                 $("#cntCatalogo,#btnCatalogoTipo").hide();
-                $("#cntDetCatalogo,#btnCatalogo").show()
-                //$("#cntDetCatalogo").show().animate({
-                //    left: '250px',
-                //    height: '550px',
-                //    width: '550px'
-                //}, "slow");
+                $("#cntDetCatalogo,#btnCatalogo").show();
 
                 $("html").scrollTop(0);
-                //$("html, body").animate({ scrollTop: 1 }, "slow");
 
             },
             bloqueo: true
         });
 
-
-        window.history.pushState(null, 'detalle', "/Catalogo/detalle/" + datos.oLista[index].nId);
-
-    }
-
-
-
-    var shouldUpdate = true;
-    var ActualizarLink = function () {
         if (!shouldUpdate) {
             // do not update the URL when the view was changed in the 'popstate' handler
             shouldUpdate = true;
             return;
         }
 
-        //var _nJefeId = $('#frm #ddlJefe').val();
-        //var _nUsuarioId = $("#ddlEquipo").val();
-        //var _nPeriodo = $("#ddlPeriodo").val();
-        //var _nPlanOpeId = $("#ddlplan").val();
+        window.history.pushState(null, 'detalle', "/Catalogo/detalle/" + id);
+    }
 
-        //var hash = '#eva=' +
-        //            btoa(btoa(_nJefeId)) + '/' +
-        //            btoa(btoa(_nUsuarioId)) + '/' +
-        //            btoa(btoa(_nPeriodo)) + '/' +
-        //            btoa(btoa(_nPlanOpeId));
-        //var state = {
-        //    nJefeId: btoa(btoa(nJefeId)),
-        //    nUsuarioId: btoa(btoa(nUsuario)),
-        //    nPeriodo: btoa(btoa(nPeriodo)),
-        //    nPlanOpeId: btoa(btoa(nPlanOpeId))
-        //};
+
+
+    
+    var ActualizarLink = function () {
+        if (!shouldUpdate) {
+            // do not update the URL when the view was changed in the 'popstate' handler
+            shouldUpdate = true;
+            return;
+        }
 
         var nTipo = $("#btnCatalogoTipo .btn-success").attr("data");
         nTipo = nTipo == undefined ? 'ficha' : nTipo;
@@ -671,6 +611,15 @@
 
         window.history.pushState(null, 'lista', "/Catalogo/lista/" + nTipo + '/' + cBusqueda +  ( datos.oLista.length == 0 ? 0 : datos.nPage));
     };
+
+    window.addEventListener('popstate', function (event) {
+        //if (event.state === null) {
+        //    return;
+        //}
+        shouldUpdate = false;
+        console.log("location: " + document.location + ", state: " + JSON.stringify(event.state));
+        CargarPaginaUrl();
+    });
 
 
 
